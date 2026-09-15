@@ -8,11 +8,11 @@
 
 <style>
 :root{
- --bg:#08090c;
- --panel:#101218;
- --line:#2a2e38;
- --text:#f4f5f7;
- --red:#ff3b30;
+ --bg:#07080b;
+ --panel:#11131a;
+ --line:#303642;
+ --text:#f5f5f5;
+ --red:#ff3030;
  --green:#55d98b;
 }
 
@@ -26,23 +26,24 @@ html,body{
  width:100%;
  height:100%;
  overflow:hidden;
- background:#08090c;
+ background:#000;
  color:white;
  font-family:system-ui,Arial;
 }
 
-button{
- font:inherit;
- color:white;
+body{
+ display:flex;
+ justify-content:center;
+ align-items:center;
 }
 
 #app{
  width:100%;
  height:100%;
  max-width:1000px;
- margin:auto;
  position:relative;
  overflow:hidden;
+ background:#08090c;
 }
 
 
@@ -62,52 +63,49 @@ button{
 #menu{
  align-items:center;
  justify-content:center;
- background:
- radial-gradient(circle,#1b202c,#08090c 70%);
  padding:20px;
+ background:
+ radial-gradient(circle,#1b202b,#08090c 70%);
 }
-
 
 .box{
  width:min(500px,100%);
- background:#101218ee;
- border:1px solid #303542;
+ background:#11131a;
+ border:1px solid #303642;
  border-radius:18px;
- padding:30px;
+ padding:25px;
 }
-
 
 .logo{
  font-size:60px;
  font-weight:900;
- letter-spacing:.1em;
+ letter-spacing:8px;
 }
 
 .logo span{
- color:#ff3b30;
+ color:#ff3030;
 }
 
-
-.subtitle{
+.sub{
  color:#999;
  margin-bottom:30px;
 }
 
 
-.btn{
+button{
+ font:inherit;
+ color:white;
+}
+
+
+.menuBtn{
  width:100%;
  padding:15px;
- margin:8px 0;
+ margin:6px 0;
+ background:#181c25;
+ border:1px solid #303642;
  border-radius:12px;
- border:1px solid #343945;
- background:#151821;
 }
-
-
-.btn:active{
- transform:scale(.97);
-}
-
 
 
 /* GAME */
@@ -119,11 +117,11 @@ button{
 
 #canvas{
  position:absolute;
+ inset:0;
  width:100%;
  height:100%;
  image-rendering:pixelated;
 }
-
 
 
 /* HUD */
@@ -139,33 +137,33 @@ button{
 }
 
 
-.hud{
- background:#08090ccc;
- border:1px solid #303542;
+.info{
+ background:#090b10dd;
+ border:1px solid #303642;
  padding:10px;
  border-radius:10px;
+ flex:1;
 }
 
 
 #quest{
- flex:1;
+ color:#55d98b;
 }
-
 
 
 /* DIALOG */
 
 #dialog{
  position:absolute;
- bottom:160px;
+ bottom:120px;
  left:15px;
  right:15px;
- background:#090a0eef;
- border:1px solid #444;
+ background:#090b10ee;
+ border:1px solid #303642;
  border-radius:15px;
  padding:15px;
- display:none;
  z-index:20;
+ display:none;
 }
 
 
@@ -175,31 +173,30 @@ button{
 
 
 #name{
- color:#ff3b30;
- font-weight:900;
+ color:#ff3030;
+ font-weight:bold;
 }
 
 
 #next{
  margin-top:10px;
- padding:10px;
- background:#151821;
- border:1px solid #333;
+ padding:10px 20px;
  border-radius:8px;
+ background:#181c25;
+ border:1px solid #303642;
 }
-
 
 
 /* CONTROLS */
 
 #controls{
  position:absolute;
- bottom:15px;
- left:15px;
- right:15px;
+ bottom:10px;
+ left:10px;
+ right:10px;
+ z-index:10;
  display:flex;
  justify-content:space-between;
- z-index:10;
 }
 
 
@@ -212,35 +209,42 @@ button{
 .ctrl{
  width:65px;
  height:65px;
- border-radius:15px;
- background:#151821dd;
- border:1px solid #444;
+ border-radius:16px;
+ background:#151922dd;
+ border:1px solid #3b414d;
  font-size:25px;
+ touch-action:none;
 }
 
 
 .ctrl:active{
- background:#333;
+ transform:scale(.9);
 }
 
 
+/* END */
 
-#item{
- position:absolute;
- top:80px;
- right:15px;
- background:#101218;
- border:1px solid #333;
- padding:10px;
- border-radius:10px;
- display:none;
+#ending{
+ justify-content:center;
+ align-items:center;
+ text-align:center;
+}
+
+.big{
+ font-size:55px;
+ font-weight:900;
+}
+
+.big span{
+ color:red;
 }
 
 </style>
-
 </head>
 
+
 <body>
+
 
 <div id="app">
 
@@ -253,23 +257,30 @@ button{
 RED<span>PRO</span>
 </div>
 
-<div class="subtitle">
+<div class="sub">
 THE REDPRO STORY
 </div>
 
 
 <h2>
-Глава 1: «Взломщики»
+Глава 1: Взломщики
 </h2>
+
 
 <p>
 Редпро похищен Титанами.
-Первый шаг — побег.
+Его держат внутри объекта.
+Первая задача — сбежать.
 </p>
 
 
-<button class="btn" id="start">
+<button class="menuBtn" id="start">
 ▶ НАЧАТЬ
+</button>
+
+
+<button class="menuBtn" id="continue">
+↻ ПРОДОЛЖИТЬ
 </button>
 
 
@@ -284,23 +295,18 @@ THE REDPRO STORY
 
 <div id="hud">
 
-<div class="hud" id="quest">
+<div class="info" id="quest">
 Квест: Осмотреть камеру
 </div>
 
-<div class="hud">
-● LIVE
+<div class="info">
+REDPRO
 </div>
 
 </div>
 
 
 <canvas id="canvas"></canvas>
-
-
-<div id="item">
-Получено:
-</div>
 
 
 
@@ -310,12 +316,14 @@ THE REDPRO STORY
 РЕДПРО
 </div>
 
+
 <div id="text">
 ...
 </div>
 
+
 <button id="next">
-Продолжить
+Далее
 </button>
 
 </div>
@@ -323,6 +331,7 @@ THE REDPRO STORY
 
 
 <div id="controls">
+
 
 <div class="group">
 
@@ -337,12 +346,12 @@ THE REDPRO STORY
 </div>
 
 
+
 <div class="group">
 
 <button class="ctrl" data-key="jump">
 ▲
 </button>
-
 
 <button class="ctrl" data-key="action">
 ●
@@ -357,4 +366,915 @@ THE REDPRO STORY
 </section>
 
 
+
+<section id="ending" class="screen">
+
+<div>
+
+<div class="big">
+ГЛАВА <span>1</span>
 </div>
+
+<h2>
+ВЗЛОМЩИКИ
+</h2>
+
+
+<p>
+Редпро покинул первый сектор.
+Но объект Титанов только начинается...
+</p>
+
+
+<button class="menuBtn" onclick="location.reload()">
+Меню
+</button>
+
+</div>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+"use strict";
+
+
+const canvas=document.getElementById("canvas");
+const ctx=canvas.getContext("2d");
+
+
+let W,H;
+
+
+function resize(){
+ W=canvas.width=innerWidth;
+ H=canvas.height=innerHeight;
+}
+
+addEventListener("resize",resize);
+resize();
+
+
+
+const menu=document.getElementById("menu");
+const game=document.getElementById("game");
+const ending=document.getElementById("ending");
+
+
+
+let running=false;
+
+
+let keys={
+left:false,
+right:false,
+jump:false,
+action:false
+};
+
+
+
+let player={
+x:100,
+y:300,
+w:35,
+h:50,
+vx:0,
+vy:0,
+ground:false
+};
+
+
+
+let camera=0;
+
+
+let quest=0;
+
+
+const quests=[
+
+"Квест: Осмотреть камеру",
+
+"Квест: Найти инструмент взлома",
+
+"Квест: Отключить сигнализацию",
+
+"Квест: Открыть шлюз",
+
+"Квест: Добраться до выхода"
+
+];
+
+
+
+let objects=[
+
+{
+x:250,
+type:"terminal"
+},
+
+{
+x:650,
+type:"door"
+},
+
+{
+x:1100,
+type:"exit"
+}
+
+];
+
+
+
+let dialogs=[];
+
+
+function say(name,text){
+
+ dialogs.push({name,text});
+
+ if(dialogs.length==1)
+ showDialog();
+
+}
+
+
+
+function showDialog(){
+
+let d=dialogs[0];
+
+document.getElementById("name").innerHTML=d.name;
+
+document.getElementById("text").innerHTML=d.text;
+
+document.getElementById("dialog").classList.add("show");
+
+}
+
+
+
+document.getElementById("next").onclick=()=>{
+
+dialogs.shift();
+
+if(dialogs.length)
+showDialog();
+
+else
+document.getElementById("dialog").classList.remove("show");
+
+};  
+ // =======================
+// УПРАВЛЕНИЕ
+// =======================
+
+
+document.querySelectorAll(".ctrl").forEach(btn=>{
+
+let key=btn.dataset.key;
+
+
+function down(e){
+ e.preventDefault();
+ keys[key]=true;
+}
+
+
+function up(e){
+ e.preventDefault();
+ keys[key]=false;
+}
+
+
+btn.addEventListener("pointerdown",down);
+btn.addEventListener("pointerup",up);
+btn.addEventListener("pointercancel",up);
+btn.addEventListener("pointerleave",up);
+
+});
+
+
+
+// клавиатура для ПК
+
+addEventListener("keydown",e=>{
+
+if(e.key=="ArrowLeft" || e.key=="a")
+keys.left=true;
+
+if(e.key=="ArrowRight" || e.key=="d")
+keys.right=true;
+
+if(e.key=="ArrowUp" || e.key=="w" || e.key==" ")
+keys.jump=true;
+
+if(e.key=="e" || e.key=="Enter")
+keys.action=true;
+
+});
+
+
+addEventListener("keyup",e=>{
+
+if(e.key=="ArrowLeft" || e.key=="a")
+keys.left=false;
+
+if(e.key=="ArrowRight" || e.key=="d")
+keys.right=false;
+
+if(e.key=="ArrowUp" || e.key=="w" || e.key==" ")
+keys.jump=false;
+
+if(e.key=="e" || e.key=="Enter")
+keys.action=false;
+
+});
+
+
+
+
+// =======================
+// СТАРТ
+// =======================
+
+
+document.getElementById("start").onclick=()=>{
+
+menu.classList.remove("active");
+game.classList.add("active");
+
+startGame();
+
+};
+
+
+document.getElementById("continue").onclick=()=>{
+
+menu.classList.remove("active");
+game.classList.add("active");
+
+startGame();
+
+};
+
+
+
+
+// =======================
+// ИГРА
+// =======================
+
+
+function startGame(){
+
+running=true;
+
+
+quest=0;
+player.x=100;
+player.y=300;
+
+
+say(
+"РЕДПРО",
+"Я внутри объекта Титанов... Нужно выбраться."
+);
+
+
+say(
+"СИСТЕМА",
+"Задание: покинуть камеру содержания."
+);
+
+
+requestAnimationFrame(loop);
+
+}
+
+
+
+
+function updateQuest(){
+
+document.getElementById("quest").innerHTML=
+quests[quest];
+
+}
+
+
+
+
+// =======================
+// ФИЗИКА
+// =======================
+
+
+function physics(){
+
+
+player.vx=0;
+
+
+if(keys.right)
+player.vx=4;
+
+
+if(keys.left)
+player.vx=-4;
+
+
+
+player.x+=player.vx;
+
+
+
+// прыжок
+
+
+if(keys.jump && player.ground){
+
+player.vy=-11;
+player.ground=false;
+
+}
+
+
+
+player.vy+=0.5;
+
+player.y+=player.vy;
+
+
+
+// земля
+
+if(player.y+player.h>H-100){
+
+player.y=H-100-player.h;
+
+player.vy=0;
+
+player.ground=true;
+
+}
+
+
+
+camera=player.x-300;
+
+if(camera<0)
+camera=0;
+
+
+}
+
+
+
+
+// =======================
+// КВЕСТЫ
+// =======================
+
+
+function distance(a,b){
+
+return Math.abs(a-b)<70;
+
+}
+
+
+
+function interact(){
+
+
+let x=player.x;
+
+
+
+// КАМЕРА
+
+if(quest==0 && distance(x,120)){
+
+quest=1;
+
+updateQuest();
+
+
+say(
+"РЕДПРО",
+"Дверь закрыта. Нужен способ взломать систему."
+);
+
+
+}
+
+
+
+// ТЕРМИНАЛ
+
+
+if(quest==1 && distance(x,250)){
+
+
+quest=2;
+
+updateQuest();
+
+
+say(
+"РЕДПРО",
+"Нашёл терминал. Взлом начинаю."
+);
+
+
+say(
+"СИСТЕМА",
+"Доступ получен."
+);
+
+
+}
+
+
+
+
+// СИСТЕМА БЕЗОПАСНОСТИ
+
+
+if(quest==2 && distance(x,500)){
+
+
+quest=3;
+
+updateQuest();
+
+
+say(
+"РЕДПРО",
+"Сигнализация отключена."
+);
+
+
+}
+
+
+
+
+// ДВЕРЬ
+
+
+if(quest==3 && distance(x,650)){
+
+
+quest=4;
+
+updateQuest();
+
+
+say(
+"РЕДПРО",
+"Шлюз открыт. Осталось добраться до выхода."
+);
+
+
+}
+
+
+
+
+// ВЫХОД
+
+
+if(quest==4 && x>1050){
+
+
+running=false;
+
+game.classList.remove("active");
+
+ending.classList.add("active");
+
+
+}
+
+}
+
+
+
+let oldAction=false;
+
+
+function actions(){
+
+if(keys.action && !oldAction){
+
+interact();
+
+}
+
+oldAction=keys.action;
+
+}
+
+
+
+
+// =======================
+// РИСОВКА
+// =======================
+
+
+function draw(){
+
+
+ctx.clearRect(0,0,W,H);
+
+
+
+ctx.save();
+
+
+ctx.translate(-camera,0);
+
+
+
+// фон
+
+
+ctx.fillStyle="#080a0f";
+ctx.fillRect(camera,0,W,H);
+
+
+
+// пол
+
+
+ctx.fillStyle="#242933";
+
+ctx.fillRect(0,H-100,1400,100);
+
+
+
+// объекты
+
+
+objects.forEach(o=>{
+
+
+if(o.type=="terminal"){
+
+ctx.fillStyle="#55d98b";
+
+ctx.fillRect(o.x,H-160,40,60);
+
+}
+
+
+
+if(o.type=="door"){
+
+ctx.fillStyle="#555";
+
+ctx.fillRect(o.x,H-200,60,100);
+
+}
+
+
+
+if(o.type=="exit"){
+
+ctx.fillStyle="#00ff88";
+
+ctx.fillRect(o.x,H-170,60,70);
+
+}
+
+
+});
+
+
+
+
+// герой Редпро
+
+
+ctx.fillStyle="#ff3030";
+
+ctx.fillRect(
+player.x,
+player.y,
+player.w,
+player.h
+);
+
+
+ctx.fillStyle="#111";
+
+ctx.fillRect(
+player.x+8,
+player.y+10,
+20,
+15
+);
+
+
+
+ctx.fillStyle="white";
+
+ctx.font="14px Arial";
+
+ctx.fillText(
+"REDPRO",
+player.x-5,
+player.y-10
+);
+
+
+
+ctx.restore();
+
+
+}
+
+
+
+
+// =======================
+// ЦИКЛ
+// =======================
+
+
+function loop(){
+
+
+if(!running)
+return;
+
+
+physics();
+
+actions();
+
+draw();
+
+
+requestAnimationFrame(loop);
+
+}
+
+
+updateQuest();
+ 
+ // =======================
+// СОХРАНЕНИЕ
+// =======================
+
+
+const saveKey="redpro-save";
+
+
+function saveGame(){
+
+localStorage.setItem(
+saveKey,
+JSON.stringify({
+x:player.x,
+quest:quest
+})
+);
+
+}
+
+
+
+function loadGame(){
+
+let data=localStorage.getItem(saveKey);
+
+if(data){
+
+let s=JSON.parse(data);
+
+player.x=s.x||100;
+
+quest=s.quest||0;
+
+updateQuest();
+
+}
+
+}
+
+
+
+// автосохранение
+
+setInterval(()=>{
+
+if(running)
+saveGame();
+
+},5000);
+
+
+
+
+// =======================
+// ТИТАН-ОХРАННИК
+// =======================
+
+
+let titan={
+
+x:850,
+
+y:0,
+
+speed:1.5,
+
+active:false
+
+};
+
+
+
+
+
+function updateTitan(){
+
+
+if(quest>=2){
+
+titan.active=true;
+
+}
+
+
+
+if(titan.active){
+
+
+if(titan.x<player.x)
+
+titan.x+=titan.speed;
+
+
+if(titan.x>player.x)
+
+titan.x-=titan.speed;
+
+
+
+// если поймал
+
+if(Math.abs(titan.x-player.x)<40){
+
+
+say(
+"ТИТАН",
+"Стой! Объект не должен покидать сектор."
+);
+
+
+
+player.x-=150;
+
+
+}
+
+}
+
+
+}
+
+
+
+
+// =======================
+// РИСОВКА ТИТАНА
+// =======================
+
+
+function drawTitan(){
+
+
+if(!titan.active)
+return;
+
+
+
+ctx.fillStyle="#6633ff";
+
+ctx.fillRect(
+titan.x,
+H-180,
+70,
+80
+);
+
+
+
+ctx.fillStyle="#fff";
+
+ctx.font="14px Arial";
+
+ctx.fillText(
+"ТИТАН",
+titan.x,
+H-190
+);
+
+
+}
+
+
+
+
+// заменяем часть цикла
+
+
+let oldLoop=loop;
+
+
+loop=function(){
+
+
+if(!running)
+return;
+
+
+physics();
+
+actions();
+
+updateTitan();
+
+draw();
+
+drawTitan();
+
+
+requestAnimationFrame(loop);
+
+
+};
+
+
+
+
+
+// =======================
+// ЗАГРУЗКА
+// =======================
+
+
+loadGame();
+
+
+
+
+// =======================
+// ПОВОРОТ ТЕЛЕФОНА
+// =======================
+
+
+function checkOrientation(){
+
+
+if(innerHeight>innerWidth){
+
+
+document.getElementById("quest").innerHTML=
+"📱 Поверните телефон горизонтально";
+
+
+}
+
+
+else{
+
+
+updateQuest();
+
+
+}
+
+
+}
+
+
+addEventListener(
+"resize",
+checkOrientation
+);
+
+
+checkOrientation();
