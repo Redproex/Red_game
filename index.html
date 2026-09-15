@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<title>REDPRO — Глава 1: Взломщики</title>
+<style>
+:root{
+  --bg:#08090c;--panel:#101218;--panel2:#151821;--line:#2a2e38;
+  --text:#f4f5f7;--muted:#9aa1ad;--red:#ff3b30;--green:#55d98b;
+  --font-scale:1;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;min-height:100%;background:var(--bg);color:var(--text);
+font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+font-size:calc(16px * var(--font-scale));overflow:hidden}
+button{font:inherit;color:inherit}
+body{display:flex;justify-content:center}
+#app{width:100%;max-width:900px;height:100dvh;position:relative;background:#08090c;overflow:hidden}
+.screen{position:absolute;inset:0;display:none}
+.screen.active{display:flex}
+#menu{align-items:center;justify-content:center;padding:22px;
+background:radial-gradient(circle at 50% 35%,#171b25 0,#08090c 58%)}
+.menuBox{width:min(520px,100%);border:1px solid var(--line);background:rgba(16,18,24,.94);
+border-radius:18px;padding:28px;box-shadow:0 20px 80px #000}
+.logo{font-size:clamp(34px,10vw,66px);font-weight:900;letter-spacing:.12em;color:#fff}
+.logo span{color:var(--red)}
+.sub{color:var(--muted);margin:5px 0 26px;letter-spacing:.08em}
+h1,h2,p{margin-top:0}.menuBtn{width:100%;padding:15px;margin:7px 0;border:1px solid var(--line);
+border-radius:11px;background:#151821;cursor:pointer}.menuBtn:hover{border-color:#4a5160}
+.danger{border-color:#6b2926}
+#game{background:#050608}
+#hud{position:absolute;z-index:20;left:0;right:0;top:0;padding:10px;
+display:flex;justify-content:space-between;gap:8px;pointer-events:none}
+.hudBox{background:rgba(8,9,12,.82);border:1px solid var(--line);border-radius:10px;padding:8px 10px;
+backdrop-filter:blur(5px);font-size:.82em}
+#objective{flex:1;color:#ddd}
+#status{color:var(--green);white-space:nowrap}
+#gameCanvas{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated}
+#message{position:absolute;z-index:30;left:50%;bottom:118px;transform:translateX(-50%);
+width:min(680px,calc(100% - 28px));background:rgba(10,11,15,.94);border:1px solid var(--line);
+border-radius:14px;padding:14px 16px;display:none;box-shadow:0 10px 35px #000}
+#message.show{display:block}
+#messageTitle{font-weight:800;color:var(--red);margin-bottom:4px}
+#messageText{color:#e4e6eb;line-height:1.35}
+#dialog{position:absolute;z-index:35;left:10px;right:10px;bottom:150px;background:rgba(9,10,14,.97);
+border:1px solid #3b404c;border-radius:15px;padding:15px;display:none}
+#dialog.show{display:block}
+#dialogName{font-weight:900;color:var(--red);margin-bottom:5px}
+#dialogText{line-height:1.4;margin-bottom:10px}
+#dialogNext{padding:10px 15px;border:1px solid var(--line);background:#151821;border-radius:9px}
+#controls{position:absolute;z-index:40;left:0;right:0;bottom:0;height:145px;
+display:flex;justify-content:space-between;align-items:end;padding:16px;pointer-events:none}
+.pad,.actions{display:flex;gap:10px;pointer-events:auto}
+.ctrl{width:62px;height:62px;border-radius:15px;border:1px solid #3a3f4b;
+background:rgba(18,20,27,.9);box-shadow:0 6px 20px #0008;display:grid;place-items:center;
+font-size:25px;user-select:none;touch-action:none}
+.ctrl:active{transform:scale(.94);background:#20242e}
+#settings{align-items:center;justify-content:center;padding:20px;background:#08090c}
+.panel{width:min(560px,100%);background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:22px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:15px;padding:13px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}.back{margin-top:18px;width:100%;padding:12px;border-radius:10px;border:1px solid var(--line);background:#151821}
+#ending{align-items:center;justify-content:center;text-align:center;padding:25px;background:
+radial-gradient(circle,#1a1112,#08090c 65%)}
+.endBox{max-width:560px}.endTitle{font-size:clamp(32px,9vw,60px);font-weight:900}.endTitle span{color:var(--red)}
+.small{font-size:.86em;color:var(--muted)}
+@media(max-height:600px){#controls{height:105px}.ctrl{width:52px;height:52px}#message{bottom:88px}#dialog{bottom:110px}}
+</style>
+</head>
+<body>
+<div id="app">
+
+<section id="menu" class="screen active">
+  <div class="menuBox">
+    <div class="logo">RED<span>PRO</span></div>
+    <div class="sub">THE REDPRO STORY</div>
+    <h2>Глава 1: «Взломщики»</h2>
+    <p class="small">Редпро похищен Титанами. Первый приказ прост: найти выход.</p>
+    <button class="menuBtn" id="startBtn">▶ НАЧАТЬ ИГРУ</button>
+    <button class="menuBtn" id="continueBtn">↻ ПРОДОЛЖИТЬ</button>
+    <button class="menuBtn" id="settingsBtn">⚙ НАСТРОЙКИ</button>
+  </div>
+</section>
+
+<section id="settings" class="screen">
+  <div class="panel">
+    <h2>Настройки</h2>
+    <div class="row"><span>Язык</span><strong>Русский / English</strong></div>
+    <div class="row"><span>Размер текста</span>
+      <select id="fontSelect">
+        <option value="80">80%</option><option value="90">90%</option><option value="100">100%</option>
+        <option value="110">110%</option><option value="120">120%</option><option value="130">130%</option>
+        <option value="150">150%</option>
+      </select>
+    </div>
+    <div class="row"><span>Звук</span><button id="soundBtn" class="menuBtn" style="width:auto;margin:0">ВКЛ</button></div>
+    <button class="back" id="backBtn">← Назад</button>
+  </div>
+</section>
+
+<section id="game" class="screen">
+  <div id="hud">
+    <div class="hudBox" id="objective">ЦЕЛЬ: Осмотреть камеру</div>
+    <div class="hudBox" id="status">● LIVE</div>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+  <div id="message"><div id="messageTitle"></div><div id="messageText"></div></div>
+  <div id="dialog">
+    <div id="dialogName">РЕДПРО</div>
+    <div id="dialogText"></div>
+    <button id="dialogNext">Продолжить</button>
+  </div>
+  <div id="controls">
+    <div class="pad">
+      <button class="ctrl" data-key="left">◀</button>
+      <button class="ctrl" data-key="right">▶</button>
+    </div>
+    <div class="actions">
+      <button class="ctrl" data-key="jump">▲</button>
+      <button class="ctrl" data-key="action">●</button>
+    </div>
+  </div>
+</section>
+
+<section id="ending" class="screen">
+  <div class="endBox">
+    <div class="endTitle">ГЛАВА <span>1</span></div>
+    <h2>«ВЗЛОМЩИКИ»</h2>
+    <p>Редпро выбрался из первой зоны объекта Титанов.</p>
+    <p class="small">Но кто-то уже был внутри системы до него.</p>
+    <button class="menuBtn" id="endMenu">В главное меню</button>
+  </div>
+</section>
+
+</div>
+
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const screens={menu:$("menu"),settings:$("settings"),game:$("game"),ending:$("ending")};
+const canvas=$("gameCanvas"),ctx=canvas.getContext("2d");
+let W=900,H=600,scale=1,dpr=1;
+let running=false,last=0,saveKey="redpro-ch1";
+let keys={left:false,right:false,jump:false,action:false};
+let player={x:90,y:0,w:30,h:42,vx:0,vy:0,onGround:false};
+let cameraX=0;
+let terminal=false,doorOpen=false,objective=0,guardAlert=false,won=false;
+let dialogQueue=[],dialogOpen=false;
+let audioOn=localStorage.getItem("redpro-sound")!=="off";
+const worldW=2500, groundY=500;
+const platforms=[
+ {x:0,y:groundY,w:520,h:40},{x:620,y:groundY,w:450,h:40},
+ {x:1130,y:groundY,w:510,h:40},{x:1700,y:groundY,w:800,h:40},
+ {x:300,y:410,w:130,h:18},{x:760,y:405,w:130,h:18},
+ {x:900,y:340,w:120,h:18},{x:1220,y:410,w:150,h:18},
+ {x:1470,y:350,w:150,h:18},{x:1870,y:395,w:160,h:18}
+];
+const terminalObj={x:365,y:350,w:40,h:60};
+const doorObj={x:1030,y:400,w:40,h:100};
+const exitObj={x:2350,y:420,w:55,h:80};
+const guard={x:1540,y:452,w:30,h:48,vx:45,dir:1};
+
+function showScreen(name){
+  Object.values(screens).forEach(s=>s.classList.remove("active"));
+  screens[name].classList.add("active");
+}
+function resize(){
+  const r=canvas.getBoundingClientRect(); dpr=Math.min(devicePixelRatio||1,2);
+  canvas.width=Math.floor(r.width*dpr);canvas.height=Math.floor(r.height*dpr);
+  W=r.width;H=r.height;scale=W/900;
+}
+addEventListener("resize",resize);
+
+function resetGame(load=true){
+  player={x:90,y:groundY-42,w:30,h:42,vx:0,vy:0,onGround:true};
+  cameraX=0;terminal=false;doorOpen=false;objective=0;guardAlert=false;won=false;
+  if(load && localStorage.getItem(saveKey)){
+    try{
+      const s=JSON.parse(localStorage.getItem(saveKey));
+      if(s.x)player.x=s.x;if(s.objective!=null)objective=s.objective;
+      terminal=!!s.terminal;doorOpen=!!s.doorOpen;
+    }catch(e){}
+  }
+  updateObjective();
+}
+function save(){
+  localStorage.setItem(saveKey,JSON.stringify({x:player.x,objective,terminal,doorOpen}));
+}
+function updateObjective(){
+  const texts=[
+    "ЦЕЛЬ: Осмотреть камеру",
+    "ЦЕЛЬ: Взломать терминал",
+    "ЦЕЛЬ: Открыть дверь",
+    "ЦЕЛЬ: Пройти через шлюз",
+    "ЦЕЛЬ: Добраться до выхода"
+  ];
+  $("objective").textContent=texts[Math.min(objective,4)];
+}
+function msg(title,text,ms=2600){
+  $("messageTitle").textContent=title;$("messageText").textContent=text;
+  $("message").classList.add("show");
+  clearTimeout(msg.t);msg.t=setTimeout(()=>$("message").classList.remove("show"),ms);
+}
+function say(name,text){
+  dialogQueue.push({name,text}); if(!dialogOpen)nextDialog();
+}
+function nextDialog(){
+  if(!dialogQueue.length){dialogOpen=false;$("dialog").classList.remove("show");return}
+  dialogOpen=true;const d=dialogQueue.shift();
+  $("dialogName").textContent=d.name;$("dialogText").textContent=d.text;
+  $("dialog").classList.add("show");
+}
+$("dialogNext").onclick=nextDialog;
+
+function startGame(){
+  showScreen("game");resize();resetGame(true);running=true;
+  say("СИСТЕМА","Пробуждение завершено. Камера содержания: сектор T-07.");
+  say("РЕДПРО","Где я?.. Титаны.");
+  say("РЕДПРО","Сначала выбраться. Потом разберусь, зачем им понадобился я.");
+  last=performance.now();requestAnimationFrame(loop);
+}
+$("startBtn").onclick=()=>{localStorage.removeItem(saveKey);startGame()};
+$("continueBtn").onclick=startGame;
+$("settingsBtn").onclick=()=>showScreen("settings");
+$("backBtn").onclick=()=>showScreen("menu");
+$("endMenu").onclick=()=>showScreen("menu");
+
+$("fontSelect").value=localStorage.getItem("redpro-font-size")||"100";
+$("fontSelect").onchange=e=>{
+  localStorage.setItem("redpro-font-size",e.target.value);
+  document.documentElement.style.setProperty("--font-scale",e.target.value/100);
+};
+document.documentElement.style.setProperty("--font-scale",($("fontSelect").value/100));
+function updateSound(){ $("soundBtn").textContent=audioOn?"ВКЛ":"ВЫКЛ"; }
+$("soundBtn").onclick=()=>{audioOn=!audioOn;localStorage.setItem("redpro-sound",audioOn?"on":"off");updateSound()};
+updateSound();
+
+document.querySelectorAll(".ctrl").forEach(b=>{
+  const k=b.dataset.key;
+  const down=e=>{e.preventDefault();keys[k]=true};
+  const up=e=>{e.preventDefault();keys[k]=false};
+  b.addEventListener("pointerdown",down);b.addEventListener("pointerup",up);
+  b.addEventListener("pointercancel",up);b.addEventListener("pointerleave",up);
+});
+addEventListener("keydown",e=>{
+  if(e.key==="ArrowLeft"||e.key.toLowerCase()==="a")keys.left=true;
+  if(e.key==="ArrowRight"||e.key.toLowerCase()==="d")keys.right=true;
+  if(e.key==="ArrowUp"||e.key===" "||e.key.toLowerCase()==="w")keys.jump=true;
+  if(e.key==="e"||e.key==="Enter")keys.action=true;
+});
+addEventListener("keyup",e=>{
+  if(e.key==="ArrowLeft"||e.key.toLowerCase()==="a")keys.left=false;
+  if(e.key==="ArrowRight"||e.key.toLowerCase()==="d")keys.right=false;
+  if(e.key==="ArrowUp"||e.key===" "||e.key.toLowerCase()==="w")keys.jump=false;
+  if(e.key==="e"||e.key==="Enter")keys.action=false;
+});
+
+function rectsOverlap(a,b){
+ return a.x<a.x+a.w && a.x+a.w>b.x && a.y+a.h>b.y && a.y<b.y+b.h;
+}
+function solidCollision(){
+  player.onGround=false;
+  for(const p of platforms){
+    if(player.x+player.w>p.x&&player.x<p.x+p.w&&
+       player.y+player.h>p.y&&player.y+player.h< p.y+28&&player.vy>=0){
+      player.y=p.y-player.h;player.vy=0;player.onGround=true;
+    }
+  }
+  if(player.y+player.h>groundY&&player.x<worldW){
+    // gaps remain gaps: only snap if above an actual ground segment
+    const has=platforms.some(p=>p.y===groundY&&player.x+player.w>p.x&&player.x<p.x+p.w);
+    if(has){player.y=groundY-player.h;player.vy=0;player.onGround=true}
+  }
+}
+function interact(){
+  if(dialogOpen)return;
+  const near=(a,b,d=70)=>Math.abs((a.x+a.w/2)-(b.x+b.w/2))<d &&
+                         Math.abs((a.y+a.h/2)-(b.y+b.h/2))<90;
+  if(objective===0 && near(player,{x:200,y:groundY-80,w:30,h:70})){
+    objective=1;updateObjective();save();
+    say("РЕДПРО","Камера. Никаких окон. Дверь заблокирована.");
+    say("РЕДПРО","Но справа есть терминал. Возможно, через него я смогу открыть замок.");
+    msg("ОБНАРУЖЕНО","Терминал T-07 находится впереди.");
+  } else if(objective===1 && near(player,terminalObj)){
+    terminal=true;objective=2;updateObjective();save();
+    say("ТЕРМИНАЛ","ДОСТУП: ОГРАНИЧЕН.");
+    say("РЕДПРО","Хм. Система Титанов слабее, чем они думают.");
+    msg("ВЗЛОМ","Доступ к внутренней сети получен.");
+  } else if(objective===2 && near(player,doorObj)){
+    doorOpen=true;objective=3;updateObjective();save();
+    say("СИСТЕМА","ШЛЮЗ T-07: РАЗБЛОКИРОВАН.");
+    say("РЕДПРО","Дверь открыта. Бежим.");
+  } else if(objective===3 && player.x>1120){
+    objective=4;updateObjective();save();
+    say("НЕИЗВЕСТНЫЙ","...Редпро.");
+    say("РЕДПРО","Кто это?");
+    say("НЕИЗВЕСТНЫЙ","Не останавливайся. Я открыл тебе путь.");
+    msg("НЕИЗВЕСТНЫЙ СИГНАЛ","Источник сообщения не определён.");
+  } else if(objective===4 && player.x>2250){
+    won=true;save();running=false;showScreen("ending");
+  }
+}
+function update(dt){
+  if(dialogOpen)return;
+  const speed=230;
+  player.vx=0;
+  if(keys.left)player.vx=-speed;
+  if(keys.right)player.vx=speed;
+  player.x+=player.vx*dt;
+  player.x=Math.max(0,Math.min(worldW-player.w,player.x));
+  if(keys.jump&&player.onGround){player.vy=-520;player.onGround=false}
+  player.vy+=1250*dt;player.y+=player.vy*dt;
+  solidCollision();
+  if(player.y>H/scale+300){player.x=Math.max(60,player.x-180);player.y=groundY-player.h;player.vy=0}
+  if(terminal && !doorOpen && player.x>doorObj.x-100)msg("ДВЕРЬ","Нужен доступ к терминалу.",1000);
+  if(objective>=2 && !doorOpen && keys.action)interact();
+  if(keys.action){interact();keys.action=false}
+  if(guardAlert){
+    guard.x+=guard.vx*guard.dir*dt;
+    if(guard.x<1470||guard.x>1620)guard.dir*=-1;
+    if(Math.abs(guard.x-player.x)<38 && Math.abs(guard.y-player.y)<55){
+      msg("ОБНАРУЖЕН","Охрана заметила Редпро. Отступи!");
+      player.x=Math.max(1140,player.x-180);guardAlert=false;
+    }
+  }else if(player.x>1380&&player.x<1700){guardAlert=true}
+  cameraX+=(player.x-350-cameraX)*Math.min(1,dt*5);
+  cameraX=Math.max(0,Math.min(worldW-900,cameraX));
+}
+function draw(){
+  const s=scale;ctx.setTransform(dpr*s,0,0,dpr*s,0,0);
+  ctx.clearRect(0,0,W/s,H/s);
+  const vw=W/s,vh=H/s;
+  // background
+  const grad=ctx.createLinearGradient(0,0,0,vh);
+  grad.addColorStop(0,"#080a0f");grad.addColorStop(1,"#11141b");ctx.fillStyle=grad;ctx.fillRect(0,0,vw,vh);
+  ctx.save();ctx.translate(-cameraX,0);
+  // distant structures
+  for(let x=0;x<worldW;x+=180){
+    ctx.fillStyle="#0c0f15";ctx.fillRect(x,130+(x%80),120,370-(x%80));
+    ctx.fillStyle="#171b23";ctx.fillRect(x+18,170+(x%50),10,120);
+  }
+  // floor/platforms
+  for(const p of platforms){
+    ctx.fillStyle="#252a34";ctx.fillRect(p.x,p.y,p.w,p.h);
+    ctx.fillStyle="#3a414d";ctx.fillRect(p.x,p.y,p.w,4);
+    ctx.fillStyle="#171a21";
+    for(let x=p.x+12;x<p.x+p.w;x+=35)ctx.fillRect(x,p.y+12,18,3);
+  }
+  // room labels
+  ctx.fillStyle="#5f6673";ctx.font="700 16px system-ui";ctx.fillText("TITAN FACILITY // T-07",55,165);
+  ctx.fillStyle="#353b46";ctx.fillText("CONTAINMENT",80,190);
+  ctx.fillText("ACCESS",650,190);ctx.fillText("SECURITY",1320,190);ctx.fillText("EXIT",2300,190);
+  // camera
+  ctx.fillStyle="#2c313b";ctx.fillRect(185,groundY-78,42,62);
+  ctx.fillStyle="#08090c";ctx.fillRect(194,groundY-68,24,24);
+  ctx.fillStyle="#ff3b30";ctx.beginPath();ctx.arc(206,groundY-56,5,0,Math.PI*2);ctx.fill();
+  // terminal
+  ctx.fillStyle=terminal?"#1f3b2c":"#26303a";ctx.fillRect(terminalObj.x,terminalObj.y,terminalObj.w,60);
+  ctx.fillStyle=terminal?"#55d98b":"#4a91b8";ctx.fillRect(terminalObj.x+7,terminalObj.y+8,26,27);
+  ctx.fillStyle="#0b0d11";ctx.fillRect(terminalObj.x+12,terminalObj.y+14,16,3);
+  // door
+  ctx.fillStyle=doorOpen?"#315b45":"#252a33";ctx.fillRect(doorObj.x,doorObj.y,doorObj.w,100);
+  ctx.strokeStyle=doorOpen?"#55d98b":"#555d69";ctx.strokeRect(doorObj.x+.5,doorObj.y+.5,doorObj.w-1,99);
+  // exit
+  ctx.fillStyle="#222831";ctx.fillRect(exitObj.x,exitObj.y,exitObj.w,80);
+  ctx.fillStyle="#55d98b";ctx.fillRect(exitObj.x+8,exitObj.y+10,39,5);
+  ctx.fillStyle="#55d98b";ctx.font="700 12px system-ui";ctx.fillText("EXIT",exitObj.x+9,exitObj.y+38);
+  // guard
+  if(guardAlert||player.x>1380){
+    ctx.fillStyle="#9a2930";ctx.fillRect(guard.x,guard.y,guard.w,guard.h);
+    ctx.fillStyle="#d6d9df";ctx.fillRect(guard.x+6,guard.y+6,18,13);
+    ctx.fillStyle="#ff3b30";ctx.fillRect(guard.x+10,guard.y+10,9,3);
+  }
+  // player Redpro
+  const px=player.x,py=player.y;
+  ctx.fillStyle="#ff3b30";ctx.fillRect(px+3,py+5,24,30);
+  ctx.fillStyle="#111318";ctx.fillRect(px+6,py+10,18,12);
+  ctx.fillStyle="#ff3b30";ctx.fillRect(px+7,py+35,7,7);ctx.fillRect(px+19,py+35,7,7);
+  ctx.fillStyle="#fff";ctx.font="700 12px system-ui";ctx.fillText("REDPRO",px-2,py-8);
+  ctx.restore();
+}
+function loop(t){
+  if(!running)return;
+  const dt=Math.min(.033,(t-last)/1000);last=t;
+  update(dt);draw();requestAnimationFrame(loop);
+}
+canvas.addEventListener("pointerdown",e=>{
+  if(!running)return;
+  if(dialogOpen){nextDialog();return}
+  const r=canvas.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+  if(x>r.width*.72 && y>r.height*.45){keys.action=true;setTimeout(()=>keys.action=false,100)}
+});
+resize();
+</script>
+</body>
+</html>
