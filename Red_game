@@ -1,0 +1,720 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1,
+      maximum-scale=1,
+      user-scalable=no,
+      viewport-fit=cover">
+
+<meta name="theme-color" content="#050609">
+
+<title>The Redpro Archives — Game</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  margin:0;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:#050609;
+  color:#fff;
+  font-family:Arial,Helvetica,sans-serif;
+}
+
+#game{
+  position:relative;
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(75,78,90,.18),
+      transparent 35%
+    ),
+    linear-gradient(
+      90deg,
+      #050609 0%,
+      #11131a 50%,
+      #050609 100%
+    );
+}
+
+/* ---------- КОРИДОР ---------- */
+
+.corridor{
+  position:absolute;
+  inset:0;
+  perspective:600px;
+}
+
+.floor{
+  position:absolute;
+  left:-20%;
+  right:-20%;
+  bottom:-10%;
+  height:60%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255,255,255,.025) 0 2px,
+      transparent 2px 90px
+    ),
+    linear-gradient(
+      180deg,
+      #15171d,
+      #07080b
+    );
+  transform:
+    perspective(500px)
+    rotateX(62deg);
+  transform-origin:center top;
+}
+
+.ceiling{
+  position:absolute;
+  left:-20%;
+  right:-20%;
+  top:-20%;
+  height:55%;
+  background:
+    linear-gradient(
+      180deg,
+      #030407,
+      #11131a
+    );
+  transform:
+    perspective(500px)
+    rotateX(-55deg);
+  transform-origin:center bottom;
+}
+
+.wall-left,
+.wall-right{
+  position:absolute;
+  top:0;
+  bottom:0;
+  width:45%;
+  background:
+    linear-gradient(
+      90deg,
+      #030407,
+      #171921
+    );
+}
+
+.wall-left{
+  left:-12%;
+  transform:skewY(-8deg);
+}
+
+.wall-right{
+  right:-12%;
+  transform:skewY(8deg);
+  background:
+    linear-gradient(
+      90deg,
+      #171921,
+      #030407
+    );
+}
+
+/* ---------- ДВЕРЬ ---------- */
+
+.door{
+  position:absolute;
+  width:150px;
+  height:280px;
+  left:50%;
+  top:43%;
+  transform:translate(-50%,-50%);
+  background:
+    linear-gradient(
+      90deg,
+      #08090c,
+      #242731,
+      #090a0e
+    );
+  border:4px solid #30343e;
+  box-shadow:
+    0 0 35px rgba(0,0,0,.9),
+    inset 0 0 30px #000;
+}
+
+.door::before{
+  content:"";
+  position:absolute;
+  left:15px;
+  right:15px;
+  top:18px;
+  bottom:18px;
+  border:1px solid #454a56;
+}
+
+.door-label{
+  position:absolute;
+  top:35px;
+  left:50%;
+  transform:translateX(-50%);
+  width:110px;
+  padding:7px 3px;
+  text-align:center;
+  font-size:10px;
+  letter-spacing:2px;
+  color:#c9ccd4;
+  border:1px solid #555b68;
+  background:#0b0c10;
+}
+
+.handle{
+  position:absolute;
+  right:18px;
+  top:50%;
+  width:8px;
+  height:45px;
+  border-radius:4px;
+  background:#777c88;
+}
+
+/* ---------- СВЕТ ---------- */
+
+.flashlight{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:
+    radial-gradient(
+      ellipse 38% 48% at 50% 47%,
+      transparent 0%,
+      rgba(0,0,0,.08) 35%,
+      rgba(0,0,0,.72) 75%,
+      rgba(0,0,0,.94) 100%
+    );
+}
+
+.light-off{
+  background:
+    rgba(0,0,0,.82);
+}
+
+/* ---------- HUD ---------- */
+
+#hud{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+}
+
+.top{
+  position:absolute;
+  top:18px;
+  left:18px;
+  right:18px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  font-size:12px;
+  letter-spacing:1px;
+  color:#c7cad2;
+  text-shadow:0 1px 4px #000;
+}
+
+.archive{
+  color:#9da2ad;
+}
+
+.health{
+  color:#d9dce3;
+}
+
+/* ---------- ПРИЦЕЛ ---------- */
+
+.crosshair{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:18px;
+  height:18px;
+  transform:translate(-50%,-50%);
+}
+
+.crosshair::before,
+.crosshair::after{
+  content:"";
+  position:absolute;
+  background:rgba(255,255,255,.75);
+}
+
+.crosshair::before{
+  left:8px;
+  top:0;
+  width:2px;
+  height:18px;
+}
+
+.crosshair::after{
+  left:0;
+  top:8px;
+  width:18px;
+  height:2px;
+}
+
+/* ---------- ТЕКСТ ---------- */
+
+.message{
+  position:absolute;
+  left:50%;
+  bottom:145px;
+  transform:translateX(-50%);
+  width:90%;
+  max-width:500px;
+  text-align:center;
+  padding:12px 16px;
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(4,5,8,.72);
+  backdrop-filter:blur(5px);
+  font-size:13px;
+  line-height:1.5;
+  color:#d6d8de;
+  opacity:0;
+  transition:.25s;
+}
+
+.message.show{
+  opacity:1;
+}
+
+/* ---------- УПРАВЛЕНИЕ ---------- */
+
+.controls{
+  position:absolute;
+  left:20px;
+  bottom:25px;
+  display:grid;
+  grid-template-columns:58px 58px 58px;
+  grid-template-rows:58px 58px;
+  gap:7px;
+  pointer-events:auto;
+}
+
+.btn{
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(10,11,15,.72);
+  color:#e8e9ed;
+  border-radius:14px;
+  font-size:21px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  user-select:none;
+  touch-action:none;
+}
+
+.btn:active{
+  background:rgba(70,73,84,.75);
+  transform:scale(.95);
+}
+
+.up{
+  grid-column:2;
+}
+
+.left{
+  grid-column:1;
+  grid-row:2;
+}
+
+.down{
+  grid-column:2;
+  grid-row:2;
+}
+
+.right{
+  grid-column:3;
+  grid-row:2;
+}
+
+.actions{
+  position:absolute;
+  right:20px;
+  bottom:25px;
+  display:flex;
+  gap:10px;
+  pointer-events:auto;
+}
+
+.action{
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  border:1px solid rgba(255,255,255,.2);
+  background:rgba(10,11,15,.78);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:12px;
+  text-align:center;
+  user-select:none;
+  touch-action:none;
+}
+
+.action:active{
+  transform:scale(.94);
+  background:#292c35;
+}
+
+/* ---------- ИНВЕНТАРЬ ---------- */
+
+.weapon{
+  position:absolute;
+  right:25px;
+  bottom:110px;
+  font-size:11px;
+  color:#aeb2bb;
+  letter-spacing:1px;
+}
+
+/* ---------- СТАРТОВЫЙ ЭКРАН ---------- */
+
+#start{
+  position:absolute;
+  inset:0;
+  z-index:10;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(
+      circle,
+      rgba(30,32,40,.4),
+      #030407 70%
+    );
+}
+
+.start-box{
+  width:min(90%,420px);
+  padding:30px;
+  text-align:center;
+  border:1px solid #292d36;
+  background:rgba(7,8,11,.9);
+  box-shadow:0 20px 80px #000;
+}
+
+.start-box h1{
+  margin:0 0 8px;
+  font-size:25px;
+  letter-spacing:3px;
+}
+
+.start-box p{
+  color:#8f939d;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.start-button{
+  margin-top:18px;
+  width:100%;
+  padding:15px;
+  border:1px solid #444a57;
+  background:#171a21;
+  color:#fff;
+  border-radius:8px;
+  font-size:15px;
+}
+
+.start-button:active{
+  background:#282c35;
+}
+</style>
+</head>
+
+<body>
+
+<div id="game">
+
+  <div class="corridor">
+    <div class="ceiling"></div>
+    <div class="wall-left"></div>
+    <div class="wall-right"></div>
+    <div class="floor"></div>
+
+    <div class="door">
+      <div class="door-label">
+        SECTOR 01
+      </div>
+      <div class="handle"></div>
+    </div>
+  </div>
+
+  <div id="flashlight" class="flashlight"></div>
+
+  <div id="hud">
+
+    <div class="top">
+      <div class="archive">
+        REDPRO ARCHIVES
+      </div>
+
+      <div class="health">
+        HP 100
+      </div>
+    </div>
+
+    <div class="crosshair"></div>
+
+    <div id="message" class="message">
+      Здесь слишком тихо...
+    </div>
+
+    <div class="weapon">
+      EQUIPPED: NONE
+    </div>
+
+    <div class="controls">
+
+      <div class="btn up" data-key="forward">
+        ▲
+      </div>
+
+      <div class="btn left" data-key="left">
+        ◀
+      </div>
+
+      <div class="btn down" data-key="back">
+        ▼
+      </div>
+
+      <div class="btn right" data-key="right">
+        ▶
+      </div>
+
+    </div>
+
+    <div class="actions">
+
+      <div class="action" id="interact">
+        ВЗАИМОД.<br>✋
+      </div>
+
+      <div class="action" id="flash">
+        ФОНАРЬ<br>🔦
+      </div>
+
+      <div class="action" id="shoot">
+        ОГОНЬ<br>🔫
+      </div>
+
+    </div>
+
+  </div>
+
+  <div id="start">
+
+    <div class="start-box">
+
+      <h1>THE REDPRO ARCHIVES</h1>
+
+      <p>
+        GAME PROTOTYPE<br><br>
+        Объект неизвестен.<br>
+        Сектор 01 активен.
+      </p>
+
+      <button class="start-button" id="startButton">
+        НАЧАТЬ
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+const start = document.getElementById("start");
+const startButton = document.getElementById("startButton");
+
+const message = document.getElementById("message");
+const flashlight = document.getElementById("flashlight");
+
+const interact = document.getElementById("interact");
+const flash = document.getElementById("flash");
+const shoot = document.getElementById("shoot");
+
+let started = false;
+let light = true;
+
+const keys = {
+  forward:false,
+  back:false,
+  left:false,
+  right:false
+};
+
+function showMessage(text){
+
+  message.textContent = text;
+  message.classList.add("show");
+
+  clearTimeout(showMessage.timer);
+
+  showMessage.timer = setTimeout(()=>{
+    message.classList.remove("show");
+  },3000);
+}
+
+startButton.addEventListener("click",()=>{
+
+  started = true;
+
+  start.style.display = "none";
+
+  showMessage(
+    "Объект неизвестен. Найдите способ открыть дверь."
+  );
+});
+
+flash.addEventListener("pointerdown",()=>{
+
+  if(!started) return;
+
+  light = !light;
+
+  flashlight.classList.toggle(
+    "light-off",
+    !light
+  );
+
+  showMessage(
+    light
+      ? "Фонарик включён."
+      : "Фонарик выключен."
+  );
+});
+
+interact.addEventListener("pointerdown",()=>{
+
+  if(!started) return;
+
+  showMessage(
+    "Дверь заперта. На ней написано: SECTOR 01."
+  );
+});
+
+shoot.addEventListener("pointerdown",()=>{
+
+  if(!started) return;
+
+  showMessage(
+    "Оружия пока нет."
+  );
+});
+
+/* ---------- УПРАВЛЕНИЕ ---------- */
+
+document.querySelectorAll(".btn").forEach(button=>{
+
+  const key = button.dataset.key;
+
+  const down = event=>{
+    event.preventDefault();
+    keys[key] = true;
+  };
+
+  const up = event=>{
+    event.preventDefault();
+    keys[key] = false;
+  };
+
+  button.addEventListener("pointerdown",down);
+  button.addEventListener("pointerup",up);
+  button.addEventListener("pointercancel",up);
+  button.addEventListener("pointerleave",up);
+
+});
+
+/* ---------- КЛАВИАТУРА ---------- */
+
+document.addEventListener("keydown",event=>{
+
+  if(event.key === "w")
+    keys.forward = true;
+
+  if(event.key === "s")
+    keys.back = true;
+
+  if(event.key === "a")
+    keys.left = true;
+
+  if(event.key === "d")
+    keys.right = true;
+
+});
+
+document.addEventListener("keyup",event=>{
+
+  if(event.key === "w")
+    keys.forward = false;
+
+  if(event.key === "s")
+    keys.back = false;
+
+  if(event.key === "a")
+    keys.left = false;
+
+  if(event.key === "d")
+    keys.right = false;
+
+});
+
+/* ---------- ЛЁГКОЕ ДВИЖЕНИЕ КАМЕРЫ ---------- */
+
+let offsetX = 0;
+let offsetY = 0;
+
+function gameLoop(){
+
+  if(started){
+
+    if(keys.left)
+      offsetX -= .7;
+
+    if(keys.right)
+      offsetX += .7;
+
+    if(keys.forward)
+      offsetY -= .5;
+
+    if(keys.back)
+      offsetY += .5;
+
+    offsetX *= .92;
+    offsetY *= .92;
+
+    const corridor =
+      document.querySelector(".corridor");
+
+    corridor.style.transform =
+      `translate(${offsetX}px,${offsetY}px)`;
+
+  }
+
+  requestAnimationFrame(gameLoop);
+}
+
+gameLoop();
+</script>
+
+</body>
+</html>
