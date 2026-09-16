@@ -12,7 +12,7 @@
 
 <title>The Redpro Archives</title>
 
-<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="/Red_game/manifest.json">
 
 <meta name="theme-color" content="#08090c">
 <meta name="mobile-web-app-capable" content="yes">
@@ -68,6 +68,7 @@ button{
   inset:0;
   overflow:hidden;
   perspective:900px;
+  perspective-origin:50% 50%;
   background:#050609;
 }
 
@@ -81,9 +82,12 @@ button{
   top:50%;
   width:900px;
   height:2100px;
+
   transform-style:preserve-3d;
   transform-origin:50% 50%;
+
   transition:none;
+  will-change:transform;
 }
 
 .floor{
@@ -154,24 +158,30 @@ button{
 
 .wall.left{
   left:-600px;
+
   transform:
     rotateY(90deg)
     translateZ(450px);
+
   transform-origin:right center;
 }
 
 .wall.right{
   right:-600px;
+
   transform:
     rotateY(-90deg)
     translateZ(450px);
+
   transform-origin:left center;
 }
 
 .light{
   position:absolute;
+
   width:250px;
   height:32px;
+
   left:325px;
   top:100px;
 
@@ -223,9 +233,12 @@ button{
 
 #door::before{
   content:"";
+
   position:absolute;
+
   left:50%;
   top:50%;
+
   width:10px;
   height:10px;
 
@@ -364,6 +377,7 @@ button{
 
 .enemy.dead{
   opacity:0 !important;
+
   transform:
     translateZ(-500px)
     rotate(80deg)
@@ -1003,6 +1017,7 @@ button{
 
 #muzzleFlash{
   position:absolute;
+
   left:50%;
   top:50%;
 
@@ -1034,8 +1049,15 @@ button{
 }
 
 @keyframes muzzle{
-  0%{opacity:1;transform:translate(-50%,-50%) scale(.5)}
-  100%{opacity:0;transform:translate(-50%,-50%) scale(1.4)}
+  0%{
+    opacity:1;
+    transform:translate(-50%,-50%) scale(.5)
+  }
+
+  100%{
+    opacity:0;
+    transform:translate(-50%,-50%) scale(1.4)
+  }
 }
 
 /* =========================
@@ -1110,6 +1132,7 @@ button{
     transform:scale(.72);
     transform-origin:right bottom;
   }
+
 }
 
 @media(orientation:portrait){
@@ -1190,27 +1213,31 @@ button{
 
     <div class="controls">
 
-      <button class="moveBtn"
-              id="up"
-              data-key="forward">
+      <button
+        class="moveBtn"
+        id="up"
+        data-key="forward">
         ▲
       </button>
 
-      <button class="moveBtn"
-              id="left"
-              data-key="left">
+      <button
+        class="moveBtn"
+        id="left"
+        data-key="left">
         ◀
       </button>
 
-      <button class="moveBtn"
-              id="down"
-              data-key="back">
+      <button
+        class="moveBtn"
+        id="down"
+        data-key="back">
         ▼
       </button>
 
-      <button class="moveBtn"
-              id="right"
-              data-key="right">
+      <button
+        class="moveBtn"
+        id="right"
+        data-key="right">
         ▶
       </button>
 
@@ -1261,8 +1288,6 @@ button{
     ПРОВЕДИТЕ ПАЛЬЦЕМ ДЛЯ ОБЗОРА
   </div>
 
-  <!-- START -->
-
   <div id="start">
 
     <h1>THE REDPRO ARCHIVES</h1>
@@ -1274,8 +1299,6 @@ button{
     </button>
 
   </div>
-
-  <!-- PUZZLE -->
 
   <div id="puzzle">
 
@@ -1331,7 +1354,6 @@ button{
 
 </div>
 
-
 <script>
 
 /* =========================================================
@@ -1343,12 +1365,19 @@ if("serviceWorker" in navigator){
   window.addEventListener("load",()=>{
 
     navigator.serviceWorker
-      .register("./sw.js")
+      .register("/Red_game/sw.js",{
+        scope:"/Red_game/"
+      })
       .then(()=>{
-        console.log("Redpro Archives: offline mode enabled");
+        console.log(
+          "Redpro Archives: offline mode enabled"
+        );
       })
       .catch(err=>{
-        console.log("Service Worker error:",err);
+        console.log(
+          "Service Worker error:",
+          err
+        );
       });
 
   });
@@ -1464,18 +1493,40 @@ let maxAmmo = 12;
 
 let reloading = false;
 
+
+/*
+   Позиция игрока.
+*/
+
 let playerX = 0;
 let playerZ = 500;
+
+
+/*
+   Камера.
+*/
 
 let yaw = 0;
 let pitch = 0;
 
-let speed = 5;
+
+/*
+   ИСПРАВЛЕНО:
+   было 5 пикселей/секунду.
+   Теперь нормальная скорость.
+*/
+
+let speed = 260;
+
+
+/*
+   Состояние врага.
+*/
 
 let enemyAttackTimer = 0;
-let enemyDistance = 700;
 
-let lastTime = performance.now();
+let lastTime =
+  performance.now();
 
 
 /* =========================================================
@@ -1483,10 +1534,12 @@ let lastTime = performance.now();
 ========================================================= */
 
 const keys = {
+
   forward:false,
   back:false,
   left:false,
   right:false
+
 };
 
 
@@ -1496,7 +1549,11 @@ const keys = {
 
 let messageTimer = null;
 
-function showMessage(text, time=1800){
+
+function showMessage(
+  text,
+  time=1800
+){
 
   message.textContent = text;
 
@@ -1504,9 +1561,13 @@ function showMessage(text, time=1800){
 
   clearTimeout(messageTimer);
 
-  messageTimer = setTimeout(()=>{
-    message.classList.remove("show");
-  },time);
+  messageTimer =
+    setTimeout(()=>{
+
+      message.classList.remove("show");
+
+    },time);
+
 }
 
 
@@ -1534,7 +1595,10 @@ async function enterFullscreen(){
 
   }catch(e){
 
-    console.log("Fullscreen:",e);
+    console.log(
+      "Fullscreen:",
+      e
+    );
 
   }
 
@@ -1545,28 +1609,29 @@ async function enterFullscreen(){
    START GAME
 ========================================================= */
 
-startButton.addEventListener("click",async()=>{
+startButton.addEventListener(
+  "click",
+  async()=>{
 
-  started = true;
+    started = true;
 
-  start.style.display = "none";
+    start.style.display = "none";
 
-  await enterFullscreen();
+    await enterFullscreen();
 
-  showMessage(
-    "Найдите способ открыть дверь",
-    2500
-  );
+    showMessage(
+      "Найдите способ открыть дверь",
+      2500
+    );
 
-  render();
+    render();
 
-});
+  }
+);
 
 
 /* =========================================================
    MOVEMENT BUTTONS
-   IMPORTANT FIX:
-   POINTER CAPTURE
 ========================================================= */
 
 const movementButtons =
@@ -1580,135 +1645,221 @@ function clearMovement(){
   keys.left = false;
   keys.right = false;
 
-  movementButtons.forEach(btn=>{
-    btn.classList.remove("active");
-  });
+  movementButtons.forEach(
+    btn=>{
+      btn.classList.remove("active");
+    }
+  );
 
 }
 
 
-movementButtons.forEach(button=>{
+movementButtons.forEach(
+  button=>{
 
-  const key =
-    button.dataset.key;
-
-  button.addEventListener(
-    "pointerdown",
-    e=>{
-
-      e.preventDefault();
-      e.stopPropagation();
-
-      if(!started) return;
-
-      keys[key] = true;
-
-      button.classList.add("active");
-
-      try{
-        button.setPointerCapture(e.pointerId);
-      }catch(err){}
-
-    },
-    {passive:false}
-  );
+    const key =
+      button.dataset.key;
 
 
-  button.addEventListener(
-    "pointerup",
-    e=>{
+    button.addEventListener(
+      "pointerdown",
+      e=>{
 
-      e.preventDefault();
-      e.stopPropagation();
+        e.preventDefault();
+        e.stopPropagation();
 
-      keys[key] = false;
+        if(!started){
+          return;
+        }
 
-      button.classList.remove("active");
+        keys[key] = true;
 
-      try{
-        button.releasePointerCapture(e.pointerId);
-      }catch(err){}
+        button.classList.add("active");
 
-    },
-    {passive:false}
-  );
+        try{
+          button.setPointerCapture(
+            e.pointerId
+          );
+        }catch(err){}
 
-
-  button.addEventListener(
-    "pointercancel",
-    e=>{
-
-      keys[key] = false;
-
-      button.classList.remove("active");
-
-    },
-    {passive:false}
-  );
+      },
+      {
+        passive:false
+      }
+    );
 
 
-  button.addEventListener(
-    "lostpointercapture",
-    ()=>{
+    button.addEventListener(
+      "pointerup",
+      e=>{
 
-      keys[key] = false;
+        e.preventDefault();
+        e.stopPropagation();
 
-      button.classList.remove("active");
+        keys[key] = false;
 
-    }
-  );
+        button.classList.remove(
+          "active"
+        );
 
-});
+        try{
+          button.releasePointerCapture(
+            e.pointerId
+          );
+        }catch(err){}
+
+      },
+      {
+        passive:false
+      }
+    );
 
 
-window.addEventListener("pointerup",clearMovement);
-window.addEventListener("pointercancel",clearMovement);
+    button.addEventListener(
+      "pointercancel",
+      e=>{
+
+        e.preventDefault();
+
+        keys[key] = false;
+
+        button.classList.remove(
+          "active"
+        );
+
+      },
+      {
+        passive:false
+      }
+    );
+
+
+    button.addEventListener(
+      "lostpointercapture",
+      ()=>{
+
+        keys[key] = false;
+
+        button.classList.remove(
+          "active"
+        );
+
+      }
+    );
+
+  }
+);
+
+
+window.addEventListener(
+  "pointerup",
+  clearMovement
+);
+
+window.addEventListener(
+  "pointercancel",
+  clearMovement
+);
 
 
 /* =========================================================
    KEYBOARD
 ========================================================= */
 
-window.addEventListener("keydown",e=>{
+window.addEventListener(
+  "keydown",
+  e=>{
 
-  if(e.key==="w" || e.key==="ArrowUp"){
-    keys.forward = true;
+    if(
+      e.key==="w" ||
+      e.key==="W" ||
+      e.key==="ArrowUp"
+    ){
+
+      keys.forward = true;
+
+    }
+
+    if(
+      e.key==="s" ||
+      e.key==="S" ||
+      e.key==="ArrowDown"
+    ){
+
+      keys.back = true;
+
+    }
+
+    if(
+      e.key==="a" ||
+      e.key==="A" ||
+      e.key==="ArrowLeft"
+    ){
+
+      keys.left = true;
+
+    }
+
+    if(
+      e.key==="d" ||
+      e.key==="D" ||
+      e.key==="ArrowRight"
+    ){
+
+      keys.right = true;
+
+    }
+
   }
+);
 
-  if(e.key==="s" || e.key==="ArrowDown"){
-    keys.back = true;
+
+window.addEventListener(
+  "keyup",
+  e=>{
+
+    if(
+      e.key==="w" ||
+      e.key==="W" ||
+      e.key==="ArrowUp"
+    ){
+
+      keys.forward = false;
+
+    }
+
+    if(
+      e.key==="s" ||
+      e.key==="S" ||
+      e.key==="ArrowDown"
+    ){
+
+      keys.back = false;
+
+    }
+
+    if(
+      e.key==="a" ||
+      e.key==="A" ||
+      e.key==="ArrowLeft"
+    ){
+
+      keys.left = false;
+
+    }
+
+    if(
+      e.key==="d" ||
+      e.key==="D" ||
+      e.key==="ArrowRight"
+    ){
+
+      keys.right = false;
+
+    }
+
   }
-
-  if(e.key==="a" || e.key==="ArrowLeft"){
-    keys.left = true;
-  }
-
-  if(e.key==="d" || e.key==="ArrowRight"){
-    keys.right = true;
-  }
-
-});
-
-
-window.addEventListener("keyup",e=>{
-
-  if(e.key==="w" || e.key==="ArrowUp"){
-    keys.forward = false;
-  }
-
-  if(e.key==="s" || e.key==="ArrowDown"){
-    keys.back = false;
-  }
-
-  if(e.key==="a" || e.key==="ArrowLeft"){
-    keys.left = false;
-  }
-
-  if(e.key==="d" || e.key==="ArrowRight"){
-    keys.right = false;
-  }
-
-});
+);
 
 
 /* =========================================================
@@ -1727,21 +1878,45 @@ lookArea.addEventListener(
   "pointerdown",
   e=>{
 
-    if(!started) return;
+    if(!started){
+      return;
+    }
+
+    /*
+      Не начинаем обзор,
+      если касание попало в интерфейс.
+    */
+
+    if(
+      e.target.closest("button")
+    ){
+
+      return;
+    }
 
     looking = true;
 
-    lookPointer = e.pointerId;
+    lookPointer =
+      e.pointerId;
 
-    lastLookX = e.clientX;
-    lastLookY = e.clientY;
+    lastLookX =
+      e.clientX;
+
+    lastLookY =
+      e.clientY;
 
     try{
-      lookArea.setPointerCapture(e.pointerId);
+
+      lookArea.setPointerCapture(
+        e.pointerId
+      );
+
     }catch(err){}
 
   },
-  {passive:true}
+  {
+    passive:false
+  }
 );
 
 
@@ -1749,9 +1924,18 @@ lookArea.addEventListener(
   "pointermove",
   e=>{
 
-    if(!looking) return;
+    if(!looking){
+      return;
+    }
 
-    if(e.pointerId !== lookPointer) return;
+    if(
+      e.pointerId !== lookPointer
+    ){
+
+      return;
+    }
+
+    e.preventDefault();
 
     const dx =
       e.clientX - lastLookX;
@@ -1759,27 +1943,49 @@ lookArea.addEventListener(
     const dy =
       e.clientY - lastLookY;
 
-    lastLookX = e.clientX;
-    lastLookY = e.clientY;
+    lastLookX =
+      e.clientX;
 
-    yaw += dx * .35;
+    lastLookY =
+      e.clientY;
 
-    pitch -= dy * .2;
+
+    /*
+      Горизонтальный обзор.
+    */
+
+    yaw +=
+      dx * 0.35;
+
+
+    /*
+      Вертикальный обзор.
+    */
+
+    pitch -=
+      dy * 0.30;
+
 
     pitch =
       Math.max(
-        -35,
-        Math.min(35,pitch)
+        -55,
+        Math.min(
+          55,
+          pitch
+        )
       );
 
   },
-  {passive:true}
+  {
+    passive:false
+  }
 );
 
 
 function stopLook(){
 
   looking = false;
+
   lookPointer = null;
 
 }
@@ -1795,6 +2001,11 @@ lookArea.addEventListener(
   stopLook
 );
 
+lookArea.addEventListener(
+  "lostpointercapture",
+  stopLook
+);
+
 
 /* =========================================================
    MOVEMENT UPDATE
@@ -1802,45 +2013,131 @@ lookArea.addEventListener(
 
 function updateMovement(dt){
 
-  if(!started) return;
+  if(!started){
+    return;
+  }
+
 
   const amount =
     speed * dt;
 
+
+  /*
+    Переводим yaw из градусов
+    в радианы.
+  */
+
+  const radians =
+    yaw * Math.PI / 180;
+
+
+  /*
+    Направление вперёд.
+  */
+
+  let moveX = 0;
+  let moveZ = 0;
+
+
   if(keys.forward){
 
-    playerZ -= amount;
+    moveX +=
+      Math.sin(radians);
+
+    moveZ -=
+      Math.cos(radians);
 
   }
+
 
   if(keys.back){
 
-    playerZ += amount;
+    moveX -=
+      Math.sin(radians);
+
+    moveZ +=
+      Math.cos(radians);
 
   }
+
+
+  /*
+    Движение влево.
+  */
 
   if(keys.left){
 
-    playerX -= amount;
+    moveX -=
+      Math.cos(radians);
+
+    moveZ -=
+      Math.sin(radians);
 
   }
+
+
+  /*
+    Движение вправо.
+  */
 
   if(keys.right){
 
-    playerX += amount;
+    moveX +=
+      Math.cos(radians);
+
+    moveZ +=
+      Math.sin(radians);
 
   }
+
+
+  /*
+    Нормализация диагонального
+    движения.
+  */
+
+  const length =
+    Math.hypot(
+      moveX,
+      moveZ
+    );
+
+
+  if(length > 0){
+
+    moveX /= length;
+    moveZ /= length;
+
+  }
+
+
+  playerX +=
+    moveX * amount;
+
+  playerZ +=
+    moveZ * amount;
+
+
+  /*
+    Ограничения коридора.
+  */
 
   playerX =
     Math.max(
       -360,
-      Math.min(360,playerX)
+      Math.min(
+        360,
+        playerX
+      )
     );
 
   playerZ =
     Math.max(
       -1900,
-      Math.min(700,playerZ)
+      Math.min(
+        700,
+        playerZ
+      )
     );
 
 }
@@ -1852,18 +2149,18 @@ function updateMovement(dt){
 
 function render(){
 
-  const cameraX =
-    playerX;
-
-  const cameraZ =
-    playerZ;
+  /*
+    Камера теперь действительно
+    вращает мир по X и Y.
+  */
 
   world.style.transform = `
     translate3d(
-      ${-cameraX}px,
-      ${pitch}px,
-      ${cameraZ}px
+      ${-playerX}px,
+      0px,
+      ${playerZ}px
     )
+    rotateX(${pitch}deg)
     rotateY(${yaw}deg)
   `;
 
@@ -1874,61 +2171,66 @@ function render(){
    DOOR
 ========================================================= */
 
-interact.addEventListener("click",()=>{
+interact.addEventListener(
+  "click",
+  ()=>{
 
-  if(!started) return;
+    if(!started){
+      return;
+    }
 
 
-  if(!doorOpened){
+    if(!doorOpened){
 
-    if(!doorUnlocked){
+      if(!doorUnlocked){
 
-      openPuzzle();
+        openPuzzle();
+
+        return;
+
+      }
+
+      openDoor();
 
       return;
 
     }
 
-    openDoor();
 
-    return;
+    if(
+      !enemyDefeated &&
+      secondArea.classList.contains("active")
+    ){
 
-  }
+      showMessage(
+        "Сначала разберитесь с противником",
+        1600
+      );
+
+      return;
+
+    }
 
 
-  if(
-    !enemyDefeated &&
-    secondArea.classList.contains("active")
-  ){
+    if(
+      enemyDefeated &&
+      !hasGun
+    ){
+
+      pickupWeapon();
+
+      return;
+
+    }
+
 
     showMessage(
-      "Сначала разберитесь с противником",
-      1600
+      "Коридор продолжается...",
+      1500
     );
 
-    return;
-
   }
-
-
-  if(
-    enemyDefeated &&
-    !hasGun
-  ){
-
-    pickupWeapon();
-
-    return;
-
-  }
-
-
-  showMessage(
-    "Коридор продолжается...",
-    1500
-  );
-
-});
+);
 
 
 /* =========================================================
@@ -1958,7 +2260,12 @@ function resizePuzzleCanvas(){
     rect.height * dpr;
 
   puzzleCtx.setTransform(
-    dpr,0,0,dpr,0,0
+    dpr,
+    0,
+    0,
+    dpr,
+    0,
+    0
   );
 
 }
@@ -1966,15 +2273,20 @@ function resizePuzzleCanvas(){
 
 function openPuzzle(){
 
-  puzzle.style.display = "flex";
+  puzzle.style.display =
+    "flex";
 
   selectedDots = [];
 
   document
     .querySelectorAll(".dot")
-    .forEach(dot=>{
-      dot.classList.remove("selected");
-    });
+    .forEach(
+      dot=>{
+        dot.classList.remove(
+          "selected"
+        );
+      }
+    );
 
   setTimeout(
     resizePuzzleCanvas,
@@ -1986,15 +2298,20 @@ function openPuzzle(){
 
 function closePuzzle(){
 
-  puzzle.style.display = "none";
+  puzzle.style.display =
+    "none";
 
   selectedDots = [];
 
   document
     .querySelectorAll(".dot")
-    .forEach(dot=>{
-      dot.classList.remove("selected");
-    });
+    .forEach(
+      dot=>{
+        dot.classList.remove(
+          "selected"
+        );
+      }
+    );
 
   clearPuzzleCanvas();
 
@@ -2023,9 +2340,14 @@ function drawPuzzleLines(){
 
   clearPuzzleCanvas();
 
-  if(selectedDots.length < 2){
+  if(
+    selectedDots.length < 2
+  ){
+
     return;
+
   }
+
 
   const container =
     document
@@ -2033,6 +2355,7 @@ function drawPuzzleLines(){
       .getBoundingClientRect();
 
   puzzleCtx.beginPath();
+
 
   selectedDots.forEach(
     (number,index)=>{
@@ -2045,29 +2368,43 @@ function drawPuzzleLines(){
       const r =
         dot.getBoundingClientRect();
 
+
       const x =
         r.left -
         container.left +
-        r.width/2;
+        r.width / 2;
 
       const y =
         r.top -
         container.top +
-        r.height/2;
+        r.height / 2;
 
-      if(index===0){
-        puzzleCtx.moveTo(x,y);
+
+      if(index === 0){
+
+        puzzleCtx.moveTo(
+          x,
+          y
+        );
+
       }else{
-        puzzleCtx.lineTo(x,y);
+
+        puzzleCtx.lineTo(
+          x,
+          y
+        );
+
       }
 
     }
   );
 
+
   puzzleCtx.strokeStyle =
     "#d8d9de";
 
-  puzzleCtx.lineWidth = 3;
+  puzzleCtx.lineWidth =
+    3;
 
   puzzleCtx.stroke();
 
@@ -2076,34 +2413,49 @@ function drawPuzzleLines(){
 
 document
   .querySelectorAll(".dot")
-  .forEach(dot=>{
+  .forEach(
+    dot=>{
 
-    dot.addEventListener(
-      "pointerdown",
-      e=>{
+      dot.addEventListener(
+        "pointerdown",
+        e=>{
 
-        e.preventDefault();
+          e.preventDefault();
+          e.stopPropagation();
 
-        const n =
-          Number(dot.dataset.n);
+          const n =
+            Number(
+              dot.dataset.n
+            );
 
-        if(selectedDots.includes(n)){
-          return;
+
+          if(
+            selectedDots.includes(n)
+          ){
+
+            return;
+
+          }
+
+
+          selectedDots.push(n);
+
+          dot.classList.add(
+            "selected"
+          );
+
+          drawPuzzleLines();
+
+          checkPuzzle();
+
+        },
+        {
+          passive:false
         }
+      );
 
-        selectedDots.push(n);
-
-        dot.classList.add("selected");
-
-        drawPuzzleLines();
-
-        checkPuzzle();
-
-      },
-      {passive:false}
-    );
-
-  });
+    }
+  );
 
 
 function checkPuzzle(){
@@ -2111,7 +2463,12 @@ function checkPuzzle(){
   const length =
     selectedDots.length;
 
-  for(let i=0;i<length;i++){
+
+  for(
+    let i=0;
+    i<length;
+    i++
+  ){
 
     if(
       selectedDots[i] !==
@@ -2123,18 +2480,27 @@ function checkPuzzle(){
         1500
       );
 
-      setTimeout(()=>{
-        selectedDots = [];
 
-        document
-          .querySelectorAll(".dot")
-          .forEach(dot=>{
-            dot.classList.remove("selected");
-          });
+      setTimeout(
+        ()=>{
 
-        clearPuzzleCanvas();
+          selectedDots = [];
 
-      },500);
+          document
+            .querySelectorAll(".dot")
+            .forEach(
+              dot=>{
+                dot.classList.remove(
+                  "selected"
+                );
+              }
+            );
+
+          clearPuzzleCanvas();
+
+        },
+        500
+      );
 
       return;
 
@@ -2150,21 +2516,26 @@ function checkPuzzle(){
 
     doorUnlocked = true;
 
+
     showMessage(
       "ДОСТУП РАЗРЕШЁН",
       2000
     );
 
-    setTimeout(()=>{
 
-      closePuzzle();
+    setTimeout(
+      ()=>{
 
-      showMessage(
-        "Дверь разблокирована. Нажмите ВЗАИМОД.",
-        2200
-      );
+        closePuzzle();
 
-    },800);
+        showMessage(
+          "Дверь разблокирована. Нажмите ВЗАИМОД.",
+          2200
+        );
+
+      },
+      800
+    );
 
   }
 
@@ -2177,33 +2548,47 @@ function checkPuzzle(){
 
 function openDoor(){
 
-  if(doorOpened) return;
+  if(doorOpened){
+    return;
+  }
 
   doorOpened = true;
 
-  door.classList.add("open");
+  door.classList.add(
+    "open"
+  );
+
 
   showMessage(
     "ДВЕРЬ ОТКРЫВАЕТСЯ...",
     1000
   );
 
-  setTimeout(()=>{
 
-    secondArea.classList.add("active");
+  setTimeout(
+    ()=>{
 
-    enemyHP.style.display = "block";
+      secondArea.classList.add(
+        "active"
+      );
 
-    punch.style.display = "flex";
+      enemyHP.style.display =
+        "block";
 
-    updateEnemyHP();
+      punch.style.display =
+        "flex";
 
-    showMessage(
-      "ВПЕРЕДИ ПРОТИВНИК",
-      2000
-    );
+      updateEnemyHP();
 
-  },900);
+
+      showMessage(
+        "ВПЕРЕДИ ПРОТИВНИК",
+        2000
+      );
+
+    },
+    900
+  );
 
 }
 
@@ -2217,39 +2602,66 @@ function enemyAttack(dt){
   if(
     !doorOpened ||
     enemyDefeated ||
-    !secondArea.classList.contains("active")
+    !secondArea.classList.contains(
+      "active"
+    )
   ){
+
     return;
+
   }
+
 
   enemyAttackTimer += dt;
 
-  if(enemyAttackTimer < 2.0){
+
+  if(
+    enemyAttackTimer < 2.0
+  ){
+
     return;
+
   }
+
 
   enemyAttackTimer = 0;
 
   playerHP -= 8;
 
+
   if(playerHP < 0){
+
     playerHP = 0;
+
   }
+
 
   hpText.textContent =
     "HP " + playerHP;
 
-  damage.classList.add("show");
 
-  setTimeout(()=>{
-    damage.classList.remove("show");
-  },140);
+  damage.classList.add(
+    "show"
+  );
+
+
+  setTimeout(
+    ()=>{
+      damage.classList.remove(
+        "show"
+      );
+    },
+    140
+  );
+
 
   if(playerHP <= 0){
 
     playerHP = 100;
 
-    hpText.textContent = "HP 100";
+    hpText.textContent =
+      "HP 100";
+
 
     showMessage(
       "ВЫ ПОТЕРЯЛИ СОЗНАНИЕ",
@@ -2265,53 +2677,85 @@ function enemyAttack(dt){
    PUNCH
 ========================================================= */
 
-punch.addEventListener("click",()=>{
+punch.addEventListener(
+  "click",
+  ()=>{
 
-  if(
-    !doorOpened ||
-    enemyDefeated
-  ){
-    return;
-  }
+    if(
+      !doorOpened ||
+      enemyDefeated
+    ){
 
-  if(
-    hasGun
-  ){
-    showMessage(
-      "Используйте пистолет",
-      1000
+      return;
+
+    }
+
+
+    if(hasGun){
+
+      showMessage(
+        "Используйте пистолет",
+        1000
+      );
+
+      return;
+
+    }
+
+
+    enemyHealth -= 25;
+
+
+    if(enemyHealth < 0){
+
+      enemyHealth = 0;
+
+    }
+
+
+    enemy.classList.add(
+      "hit"
     );
 
-    return;
+
+    setTimeout(
+      ()=>{
+        enemy.classList.remove(
+          "hit"
+        );
+      },
+      180
+    );
+
+
+    damage.classList.add(
+      "show"
+    );
+
+
+    setTimeout(
+      ()=>{
+        damage.classList.remove(
+          "show"
+        );
+      },
+      80
+    );
+
+
+    updateEnemyHP();
+
+
+    if(
+      enemyHealth <= 0
+    ){
+
+      defeatEnemy();
+
+    }
+
   }
-
-  enemyHealth -= 25;
-
-  if(enemyHealth < 0){
-    enemyHealth = 0;
-  }
-
-  enemy.classList.add("hit");
-
-  setTimeout(()=>{
-    enemy.classList.remove("hit");
-  },180);
-
-  damage.classList.add("show");
-
-  setTimeout(()=>{
-    damage.classList.remove("show");
-  },80);
-
-  updateEnemyHP();
-
-  if(enemyHealth <= 0){
-
-    defeatEnemy();
-
-  }
-
-});
+);
 
 
 function updateEnemyHP(){
@@ -2326,22 +2770,33 @@ function defeatEnemy(){
 
   enemyDefeated = true;
 
-  enemy.classList.add("dead");
+  enemy.classList.add(
+    "dead"
+  );
 
-  enemyHP.style.display = "none";
+  enemyHP.style.display =
+    "none";
 
-  punch.style.display = "none";
+  punch.style.display =
+    "none";
 
-  setTimeout(()=>{
 
-    weaponObject.classList.add("visible");
+  setTimeout(
+    ()=>{
 
-    showMessage(
-      "ПРОТИВНИК УСТРАНЁН. ЗАБЕРИТЕ ОРУЖИЕ.",
-      2500
-    );
+      weaponObject.classList.add(
+        "visible"
+      );
 
-  },500);
+
+      showMessage(
+        "ПРОТИВНИК УСТРАНЁН. ЗАБЕРИТЕ ОРУЖИЕ.",
+        2500
+      );
+
+    },
+    500
+  );
 
 }
 
@@ -2352,19 +2807,29 @@ function defeatEnemy(){
 
 function pickupWeapon(){
 
-  if(hasGun) return;
+  if(hasGun){
+    return;
+  }
+
 
   hasGun = true;
 
-  weaponObject.classList.remove("visible");
 
-  shoot.style.display = "flex";
+  weaponObject.classList.remove(
+    "visible"
+  );
+
+
+  shoot.style.display =
+    "flex";
+
 
   weaponText.innerHTML =
     "EQUIPPED: PISTOL<br>AMMO: " +
     ammo +
     "/" +
     maxAmmo;
+
 
   showMessage(
     "ПИСТОЛЕТ ПОДОБРАН",
@@ -2379,13 +2844,18 @@ weaponObject.addEventListener(
   e=>{
 
     e.preventDefault();
+    e.stopPropagation();
 
     if(enemyDefeated){
+
       pickupWeapon();
+
     }
 
   },
-  {passive:false}
+  {
+    passive:false
+  }
 );
 
 
@@ -2393,144 +2863,75 @@ weaponObject.addEventListener(
    FLASHLIGHT
 ========================================================= */
 
-flash.addEventListener("click",()=>{
+flash.addEventListener(
+  "click",
+  ()=>{
 
-  lightOn = !lightOn;
+    lightOn = !lightOn;
 
-  if(lightOn){
 
-    flashlight.classList.remove("off");
+    if(lightOn){
 
-    showMessage(
-      "ФОНАРЬ ВКЛЮЧЁН",
-      900
-    );
+      flashlight.classList.remove(
+        "off"
+      );
 
-  }else{
 
-    flashlight.classList.add("off");
+      showMessage(
+        "ФОНАРЬ ВКЛЮЧЁН",
+        900
+      );
 
-    showMessage(
-      "ФОНАРЬ ВЫКЛЮЧЕН",
-      900
-    );
+    }else{
+
+      flashlight.classList.add(
+        "off"
+      );
+
+
+      showMessage(
+        "ФОНАРЬ ВЫКЛЮЧЕН",
+        900
+      );
+
+    }
 
   }
-
-});
+);
 
 
 /* =========================================================
    SHOOT
 ========================================================= */
 
-shoot.addEventListener("click",()=>{
+shoot.addEventListener(
+  "click",
+  ()=>{
 
-  if(!hasGun){
-    return;
-  }
-
-  if(reloading){
-    return;
-  }
-
-  if(ammo <= 0){
-
-    showMessage(
-      "НЕТ ПАТРОНОВ. ПЕРЕЗАРЯДИТЕСЬ.",
-      1200
-    );
-
-    return;
-
-  }
-
-  ammo--;
-
-  weaponText.innerHTML =
-    "EQUIPPED: PISTOL<br>AMMO: " +
-    ammo +
-    "/" +
-    maxAmmo;
-
-  muzzleFlash.classList.remove("show");
-
-  void muzzleFlash.offsetWidth;
-
-  muzzleFlash.classList.add("show");
-
-
-  /* В этом прототипе выстрел попадает,
-     если противник ещё жив. */
-
-  if(
-    doorOpened &&
-    !enemyDefeated &&
-    secondArea.classList.contains("active")
-  ){
-
-    enemyHealth -= 50;
-
-    if(enemyHealth < 0){
-      enemyHealth = 0;
+    if(!hasGun){
+      return;
     }
 
-    enemy.classList.add("hit");
 
-    setTimeout(()=>{
-      enemy.classList.remove("hit");
-    },150);
+    if(reloading){
+      return;
+    }
 
-    updateEnemyHP();
 
-    if(enemyHealth <= 0){
+    if(ammo <= 0){
 
-      defeatEnemy();
+      showMessage(
+        "НЕТ ПАТРОНОВ. ПЕРЕЗАРЯДИТЕСЬ.",
+        1200
+      );
+
+      return;
 
     }
 
-  }
 
-});
+    ammo--;
 
-
-/* =========================================================
-   RELOAD
-========================================================= */
-
-reload.addEventListener("click",()=>{
-
-  if(!hasGun){
-    return;
-  }
-
-  if(reloading){
-    return;
-  }
-
-  if(ammo >= maxAmmo){
-
-    showMessage(
-      "МАГАЗИН ПОЛОН",
-      900
-    );
-
-    return;
-
-  }
-
-  reloading = true;
-
-  showMessage(
-    "ПЕРЕЗАРЯДКА...",
-    1000
-  );
-
-  setTimeout(()=>{
-
-    ammo = maxAmmo;
-
-    reloading = false;
 
     weaponText.innerHTML =
       "EQUIPPED: PISTOL<br>AMMO: " +
@@ -2538,14 +2939,135 @@ reload.addEventListener("click",()=>{
       "/" +
       maxAmmo;
 
-    showMessage(
-      "ГОТОВО",
-      700
+
+    muzzleFlash.classList.remove(
+      "show"
     );
 
-  },1000);
 
-});
+    void muzzleFlash.offsetWidth;
+
+
+    muzzleFlash.classList.add(
+      "show"
+    );
+
+
+    if(
+      doorOpened &&
+      !enemyDefeated &&
+      secondArea.classList.contains(
+        "active"
+      )
+    ){
+
+      enemyHealth -= 50;
+
+
+      if(enemyHealth < 0){
+
+        enemyHealth = 0;
+
+      }
+
+
+      enemy.classList.add(
+        "hit"
+      );
+
+
+      setTimeout(
+        ()=>{
+          enemy.classList.remove(
+            "hit"
+          );
+        },
+        150
+      );
+
+
+      updateEnemyHP();
+
+
+      if(
+        enemyHealth <= 0
+      ){
+
+        defeatEnemy();
+
+      }
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   RELOAD
+========================================================= */
+
+reload.addEventListener(
+  "click",
+  ()=>{
+
+    if(!hasGun){
+      return;
+    }
+
+
+    if(reloading){
+      return;
+    }
+
+
+    if(ammo >= maxAmmo){
+
+      showMessage(
+        "МАГАЗИН ПОЛОН",
+        900
+      );
+
+      return;
+
+    }
+
+
+    reloading = true;
+
+
+    showMessage(
+      "ПЕРЕЗАРЯДКА...",
+      1000
+    );
+
+
+    setTimeout(
+      ()=>{
+
+        ammo = maxAmmo;
+
+        reloading = false;
+
+
+        weaponText.innerHTML =
+          "EQUIPPED: PISTOL<br>AMMO: " +
+          ammo +
+          "/" +
+          maxAmmo;
+
+
+        showMessage(
+          "ГОТОВО",
+          700
+        );
+
+      },
+      1000
+    );
+
+  }
+);
 
 
 /* =========================================================
@@ -2557,13 +3079,18 @@ document.addEventListener(
   e=>{
 
     if(
-      puzzle.style.display !== "flex"
+      puzzle.style.display !==
+      "flex"
     ){
+
       e.preventDefault();
+
     }
 
   },
-  {passive:false}
+  {
+    passive:false
+  }
 );
 
 
@@ -2576,10 +3103,14 @@ window.addEventListener(
   ()=>{
 
     if(
-      puzzle.style.display === "flex"
+      puzzle.style.display ===
+      "flex"
     ){
+
       resizePuzzleCanvas();
+
       drawPuzzleLines();
+
     }
 
   }
@@ -2594,11 +3125,13 @@ function loop(time){
 
   const dt =
     Math.min(
-      (time-lastTime)/1000,
-      .05
+      (time - lastTime) / 1000,
+      0.05
     );
 
+
   lastTime = time;
+
 
   updateMovement(dt);
 
@@ -2606,22 +3139,30 @@ function loop(time){
 
   render();
 
-  requestAnimationFrame(loop);
+
+  requestAnimationFrame(
+    loop
+  );
 
 }
 
-requestAnimationFrame(loop);
+
+requestAnimationFrame(
+  loop
+);
 
 
 /* =========================================================
    INITIAL
 ========================================================= */
 
-flashlight.classList.remove("off");
+flashlight.classList.remove(
+  "off"
+);
 
 render();
 
 </script>
 
 </body>
-       </html>
+            </html>
