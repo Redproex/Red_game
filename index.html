@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="ru">
 <head>
-
 <meta charset="utf-8">
 
 <meta name="viewport"
@@ -33,6 +32,14 @@ font-family:Arial,Helvetica,sans-serif;
 touch-action:none;
 }
 
+button{
+font-family:inherit;
+}
+
+/* =========================
+   ИГРА
+========================= */
+
 #game{
 position:relative;
 width:100%;
@@ -55,19 +62,11 @@ perspective:900px;
 background:
 radial-gradient(
 ellipse at center,
-rgba(80,84,98,.18),
-transparent 45%
+rgba(70,75,90,.17),
+transparent 48%
 ),
 #050609;
 }
-
-/*
-   МИР
-
-   ВАЖНО:
-   Поворот камеры и движение
-   теперь разделены.
-*/
 
 .world{
 position:absolute;
@@ -85,12 +84,9 @@ translate(-50%,-50%)
 translate3d(0,0,0)
 rotateX(0deg)
 rotateY(0deg);
-
 }
 
-/* =========================
-   ПОЛ
-========================= */
+/* Пол */
 
 .floor{
 position:absolute;
@@ -99,7 +95,7 @@ left:-500px;
 top:0;
 
 width:1000px;
-height:3000px;
+height:4000px;
 
 background:
 
@@ -118,7 +114,7 @@ transparent 2px 100px
 linear-gradient(
 180deg,
 #171920,
-#07080b
+#06070a
 );
 
 transform:
@@ -128,9 +124,7 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* =========================
-   ПОТОЛОК
-========================= */
+/* Потолок */
 
 .ceiling{
 position:absolute;
@@ -139,7 +133,7 @@ left:-500px;
 top:0;
 
 width:1000px;
-height:3000px;
+height:4000px;
 
 background:
 linear-gradient(
@@ -155,9 +149,7 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* =========================
-   СТЕНЫ
-========================= */
+/* Стены */
 
 .wall{
 position:absolute;
@@ -181,12 +173,12 @@ box-shadow:
 
 .wall.left{
 left:-500px;
-transform:translateZ(-1500px);
+transform:translateZ(-2000px);
 }
 
 .wall.right{
 right:-500px;
-transform:translateZ(-1500px);
+transform:translateZ(-2000px);
 }
 
 /* =========================
@@ -245,17 +237,12 @@ box-shadow:
 0 0 50px rgba(0,0,0,.95),
 inset 0 0 35px #000;
 
-/*
-   Дверь находится
-   ФИЗИЧЕСКИ перед игроком.
-*/
-
 transform:
 translate3d(0,0,-1200px);
 
 transition:
-transform .7s ease,
-opacity .7s ease;
+transform 1s ease,
+opacity 1s ease;
 }
 
 .door::before{
@@ -310,6 +297,239 @@ border-radius:5px;
 background:#777c88;
 }
 
+/* Открытая дверь */
+
+.door.open{
+transform:
+translate3d(0,0,-1200px)
+translateX(-230px)
+rotateY(-70deg);
+
+opacity:.2;
+}
+
+/* =========================
+   КОРИДОР ЗА ДВЕРЬЮ
+========================= */
+
+#secondArea{
+position:absolute;
+
+inset:0;
+
+opacity:0;
+
+pointer-events:none;
+
+transition:
+opacity 1s;
+}
+
+#secondArea.active{
+opacity:1;
+}
+
+.backLight{
+position:absolute;
+
+width:160px;
+height:20px;
+
+left:50%;
+top:25%;
+
+margin-left:-80px;
+
+background:#9ca3b5;
+
+box-shadow:
+0 0 35px #d2d6df,
+0 0 120px rgba(180,190,210,.3);
+}
+
+/* =========================
+   ВРАГ
+========================= */
+
+.enemy{
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:80px;
+height:150px;
+
+margin-left:-40px;
+margin-top:-75px;
+
+transform:
+translateZ(-700px);
+
+transition:
+opacity .4s,
+transform .3s;
+}
+
+.enemy-head{
+position:absolute;
+
+width:45px;
+height:45px;
+
+left:17px;
+top:0;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle at 35% 30%,
+#515561,
+#181a20 65%
+);
+
+border:2px solid #656a76;
+}
+
+.enemy-body{
+position:absolute;
+
+width:60px;
+height:90px;
+
+left:10px;
+top:42px;
+
+background:
+linear-gradient(
+90deg,
+#101217,
+#30343e,
+#0b0c10
+);
+
+border:
+2px solid #414650;
+
+border-radius:10px 10px 4px 4px;
+}
+
+.enemy-arm{
+position:absolute;
+
+width:18px;
+height:65px;
+
+top:48px;
+
+background:#20232a;
+
+border:2px solid #444953;
+
+border-radius:12px;
+}
+
+.enemy-arm.left{
+left:-4px;
+
+transform:rotate(18deg);
+}
+
+.enemy-arm.right{
+right:-4px;
+
+transform:rotate(-18deg);
+}
+
+.enemy.dead{
+opacity:0;
+
+transform:
+translateZ(-700px)
+rotateX(90deg)
+translateY(100px);
+}
+
+/* =========================
+   ОРУЖИЕ
+========================= */
+
+.weaponObject{
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:75px;
+height:30px;
+
+margin-left:-37px;
+margin-top:40px;
+
+transform:
+translateZ(-250px)
+rotate(-8deg);
+
+opacity:0;
+
+transition:.5s;
+
+pointer-events:none;
+}
+
+.weaponObject.show{
+opacity:1;
+}
+
+.gunBody{
+position:absolute;
+
+width:55px;
+height:18px;
+
+left:10px;
+top:0;
+
+background:#17191f;
+
+border:2px solid #606571;
+
+border-radius:5px;
+}
+
+.gunGrip{
+position:absolute;
+
+width:17px;
+height:30px;
+
+left:37px;
+top:13px;
+
+background:#111319;
+
+border:2px solid #4d525d;
+
+transform:rotate(18deg);
+
+border-radius:3px;
+}
+
+.gunBarrel{
+position:absolute;
+
+width:25px;
+height:8px;
+
+left:-12px;
+top:5px;
+
+background:#0b0c0f;
+
+border:2px solid #4e535e;
+}
+
 /* =========================
    ФОНАРИК
 ========================= */
@@ -321,8 +541,9 @@ inset:0;
 
 pointer-events:none;
 
-background:
+z-index:5;
 
+background:
 radial-gradient(
 ellipse 35% 45% at 50% 48%,
 transparent 0%,
@@ -330,8 +551,6 @@ rgba(0,0,0,.08) 30%,
 rgba(0,0,0,.72) 72%,
 rgba(0,0,0,.95) 100%
 );
-
-z-index:5;
 
 transition:.25s;
 }
@@ -347,10 +566,9 @@ rgba(0,0,0,.9)!important;
 
 #hud{
 position:absolute;
-
 inset:0;
 
-z-index:10;
+z-index:20;
 
 pointer-events:none;
 }
@@ -365,7 +583,6 @@ left:18px;
 right:18px;
 
 display:flex;
-
 justify-content:space-between;
 
 font-size:12px;
@@ -377,10 +594,6 @@ color:#c7cad2;
 text-shadow:
 0 1px 5px #000;
 }
-
-/* =========================
-   ПРИЦЕЛ
-========================= */
 
 .crosshair{
 position:absolute;
@@ -449,7 +662,7 @@ line-height:1.5;
 color:#d6d8de;
 
 background:
-rgba(4,5,8,.78);
+rgba(4,5,8,.82);
 
 border:
 1px solid rgba(255,255,255,.13);
@@ -515,8 +728,6 @@ font-size:21px;
 user-select:none;
 
 touch-action:none;
-
-transition:.08s;
 }
 
 .btn:active{
@@ -574,7 +785,7 @@ border:
 1px solid rgba(255,255,255,.2);
 
 background:
-rgba(10,11,15,.8);
+rgba(10,11,15,.82);
 
 color:white;
 
@@ -598,8 +809,16 @@ transform:scale(.93);
 background:#292c35;
 }
 
+#punch{
+display:none;
+}
+
+#punch.active{
+display:flex;
+}
+
 /* =========================
-   ОРУЖИЕ
+   ОРУЖИЕ HUD
 ========================= */
 
 .weapon{
@@ -617,7 +836,7 @@ color:#aeb2bb;
 }
 
 /* =========================
-   ЗОНА ОСМОТРА
+   ОСМОТР
 ========================= */
 
 #lookArea{
@@ -693,7 +912,7 @@ border:
 1px solid #292d36;
 
 background:
-rgba(7,8,11,.93);
+rgba(7,8,11,.94);
 
 box-shadow:
 0 20px 80px #000;
@@ -734,6 +953,205 @@ border-radius:8px;
 font-size:15px;
 }
 
+/* =========================
+   ГОЛОВОЛОМКА
+========================= */
+
+#puzzle{
+position:absolute;
+
+inset:0;
+
+z-index:200;
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+background:
+rgba(2,3,5,.94);
+
+backdrop-filter:blur(8px);
+}
+
+#puzzle.active{
+display:flex;
+}
+
+.puzzleBox{
+width:min(88vw,380px);
+
+padding:22px;
+
+border:
+1px solid #343844;
+
+background:#0b0d12;
+
+box-shadow:
+0 20px 80px #000;
+
+text-align:center;
+}
+
+.puzzleTitle{
+font-size:17px;
+
+letter-spacing:3px;
+
+margin-bottom:7px;
+}
+
+.puzzleText{
+font-size:12px;
+
+color:#9297a2;
+
+line-height:1.5;
+
+margin-bottom:15px;
+}
+
+#pattern{
+position:relative;
+
+width:230px;
+height:230px;
+
+margin:0 auto 16px;
+
+border:
+1px solid #30343e;
+
+background:
+radial-gradient(
+circle,
+#151820,
+#08090c
+);
+
+touch-action:none;
+}
+
+.node{
+position:absolute;
+
+width:24px;
+height:24px;
+
+margin-left:-12px;
+margin-top:-12px;
+
+border-radius:50%;
+
+border:2px solid #777d8a;
+
+background:#111319;
+
+z-index:3;
+
+transition:.15s;
+}
+
+.node.selected{
+background:#fff;
+
+border-color:#fff;
+
+box-shadow:
+0 0 16px rgba(255,255,255,.8);
+}
+
+#puzzleCanvas{
+position:absolute;
+
+inset:0;
+
+width:100%;
+height:100%;
+
+z-index:2;
+
+pointer-events:none;
+}
+
+.puzzleStatus{
+height:18px;
+
+font-size:12px;
+
+color:#8e939e;
+
+margin-bottom:10px;
+}
+
+.puzzleClose{
+width:100%;
+
+padding:11px;
+
+border:1px solid #3a3f4a;
+
+background:#171a21;
+
+color:white;
+
+border-radius:7px;
+}
+
+/* =========================
+   DAMAGE EFFECT
+========================= */
+
+#damage{
+position:absolute;
+
+inset:0;
+
+z-index:50;
+
+pointer-events:none;
+
+background:
+rgba(130,0,0,.35);
+
+opacity:0;
+
+transition:.15s;
+}
+
+#damage.show{
+opacity:1;
+}
+
+/* =========================
+   ENEMY HP
+========================= */
+
+.enemyHP{
+position:absolute;
+
+left:50%;
+top:36%;
+
+transform:translateX(-50%);
+
+font-size:11px;
+
+letter-spacing:2px;
+
+color:#c8cbd2;
+
+opacity:0;
+
+transition:.2s;
+}
+
+.enemyHP.show{
+opacity:1;
+}
+
 </style>
 </head>
 
@@ -747,9 +1165,7 @@ font-size:15px;
 
 <div id="scene">
 
-<div
-class="world"
-id="world">
+<div class="world" id="world">
 
 <div class="floor"></div>
 
@@ -761,15 +1177,43 @@ id="world">
 
 <div class="light"></div>
 
-<div
-class="door"
-id="door">
+<div class="door" id="door">
 
 <div class="door-label">
 SECTOR 01
 </div>
 
 <div class="handle"></div>
+
+</div>
+
+</div>
+
+<!-- КОРИДОР ЗА ДВЕРЬЮ -->
+
+<div id="secondArea">
+
+<div class="backLight"></div>
+
+<div class="enemy" id="enemy">
+
+<div class="enemy-head"></div>
+
+<div class="enemy-body"></div>
+
+<div class="enemy-arm left"></div>
+
+<div class="enemy-arm right"></div>
+
+</div>
+
+<div class="weaponObject" id="weaponObject">
+
+<div class="gunBody"></div>
+
+<div class="gunBarrel"></div>
+
+<div class="gunGrip"></div>
 
 </div>
 
@@ -800,6 +1244,13 @@ SECTOR 01
 
 
 <!-- =========================
+     УРОН
+========================= -->
+
+<div id="damage"></div>
+
+
+<!-- =========================
      HUD
 ========================= -->
 
@@ -811,7 +1262,7 @@ SECTOR 01
 REDPRO ARCHIVES
 </div>
 
-<div>
+<div id="hp">
 HP 100
 </div>
 
@@ -821,91 +1272,60 @@ HP 100
 <div class="crosshair"></div>
 
 
-<div
-class="message"
-id="message">
+<div class="enemyHP" id="enemyHP">
+ENEMY HP 100
 </div>
 
 
-<div class="weapon">
+<div class="message" id="message"></div>
+
+
+<div class="weapon" id="weaponText">
 EQUIPPED: NONE
 </div>
 
 
-<!-- =========================
-     ДВИЖЕНИЕ
-========================= -->
+<!-- ДВИЖЕНИЕ -->
 
 <div class="controls">
 
-<div
-class="btn up"
-data-key="forward">
-
+<div class="btn up" data-key="forward">
 ▲
-
 </div>
 
-
-<div
-class="btn left"
-data-key="left">
-
+<div class="btn left" data-key="left">
 ◀
-
 </div>
 
-
-<div
-class="btn down"
-data-key="back">
-
+<div class="btn down" data-key="back">
 ▼
-
 </div>
 
-
-<div
-class="btn right"
-data-key="right">
-
+<div class="btn right" data-key="right">
 ▶
-
 </div>
 
 </div>
 
 
-<!-- =========================
-     ДЕЙСТВИЯ
-========================= -->
+<!-- ДЕЙСТВИЯ -->
 
 <div class="actions">
 
-<div
-class="action"
-id="interact">
-
+<div class="action" id="interact">
 ВЗАИМОД.<br>✋
-
 </div>
 
-
-<div
-class="action"
-id="flash">
-
+<div class="action" id="flash">
 ФОНАРЬ<br>🔦
-
 </div>
 
+<div class="action" id="punch">
+УДАР<br>👊
+</div>
 
-<div
-class="action"
-id="shoot">
-
+<div class="action" id="shoot">
 ОГОНЬ<br>🔫
-
 </div>
 
 </div>
@@ -935,7 +1355,6 @@ GAME PROTOTYPE<br><br>
 
 </p>
 
-
 <button
 class="start-button"
 id="startButton">
@@ -948,14 +1367,91 @@ id="startButton">
 
 </div>
 
+
+<!-- =========================
+     ГОЛОВОЛОМКА
+========================= -->
+
+<div id="puzzle">
+
+<div class="puzzleBox">
+
+<div class="puzzleTitle">
+ACCESS LOCK
+</div>
+
+<div class="puzzleText">
+
+Соедини все 7 точек одним непрерывным движением.<br>
+Порядок неизвестен.
+
+</div>
+
+<div id="pattern">
+
+<canvas id="puzzleCanvas"></canvas>
+
+<div class="node"
+data-node="1"
+style="left:25%;top:20%">
+</div>
+
+<div class="node"
+data-node="2"
+style="left:50%;top:20%">
+</div>
+
+<div class="node"
+data-node="3"
+style="left:75%;top:20%">
+</div>
+
+<div class="node"
+data-node="4"
+style="left:25%;top:50%">
+</div>
+
+<div class="node"
+data-node="5"
+style="left:50%;top:50%">
+</div>
+
+<div class="node"
+data-node="6"
+style="left:75%;top:50%">
+</div>
+
+<div class="node"
+data-node="7"
+style="left:50%;top:80%">
+</div>
+
+</div>
+
+<div class="puzzleStatus" id="puzzleStatus">
+0 / 7
+</div>
+
+<button
+class="puzzleClose"
+id="puzzleClose">
+
+ОТМЕНА
+
+</button>
+
+</div>
+
+</div>
+
 </div>
 
 
 <script>
 
-/* =================================================
-   СОСТОЯНИЕ
-================================================= */
+/* =====================================================
+   ЭЛЕМЕНТЫ
+===================================================== */
 
 const start =
 document.getElementById("start");
@@ -965,6 +1461,27 @@ document.getElementById("startButton");
 
 const world =
 document.getElementById("world");
+
+const door =
+document.getElementById("door");
+
+const secondArea =
+document.getElementById("secondArea");
+
+const enemy =
+document.getElementById("enemy");
+
+const enemyHPText =
+document.getElementById("enemyHP");
+
+const weaponObject =
+document.getElementById("weaponObject");
+
+const weaponText =
+document.getElementById("weaponText");
+
+const hpText =
+document.getElementById("hp");
 
 const flashlight =
 document.getElementById("flashlight");
@@ -978,65 +1495,98 @@ document.getElementById("lookArea");
 const lookHint =
 document.getElementById("lookHint");
 
+const damage =
+document.getElementById("damage");
+
+const punchButton =
+document.getElementById("punch");
+
+const interact =
+document.getElementById("interact");
+
+const shoot =
+document.getElementById("shoot");
+
+const puzzle =
+document.getElementById("puzzle");
+
+const puzzleClose =
+document.getElementById("puzzleClose");
+
+const pattern =
+document.getElementById("pattern");
+
+const canvas =
+document.getElementById("puzzleCanvas");
+
+const ctx =
+canvas.getContext("2d");
+
+const puzzleStatus =
+document.getElementById("puzzleStatus");
+
+const nodes =
+document.querySelectorAll(".node");
+
+
+/* =====================================================
+   СОСТОЯНИЕ
+===================================================== */
+
 let started = false;
+
+let doorUnlocked = false;
+
+let doorOpened = false;
+
+let enemyDefeated = false;
+
+let hasGun = false;
 
 let lightOn = true;
 
 
-/* =================================================
-   ПОЗИЦИЯ ИГРОКА
-================================================= */
-
-/*
-   X = влево / вправо
-
-   Z = вперёд / назад
-
-   ВАЖНО:
-   вперёд теперь уменьшает Z.
-*/
+/* =====================================================
+   ИГРОК
+===================================================== */
 
 let playerX = 0;
 
 let playerZ = 0;
 
-
-/* =================================================
-   ВЗГЛЯД
-================================================= */
-
 let yaw = 0;
 
 let pitch = 0;
 
-
-/* =================================================
-   СКОРОСТЬ
-================================================= */
-
 const speed = 5;
 
 
-/* =================================================
+/* =====================================================
+   HP
+===================================================== */
+
+let playerHP = 100;
+
+let enemyHP = 100;
+
+
+/* =====================================================
    КНОПКИ
-================================================= */
+===================================================== */
 
 const keys = {
 
 forward:false,
-
 back:false,
-
 left:false,
-
 right:false
 
 };
 
 
-/* =================================================
+/* =====================================================
    СООБЩЕНИЯ
-================================================= */
+===================================================== */
 
 function showMessage(text){
 
@@ -1056,9 +1606,9 @@ message.classList.remove("show");
 }
 
 
-/* =================================================
+/* =====================================================
    НАЧАЛО
-================================================= */
+===================================================== */
 
 startButton.addEventListener(
 "click",
@@ -1069,7 +1619,7 @@ started = true;
 start.style.display = "none";
 
 showMessage(
-"Объект неизвестен. Осмотритесь."
+"Сектор 01. Дверь заперта. Найдите способ открыть её."
 );
 
 setTimeout(()=>{
@@ -1082,17 +1632,17 @@ lookHint.classList.add("hide");
 );
 
 
-/* =================================================
+/* =====================================================
    ФОНАРЬ
-================================================= */
+===================================================== */
 
 document
 .getElementById("flash")
 .addEventListener(
 "pointerdown",
-event=>{
+e=>{
 
-event.stopPropagation();
+e.stopPropagation();
 
 if(!started)return;
 
@@ -1104,85 +1654,680 @@ flashlight.classList.toggle(
 );
 
 showMessage(
-
 lightOn
 ?
 "Фонарик включён."
 :
 "Фонарик выключен."
-
 );
 
 }
 );
 
 
-/* =================================================
-   ВЗАИМОДЕЙСТВИЕ
-================================================= */
+/* =====================================================
+   ВЗАИМОДЕЙСТВИЕ С ДВЕРЬЮ
+===================================================== */
 
-document
-.getElementById("interact")
-.addEventListener(
+interact.addEventListener(
 "pointerdown",
-event=>{
+e=>{
 
-event.stopPropagation();
+e.stopPropagation();
 
 if(!started)return;
 
 
-/*
-   Расстояние до двери.
-*/
+/* Если дверь ещё закрыта */
 
-const distance =
-Math.abs(playerZ + 1200);
+if(!doorUnlocked){
+
+openPuzzle();
+
+return;
+
+}
 
 
-if(distance < 350){
+/* Если головоломка пройдена */
+
+if(doorUnlocked && !doorOpened){
+
+openDoor();
+
+return;
+
+}
+
+
+/* Если дверь уже открыта */
+
+if(doorOpened){
 
 showMessage(
-"Дверь заперта. Нужен доступ."
+"Коридор продолжается впереди."
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   ГОЛОВОЛОМКА
+===================================================== */
+
+function openPuzzle(){
+
+puzzle.classList.add("active");
+
+resetPuzzle();
+
+showMessage(
+"Система доступа активирована."
+);
+
+}
+
+
+/* =====================================================
+   ЗАКРЫТЬ ГОЛОВОЛОМКУ
+===================================================== */
+
+puzzleClose.addEventListener(
+"click",
+()=>{
+
+puzzle.classList.remove("active");
+
+}
+);
+
+
+/* =====================================================
+   ПРАВИЛЬНАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ
+===================================================== */
+
+/*
+   Вот секретная последовательность:
+
+   1 → 4 → 7 → 6 → 3 → 2 → 5
+
+   Игрок её заранее не видит.
+*/
+
+const correctPattern = [
+1,4,7,6,3,2,5
+];
+
+let currentPattern = [];
+
+let drawing = false;
+
+
+/* =====================================================
+   CANVAS
+===================================================== */
+
+function resizeCanvas(){
+
+canvas.width =
+pattern.clientWidth;
+
+canvas.height =
+pattern.clientHeight;
+
+drawPattern();
+
+}
+
+window.addEventListener(
+"resize",
+resizeCanvas
+);
+
+
+/* =====================================================
+   ПОЛОЖЕНИЕ ТОЧКИ
+===================================================== */
+
+function nodePosition(node){
+
+const rect =
+node.getBoundingClientRect();
+
+const box =
+pattern.getBoundingClientRect();
+
+return {
+
+x:
+rect.left -
+box.left +
+rect.width/2,
+
+y:
+rect.top -
+box.top +
+rect.height/2
+
+};
+
+}
+
+
+/* =====================================================
+   РИСОВАНИЕ ЛИНИИ
+===================================================== */
+
+function drawPattern(){
+
+ctx.clearRect(
+0,
+0,
+canvas.width,
+canvas.height
+);
+
+if(currentPattern.length < 2)
+return;
+
+ctx.beginPath();
+
+currentPattern.forEach(
+(id,index)=>{
+
+const node =
+document.querySelector(
+`.node[data-node="${id}"]`
+);
+
+const pos =
+nodePosition(node);
+
+if(index===0){
+
+ctx.moveTo(
+pos.x,
+pos.y
+);
+
+}else{
+
+ctx.lineTo(
+pos.x,
+pos.y
+);
+
+}
+
+}
+);
+
+ctx.strokeStyle =
+"rgba(255,255,255,.8)";
+
+ctx.lineWidth = 4;
+
+ctx.lineCap = "round";
+
+ctx.lineJoin = "round";
+
+ctx.stroke();
+
+}
+
+
+/* =====================================================
+   ДОБАВИТЬ ТОЧКУ
+===================================================== */
+
+function addNode(id){
+
+if(currentPattern.includes(id))
+return;
+
+currentPattern.push(id);
+
+const node =
+document.querySelector(
+`.node[data-node="${id}"]`
+);
+
+node.classList.add("selected");
+
+puzzleStatus.textContent =
+`${currentPattern.length} / 7`;
+
+drawPattern();
+
+
+/* Проверяем завершение */
+
+if(currentPattern.length === 7){
+
+checkPattern();
+
+}
+
+}
+
+
+/* =====================================================
+   ПРОВЕРКА
+===================================================== */
+
+function checkPattern(){
+
+let correct = true;
+
+for(
+let i=0;
+i<correctPattern.length;
+i++
+){
+
+if(
+currentPattern[i] !==
+correctPattern[i]
+){
+
+correct=false;
+
+break;
+
+}
+
+}
+
+
+if(correct){
+
+doorUnlocked = true;
+
+puzzle.classList.remove(
+"active"
+);
+
+showMessage(
+"ДОСТУП РАЗРЕШЁН. Дверь разблокирована."
 );
 
 }else{
 
 showMessage(
-"Подойдите ближе к двери."
+"ОШИБКА. Неверная последовательность."
+);
+
+setTimeout(
+resetPuzzle,
+700
 );
 
 }
 
 }
+
+
+/* =====================================================
+   СБРОС
+===================================================== */
+
+function resetPuzzle(){
+
+currentPattern = [];
+
+drawing = false;
+
+nodes.forEach(
+node=>{
+node.classList.remove(
+"selected"
+);
+}
 );
 
+puzzleStatus.textContent =
+"0 / 7";
 
-/* =================================================
-   ОРУЖИЕ
-================================================= */
+resizeCanvas();
 
-document
-.getElementById("shoot")
-.addEventListener(
+}
+
+
+/* =====================================================
+   ПОИСК ТОЧКИ ПОД ПАЛЬЦЕМ
+===================================================== */
+
+function getNodeAt(x,y){
+
+for(
+const node of nodes
+){
+
+const rect =
+node.getBoundingClientRect();
+
+const distanceX =
+x -
+(rect.left + rect.width/2);
+
+const distanceY =
+y -
+(rect.top + rect.height/2);
+
+const distance =
+Math.sqrt(
+distanceX*distanceX +
+distanceY*distanceY
+);
+
+if(distance < 35){
+
+return Number(
+node.dataset.node
+);
+
+}
+
+}
+
+return null;
+
+}
+
+
+/* =====================================================
+   УПРАВЛЕНИЕ ГОЛОВОЛОМКОЙ
+===================================================== */
+
+pattern.addEventListener(
 "pointerdown",
-event=>{
+e=>{
 
-event.stopPropagation();
+e.preventDefault();
+
+drawing = true;
+
+const id =
+getNodeAt(
+e.clientX,
+e.clientY
+);
+
+if(id !== null){
+
+addNode(id);
+
+}
+
+}
+);
+
+
+pattern.addEventListener(
+"pointermove",
+e=>{
+
+if(!drawing)
+return;
+
+const id =
+getNodeAt(
+e.clientX,
+e.clientY
+);
+
+if(id !== null){
+
+addNode(id);
+
+}
+
+}
+);
+
+
+pattern.addEventListener(
+"pointerup",
+()=>{
+
+drawing=false;
+
+}
+);
+
+
+pattern.addEventListener(
+"pointercancel",
+()=>{
+
+drawing=false;
+
+}
+);
+
+
+/* =====================================================
+   ОТКРЫТИЕ ДВЕРИ
+===================================================== */
+
+function openDoor(){
+
+doorOpened = true;
+
+door.classList.add("open");
+
+showMessage(
+"Дверь открыта."
+);
+
+setTimeout(()=>{
+
+secondArea.classList.add(
+"active"
+);
+
+punchButton.classList.add(
+"active"
+);
+
+showMessage(
+"В коридоре кто-то есть..."
+);
+
+enemyHPText.classList.add(
+"show"
+);
+
+},900);
+
+}
+
+
+/* =====================================================
+   ДВИЖЕНИЕ
+===================================================== */
+
+function updateMovement(){
 
 if(!started)return;
 
-showMessage(
-"Оружия пока нет."
+if(keys.forward){
+
+playerZ -= speed;
+
+}
+
+if(keys.back){
+
+playerZ += speed;
+
+}
+
+if(keys.left){
+
+playerX -= speed;
+
+}
+
+if(keys.right){
+
+playerX += speed;
+
+}
+
+
+/* Ограничения */
+
+playerX =
+Math.max(
+-360,
+Math.min(
+360,
+playerX
+)
+);
+
+playerZ =
+Math.max(
+-1900,
+Math.min(
+700,
+playerZ
+)
+);
+
+}
+
+
+/* =====================================================
+   РЕНДЕР
+===================================================== */
+
+function render(){
+
+world.style.transform =
+
+`
+translate(-50%,-50%)
+translate3d(
+${-playerX}px,
+0px,
+${-playerZ}px
+)
+rotateX(${pitch}deg)
+rotateY(${-yaw}deg)
+`;
+
+}
+
+
+/* =====================================================
+   ВЗГЛЯД
+===================================================== */
+
+let touching = false;
+
+let lastX = 0;
+
+let lastY = 0;
+
+
+lookArea.addEventListener(
+"pointerdown",
+e=>{
+
+if(!started)return;
+
+touching=true;
+
+lastX=e.clientX;
+
+lastY=e.clientY;
+
+lookHint.classList.add("hide");
+
+}
+);
+
+
+lookArea.addEventListener(
+"pointermove",
+e=>{
+
+if(!started || !touching)
+return;
+
+
+/* Не мешаем головоломке */
+
+if(puzzle.classList.contains("active"))
+return;
+
+
+/* Не мешаем кнопкам */
+
+if(
+e.target.closest(".btn") ||
+e.target.closest(".action")
+)
+return;
+
+
+const dx =
+e.clientX-lastX;
+
+const dy =
+e.clientY-lastY;
+
+lastX=e.clientX;
+
+lastY=e.clientY;
+
+yaw += dx*.12;
+
+pitch -= dy*.08;
+
+pitch =
+Math.max(
+-35,
+Math.min(
+35,
+pitch
+)
 );
 
 }
 );
 
 
-/* =================================================
+function stopLook(){
+
+touching=false;
+
+}
+
+lookArea.addEventListener(
+"pointerup",
+stopLook
+);
+
+lookArea.addEventListener(
+"pointercancel",
+stopLook
+);
+
+lookArea.addEventListener(
+"pointerleave",
+stopLook
+);
+
+
+/* =====================================================
    КНОПКИ ДВИЖЕНИЯ
-================================================= */
+===================================================== */
 
 document
 .querySelectorAll(".btn")
@@ -1198,7 +2343,7 @@ e.preventDefault();
 
 e.stopPropagation();
 
-keys[key] = true;
+keys[key]=true;
 
 }
 
@@ -1209,7 +2354,7 @@ e.preventDefault();
 
 e.stopPropagation();
 
-keys[key] = false;
+keys[key]=false;
 
 }
 
@@ -1238,25 +2383,28 @@ up
 );
 
 
-/* =================================================
+/* =====================================================
    КЛАВИАТУРА
-================================================= */
+===================================================== */
 
 document.addEventListener(
 "keydown",
 e=>{
 
-if(e.key.toLowerCase()==="w")
-keys.forward = true;
+const key =
+e.key.toLowerCase();
 
-if(e.key.toLowerCase()==="s")
-keys.back = true;
+if(key==="w")
+keys.forward=true;
 
-if(e.key.toLowerCase()==="a")
-keys.left = true;
+if(key==="s")
+keys.back=true;
 
-if(e.key.toLowerCase()==="d")
-keys.right = true;
+if(key==="a")
+keys.left=true;
+
+if(key==="d")
+keys.right=true;
 
 }
 );
@@ -1266,249 +2414,242 @@ document.addEventListener(
 "keyup",
 e=>{
 
-if(e.key.toLowerCase()==="w")
-keys.forward = false;
+const key =
+e.key.toLowerCase();
 
-if(e.key.toLowerCase()==="s")
-keys.back = false;
+if(key==="w")
+keys.forward=false;
 
-if(e.key.toLowerCase()==="a")
-keys.left = false;
+if(key==="s")
+keys.back=false;
 
-if(e.key.toLowerCase()==="d")
-keys.right = false;
+if(key==="a")
+keys.left=false;
+
+if(key==="d")
+keys.right=false;
 
 }
 );
 
 
-/* =================================================
-   ОСМОТР ПАЛЬЦЕМ
-================================================= */
+/* =====================================================
+   УДАР КУЛАКОМ
+===================================================== */
 
-let touching = false;
-
-let lastX = 0;
-
-let lastY = 0;
-
-
-lookArea.addEventListener(
+punchButton.addEventListener(
 "pointerdown",
 e=>{
 
-if(!started)return;
+e.stopPropagation();
 
-touching = true;
+if(!started)
+return;
 
-lastX = e.clientX;
-
-lastY = e.clientY;
-
-lookHint.classList.add("hide");
-
-}
-);
-
-
-lookArea.addEventListener(
-"pointermove",
-e=>{
-
-if(!started || !touching)
+if(enemyDefeated)
 return;
 
 
 /*
-   Изменение пальца.
+   Для прототипа считаем,
+   что противник находится
+   в зоне удара.
 */
 
-const dx =
-e.clientX - lastX;
-
-const dy =
-e.clientY - lastY;
+enemyHP -= 25;
 
 
-lastX = e.clientX;
+/* Анимация удара */
 
-lastY = e.clientY;
+enemy.style.transform =
+"translateZ(-650px) scale(1.05)";
+
+setTimeout(()=>{
+
+enemy.style.transform =
+"translateZ(-700px)";
+
+},120);
 
 
-/*
-   Поворот камеры.
-*/
+/* Показываем урон */
 
-yaw += dx * 0.12;
+damage.classList.add("show");
 
-pitch -= dy * 0.08;
+setTimeout(()=>{
+
+damage.classList.remove("show");
+
+},100);
 
 
-/*
-   Ограничиваем взгляд вверх/вниз.
-*/
+/* Обновляем HP */
 
-pitch =
+enemyHP =
 Math.max(
--35,
-Math.min(
-35,
-pitch
-)
+0,
+enemyHP
+);
+
+enemyHPText.textContent =
+`ENEMY HP ${enemyHP}`;
+
+
+/* Проверяем смерть */
+
+if(enemyHP <= 0){
+
+defeatEnemy();
+
+}else{
+
+showMessage(
+"Удар! Противник получил урон."
+);
+
+}
+
+}
+);
+
+
+/* =====================================================
+   ПОБЕДА НАД ВРАГОМ
+===================================================== */
+
+function defeatEnemy(){
+
+enemyDefeated = true;
+
+enemy.classList.add("dead");
+
+enemyHPText.classList.remove(
+"show"
+);
+
+showMessage(
+"Противник повержен."
+);
+
+setTimeout(()=>{
+
+weaponObject.classList.add(
+"show"
+);
+
+showMessage(
+"Оружие лежит на полу. Подберите его."
+);
+
+},700);
+
+}
+
+
+/* =====================================================
+   ПОДБОР ОРУЖИЯ
+===================================================== */
+
+weaponObject.addEventListener(
+"pointerdown",
+e=>{
+
+e.stopPropagation();
+
+if(!enemyDefeated)
+return;
+
+if(hasGun)
+return;
+
+hasGun=true;
+
+weaponObject.classList.remove(
+"show"
+);
+
+weaponText.textContent =
+"EQUIPPED: PISTOL";
+
+showMessage(
+"Оружие получено. ПИСТОЛЕТ."
 );
 
 }
 );
 
 
-function stopLook(){
+/*
+   Также позволяем подобрать
+   оружие кнопкой взаимодействия.
+*/
 
-touching = false;
+document
+.getElementById("interact")
+.addEventListener(
+"pointerdown",
+()=>{
 
-}
+if(
+enemyDefeated &&
+!hasGun
+){
 
+hasGun=true;
 
-lookArea.addEventListener(
-"pointerup",
-stopLook
+weaponObject.classList.remove(
+"show"
 );
 
-lookArea.addEventListener(
-"pointercancel",
-stopLook
-);
+weaponText.textContent =
+"EQUIPPED: PISTOL";
 
-lookArea.addEventListener(
-"pointerleave",
-stopLook
-);
-
-
-/* =================================================
-   ДВИЖЕНИЕ
-================================================= */
-
-function updateMovement(){
-
-if(!started)return;
-
-
-/*
-   ВПЕРЁД
-   Z уменьшается.
-*/
-
-if(keys.forward){
-
-playerZ -= speed;
-
-}
-
-
-/*
-   НАЗАД
-   Z увеличивается.
-*/
-
-if(keys.back){
-
-playerZ += speed;
-
-}
-
-
-/*
-   ВЛЕВО
-*/
-
-if(keys.left){
-
-playerX -= speed;
-
-}
-
-
-/*
-   ВПРАВО
-*/
-
-if(keys.right){
-
-playerX += speed;
-
-}
-
-
-/*
-   Границы коридора.
-*/
-
-playerX =
-Math.max(
--360,
-Math.min(
-360,
-playerX
-)
-);
-
-
-/*
-   Граница уровня.
-
-   Дверь находится на -1200.
-*/
-
-playerZ =
-Math.max(
--1150,
-Math.min(
-600,
-playerZ
-)
+showMessage(
+"Оружие получено. ПИСТОЛЕТ."
 );
 
 }
 
+}
+);
 
-/* =================================================
-   ОТРИСОВКА
-================================================= */
 
-function render(){
+/* =====================================================
+   ОГОНЬ
+===================================================== */
 
-/*
-   Мир перемещается
-   относительно игрока.
+shoot.addEventListener(
+"pointerdown",
+e=>{
 
-   ВАЖНО:
+e.stopPropagation();
 
-   translate идёт ПЕРЕД
-   поворотом камеры.
+if(!started)
+return;
 
-   Благодаря этому дверь
-   не прыгает за спину.
-*/
+if(!hasGun){
 
-world.style.transform =
+showMessage(
+"У вас нет оружия."
+);
 
-`
-translate(-50%,-50%)
-translate3d(
-${-playerX}px,
-0px,
-${-playerZ}px
-)
-rotateX(${pitch}deg)
-rotateY(${-yaw}deg)
-`;
+return;
 
 }
 
 
-/* =================================================
+/* Пока просто выстрел */
+
+showMessage(
+"ВЫСТРЕЛ!"
+);
+
+});
+
+
+/* =====================================================
    ИГРОВОЙ ЦИКЛ
-================================================= */
+===================================================== */
 
 function loop(){
 
@@ -1523,19 +2664,32 @@ requestAnimationFrame(loop);
 loop();
 
 
-/* =================================================
+/* =====================================================
    ЗАПРЕТ ПРОКРУТКИ
-================================================= */
+===================================================== */
 
 document.addEventListener(
 "touchmove",
 e=>{
 
+if(
+!puzzle.classList.contains("active")
+){
+
 e.preventDefault();
+
+}
 
 },
 {passive:false}
 );
+
+
+/* =====================================================
+   ИНИЦИАЛИЗАЦИЯ
+===================================================== */
+
+resizeCanvas();
 
 </script>
 
