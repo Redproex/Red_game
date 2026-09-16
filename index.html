@@ -36,10 +36,6 @@ button{
 font-family:inherit;
 }
 
-/* =========================
-   ИГРА
-========================= */
-
 #game{
 position:relative;
 width:100%;
@@ -48,15 +44,10 @@ overflow:hidden;
 background:#050609;
 }
 
-/* =========================
-   СЦЕНА
-========================= */
-
 #scene{
 position:absolute;
 inset:0;
 overflow:hidden;
-
 perspective:900px;
 
 background:
@@ -70,10 +61,8 @@ transparent 48%
 
 .world{
 position:absolute;
-
 left:50%;
 top:50%;
-
 width:1000px;
 height:700px;
 
@@ -86,14 +75,12 @@ rotateX(0deg)
 rotateY(0deg);
 }
 
-/* Пол */
+/* ПОЛ */
 
 .floor{
 position:absolute;
-
 left:-500px;
 top:0;
-
 width:1000px;
 height:4000px;
 
@@ -124,14 +111,12 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* Потолок */
+/* ПОТОЛОК */
 
 .ceiling{
 position:absolute;
-
 left:-500px;
 top:0;
-
 width:1000px;
 height:4000px;
 
@@ -149,13 +134,11 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* Стены */
+/* СТЕНЫ */
 
 .wall{
 position:absolute;
-
 top:-350px;
-
 width:30px;
 height:700px;
 
@@ -181,13 +164,10 @@ right:-500px;
 transform:translateZ(-2000px);
 }
 
-/* =========================
-   СВЕТ
-========================= */
+/* СВЕТ */
 
 .light{
 position:absolute;
-
 width:280px;
 height:30px;
 
@@ -207,9 +187,7 @@ transform:
 translateZ(-900px);
 }
 
-/* =========================
-   ДВЕРЬ
-========================= */
+/* ДВЕРЬ */
 
 .door{
 position:absolute;
@@ -249,7 +227,6 @@ opacity 1s ease;
 content:"";
 
 position:absolute;
-
 left:18px;
 right:18px;
 top:20px;
@@ -260,7 +237,6 @@ border:1px solid #505562;
 
 .door-label{
 position:absolute;
-
 top:42px;
 left:50%;
 
@@ -273,7 +249,6 @@ padding:9px 4px;
 text-align:center;
 
 font-size:11px;
-
 letter-spacing:3px;
 
 color:#c9ccd4;
@@ -285,7 +260,6 @@ background:#0b0c10;
 
 .handle{
 position:absolute;
-
 right:18px;
 top:50%;
 
@@ -297,8 +271,6 @@ border-radius:5px;
 background:#777c88;
 }
 
-/* Открытая дверь */
-
 .door.open{
 transform:
 translate3d(0,0,-1200px)
@@ -308,21 +280,16 @@ rotateY(-70deg);
 opacity:.2;
 }
 
-/* =========================
-   КОРИДОР ЗА ДВЕРЬЮ
-========================= */
+/* ВТОРОЙ СЕКТОР */
 
 #secondArea{
 position:absolute;
-
 inset:0;
 
 opacity:0;
-
 pointer-events:none;
 
-transition:
-opacity 1s;
+transition:opacity 1s;
 }
 
 #secondArea.active{
@@ -347,9 +314,7 @@ box-shadow:
 0 0 120px rgba(180,190,210,.3);
 }
 
-/* =========================
-   ВРАГ
-========================= */
+/* ВРАГ */
 
 .enemy{
 position:absolute;
@@ -364,11 +329,12 @@ margin-left:-40px;
 margin-top:-75px;
 
 transform:
-translateZ(-700px);
+translateZ(-700px)
+scale(.75);
 
 transition:
-opacity .4s,
-transform .3s;
+transform .18s,
+opacity .4s;
 }
 
 .enemy-head{
@@ -432,28 +398,28 @@ border-radius:12px;
 
 .enemy-arm.left{
 left:-4px;
-
 transform:rotate(18deg);
 }
 
 .enemy-arm.right{
 right:-4px;
-
 transform:rotate(-18deg);
+}
+
+.enemy.hit{
+filter:brightness(2);
 }
 
 .enemy.dead{
 opacity:0;
 
 transform:
-translateZ(-700px)
+translateZ(-120px)
 rotateX(90deg)
 translateY(100px);
 }
 
-/* =========================
-   ОРУЖИЕ
-========================= */
+/* ОРУЖИЕ */
 
 .weaponObject{
 position:absolute;
@@ -480,6 +446,7 @@ pointer-events:none;
 
 .weaponObject.show{
 opacity:1;
+pointer-events:auto;
 }
 
 .gunBody{
@@ -530,13 +497,60 @@ background:#0b0c0f;
 border:2px solid #4e535e;
 }
 
-/* =========================
-   ФОНАРИК
-========================= */
+/* ВСПЫШКА */
+
+#muzzleFlash{
+position:absolute;
+
+left:50%;
+top:50%;
+
+width:80px;
+height:80px;
+
+margin-left:-40px;
+margin-top:-20px;
+
+border-radius:50%;
+
+background:
+radial-gradient(
+circle,
+rgba(255,255,255,.95) 0%,
+rgba(255,220,120,.75) 12%,
+rgba(255,150,40,.35) 35%,
+transparent 70%
+);
+
+opacity:0;
+
+pointer-events:none;
+
+z-index:15;
+}
+
+#muzzleFlash.show{
+animation:muzzle .1s linear;
+}
+
+@keyframes muzzle{
+
+0%{
+opacity:1;
+transform:scale(.5);
+}
+
+100%{
+opacity:0;
+transform:scale(1.6);
+}
+
+}
+
+/* ФОНАРИК */
 
 #flashlight{
 position:absolute;
-
 inset:0;
 
 pointer-events:none;
@@ -560,9 +574,32 @@ background:
 rgba(0,0,0,.9)!important;
 }
 
-/* =========================
-   HUD
-========================= */
+/* УРОН */
+
+#damage{
+position:absolute;
+inset:0;
+
+z-index:50;
+
+pointer-events:none;
+
+background:
+radial-gradient(
+circle,
+transparent 35%,
+rgba(150,0,0,.6)
+);
+
+opacity:0;
+transition:.15s;
+}
+
+#damage.show{
+opacity:1;
+}
+
+/* HUD */
 
 #hud{
 position:absolute;
@@ -593,6 +630,10 @@ color:#c7cad2;
 
 text-shadow:
 0 1px 5px #000;
+}
+
+#hp{
+font-weight:bold;
 }
 
 .crosshair{
@@ -634,10 +675,6 @@ width:18px;
 height:2px;
 }
 
-/* =========================
-   СООБЩЕНИЕ
-========================= */
-
 .message{
 position:absolute;
 
@@ -678,10 +715,6 @@ transition:.25s;
 .message.show{
 opacity:1;
 }
-
-/* =========================
-   УПРАВЛЕНИЕ
-========================= */
 
 .controls{
 position:absolute;
@@ -756,9 +789,7 @@ grid-column:3;
 grid-row:2;
 }
 
-/* =========================
-   ДЕЙСТВИЯ
-========================= */
+/* ДЕЙСТВИЯ */
 
 .actions{
 position:absolute;
@@ -817,9 +848,15 @@ display:none;
 display:flex;
 }
 
-/* =========================
-   ОРУЖИЕ HUD
-========================= */
+#reload{
+display:none;
+}
+
+#reload.active{
+display:flex;
+}
+
+/* ОРУЖИЕ HUD */
 
 .weapon{
 position:absolute;
@@ -833,15 +870,16 @@ font-size:11px;
 letter-spacing:1px;
 
 color:#aeb2bb;
+
+text-align:right;
+
+line-height:1.7;
 }
 
-/* =========================
-   ОСМОТР
-========================= */
+/* ОСМОТР */
 
 #lookArea{
 position:absolute;
-
 inset:0;
 
 z-index:4;
@@ -877,13 +915,10 @@ width:90%;
 opacity:0!important;
 }
 
-/* =========================
-   СТАРТ
-========================= */
+/* START */
 
 #start{
 position:absolute;
-
 inset:0;
 
 z-index:100;
@@ -953,13 +988,75 @@ border-radius:8px;
 font-size:15px;
 }
 
-/* =========================
-   ГОЛОВОЛОМКА
-========================= */
+/* GAME OVER */
+
+#gameOver{
+position:absolute;
+inset:0;
+
+z-index:300;
+
+display:none;
+
+align-items:center;
+justify-content:center;
+
+background:
+rgba(0,0,0,.94);
+}
+
+#gameOver.active{
+display:flex;
+}
+
+.gameOverBox{
+width:min(90%,400px);
+
+padding:30px;
+
+text-align:center;
+
+border:1px solid #343844;
+
+background:#090a0e;
+}
+
+.gameOverTitle{
+font-size:28px;
+
+letter-spacing:5px;
+
+margin-bottom:12px;
+}
+
+.gameOverText{
+font-size:12px;
+
+color:#888d98;
+
+line-height:1.6;
+}
+
+.restart{
+margin-top:20px;
+
+width:100%;
+
+padding:14px;
+
+background:#171a21;
+
+color:#fff;
+
+border:1px solid #454b58;
+
+border-radius:8px;
+}
+
+/* ГОЛОВОЛОМКА */
 
 #puzzle{
 position:absolute;
-
 inset:0;
 
 z-index:200;
@@ -1100,58 +1197,6 @@ color:white;
 border-radius:7px;
 }
 
-/* =========================
-   DAMAGE EFFECT
-========================= */
-
-#damage{
-position:absolute;
-
-inset:0;
-
-z-index:50;
-
-pointer-events:none;
-
-background:
-rgba(130,0,0,.35);
-
-opacity:0;
-
-transition:.15s;
-}
-
-#damage.show{
-opacity:1;
-}
-
-/* =========================
-   ENEMY HP
-========================= */
-
-.enemyHP{
-position:absolute;
-
-left:50%;
-top:36%;
-
-transform:translateX(-50%);
-
-font-size:11px;
-
-letter-spacing:2px;
-
-color:#c8cbd2;
-
-opacity:0;
-
-transition:.2s;
-}
-
-.enemyHP.show{
-opacity:1;
-}
-
 </style>
 </head>
 
@@ -1159,20 +1204,14 @@ opacity:1;
 
 <div id="game">
 
-<!-- =========================
-     СЦЕНА
-========================= -->
-
 <div id="scene">
 
 <div class="world" id="world">
 
 <div class="floor"></div>
-
 <div class="ceiling"></div>
 
 <div class="wall left"></div>
-
 <div class="wall right"></div>
 
 <div class="light"></div>
@@ -1188,8 +1227,6 @@ SECTOR 01
 </div>
 
 </div>
-
-<!-- КОРИДОР ЗА ДВЕРЬЮ -->
 
 <div id="secondArea">
 
@@ -1210,9 +1247,7 @@ SECTOR 01
 <div class="weaponObject" id="weaponObject">
 
 <div class="gunBody"></div>
-
 <div class="gunBarrel"></div>
-
 <div class="gunGrip"></div>
 
 </div>
@@ -1220,11 +1255,6 @@ SECTOR 01
 </div>
 
 </div>
-
-
-<!-- =========================
-     ОСМОТР
-========================= -->
 
 <div id="lookArea"></div>
 
@@ -1235,24 +1265,11 @@ SECTOR 01
 
 </div>
 
-
-<!-- =========================
-     ФОНАРИК
-========================= -->
-
 <div id="flashlight"></div>
-
-
-<!-- =========================
-     УРОН
-========================= -->
 
 <div id="damage"></div>
 
-
-<!-- =========================
-     HUD
-========================= -->
+<div id="muzzleFlash"></div>
 
 <div id="hud">
 
@@ -1268,24 +1285,13 @@ HP 100
 
 </div>
 
-
 <div class="crosshair"></div>
 
-
-<div class="enemyHP" id="enemyHP">
-ENEMY HP 100
-</div>
-
-
 <div class="message" id="message"></div>
-
 
 <div class="weapon" id="weaponText">
 EQUIPPED: NONE
 </div>
-
-
-<!-- ДВИЖЕНИЕ -->
 
 <div class="controls">
 
@@ -1307,9 +1313,6 @@ EQUIPPED: NONE
 
 </div>
 
-
-<!-- ДЕЙСТВИЯ -->
-
 <div class="actions">
 
 <div class="action" id="interact">
@@ -1328,14 +1331,13 @@ EQUIPPED: NONE
 ОГОНЬ<br>🔫
 </div>
 
+<div class="action" id="reload">
+ПЕРЕЗАР.<br>🔄
 </div>
 
 </div>
 
-
-<!-- =========================
-     START
-========================= -->
+</div>
 
 <div id="start">
 
@@ -1366,11 +1368,6 @@ id="startButton">
 </div>
 
 </div>
-
-
-<!-- =========================
-     ГОЛОВОЛОМКА
-========================= -->
 
 <div id="puzzle">
 
@@ -1444,8 +1441,32 @@ id="puzzleClose">
 
 </div>
 
+<div id="gameOver">
+
+<div class="gameOverBox">
+
+<div class="gameOverTitle">
+YOU DIED
 </div>
 
+<div class="gameOverText">
+
+Сигнал объекта потерян.<br>
+Сектор 01 остаётся активным.
+
+</div>
+
+<button
+class="restart"
+id="restart">
+
+ПОВТОРИТЬ
+
+</button>
+
+</div>
+
+</div>
 
 <script>
 
@@ -1471,9 +1492,6 @@ document.getElementById("secondArea");
 const enemy =
 document.getElementById("enemy");
 
-const enemyHPText =
-document.getElementById("enemyHP");
-
 const weaponObject =
 document.getElementById("weaponObject");
 
@@ -1498,14 +1516,20 @@ document.getElementById("lookHint");
 const damage =
 document.getElementById("damage");
 
+const muzzleFlash =
+document.getElementById("muzzleFlash");
+
 const punchButton =
 document.getElementById("punch");
 
-const interact =
-document.getElementById("interact");
-
 const shoot =
 document.getElementById("shoot");
+
+const reloadButton =
+document.getElementById("reload");
+
+const interact =
+document.getElementById("interact");
 
 const puzzle =
 document.getElementById("puzzle");
@@ -1528,6 +1552,12 @@ document.getElementById("puzzleStatus");
 const nodes =
 document.querySelectorAll(".node");
 
+const gameOver =
+document.getElementById("gameOver");
+
+const restart =
+document.getElementById("restart");
+
 
 /* =====================================================
    СОСТОЯНИЕ
@@ -1544,6 +1574,8 @@ let enemyDefeated = false;
 let hasGun = false;
 
 let lightOn = true;
+
+let gameDead = false;
 
 
 /* =====================================================
@@ -1568,6 +1600,30 @@ const speed = 5;
 let playerHP = 100;
 
 let enemyHP = 100;
+
+
+/* =====================================================
+   ВРАГ
+===================================================== */
+
+let enemyDistance = 700;
+
+let enemyAttackCooldown = 0;
+
+let enemyMoveTimer = 0;
+
+
+/* =====================================================
+   ПИСТОЛЕТ
+===================================================== */
+
+let ammo = 12;
+
+const maxAmmo = 12;
+
+let reloading = false;
+
+let shootCooldown = 0;
 
 
 /* =====================================================
@@ -1607,6 +1663,83 @@ message.classList.remove("show");
 
 
 /* =====================================================
+   HP ИГРОКА
+===================================================== */
+
+function updatePlayerHP(){
+
+playerHP =
+Math.max(
+0,
+Math.round(playerHP)
+);
+
+hpText.textContent =
+`HP ${playerHP}`;
+
+if(playerHP <= 0){
+
+die();
+
+}
+
+}
+
+
+/* =====================================================
+   ПОЛУЧЕНИЕ УРОНА
+===================================================== */
+
+function damagePlayer(amount){
+
+if(gameDead)
+return;
+
+playerHP -= amount;
+
+updatePlayerHP();
+
+damage.classList.add("show");
+
+setTimeout(()=>{
+
+damage.classList.remove("show");
+
+},160);
+
+if(playerHP > 0){
+
+showMessage(
+`Вы получили ${amount} урона.`
+);
+
+}
+
+}
+
+
+/* =====================================================
+   СМЕРТЬ
+===================================================== */
+
+function die(){
+
+if(gameDead)
+return;
+
+gameDead = true;
+
+keys.forward=false;
+keys.back=false;
+keys.left=false;
+keys.right=false;
+
+gameOver.classList.add("active");
+
+}
+
+
+/* =====================================================
    НАЧАЛО
 ===================================================== */
 
@@ -1633,6 +1766,20 @@ lookHint.classList.add("hide");
 
 
 /* =====================================================
+   РЕСТАРТ
+===================================================== */
+
+restart.addEventListener(
+"click",
+()=>{
+
+location.reload();
+
+}
+);
+
+
+/* =====================================================
    ФОНАРЬ
 ===================================================== */
 
@@ -1644,7 +1791,8 @@ e=>{
 
 e.stopPropagation();
 
-if(!started)return;
+if(!started || gameDead)
+return;
 
 lightOn = !lightOn;
 
@@ -1666,7 +1814,7 @@ lightOn
 
 
 /* =====================================================
-   ВЗАИМОДЕЙСТВИЕ С ДВЕРЬЮ
+   ВЗАИМОДЕЙСТВИЕ
 ===================================================== */
 
 interact.addEventListener(
@@ -1675,10 +1823,11 @@ e=>{
 
 e.stopPropagation();
 
-if(!started)return;
+if(!started || gameDead)
+return;
 
 
-/* Если дверь ещё закрыта */
+/* ДВЕРЬ */
 
 if(!doorUnlocked){
 
@@ -1689,7 +1838,7 @@ return;
 }
 
 
-/* Если головоломка пройдена */
+/* ОТКРЫТЬ ДВЕРЬ */
 
 if(doorUnlocked && !doorOpened){
 
@@ -1700,13 +1849,13 @@ return;
 }
 
 
-/* Если дверь уже открыта */
+/* ПОДОБРАТЬ ПИСТОЛЕТ */
 
-if(doorOpened){
+if(enemyDefeated && !hasGun){
 
-showMessage(
-"Коридор продолжается впереди."
-);
+pickupGun();
+
+return;
 
 }
 
@@ -1731,10 +1880,6 @@ showMessage(
 }
 
 
-/* =====================================================
-   ЗАКРЫТЬ ГОЛОВОЛОМКУ
-===================================================== */
-
 puzzleClose.addEventListener(
 "click",
 ()=>{
@@ -1746,16 +1891,8 @@ puzzle.classList.remove("active");
 
 
 /* =====================================================
-   ПРАВИЛЬНАЯ ПОСЛЕДОВАТЕЛЬНОСТЬ
+   ПРАВИЛЬНЫЙ ПАТТЕРН
 ===================================================== */
-
-/*
-   Вот секретная последовательность:
-
-   1 → 4 → 7 → 6 → 3 → 2 → 5
-
-   Игрок её заранее не видит.
-*/
 
 const correctPattern = [
 1,4,7,6,3,2,5
@@ -1810,7 +1947,7 @@ rect.width/2,
 y:
 rect.top -
 box.top +
-rect.height/2
+rect.height/2,
 
 };
 
@@ -1818,7 +1955,7 @@ rect.height/2
 
 
 /* =====================================================
-   РИСОВАНИЕ ЛИНИИ
+   РИСОВАНИЕ
 ===================================================== */
 
 function drawPattern(){
@@ -1902,9 +2039,6 @@ puzzleStatus.textContent =
 
 drawPattern();
 
-
-/* Проверяем завершение */
-
 if(currentPattern.length === 7){
 
 checkPattern();
@@ -1971,7 +2105,7 @@ resetPuzzle,
 
 
 /* =====================================================
-   СБРОС
+   СБРОС ПАЗЗЛА
 ===================================================== */
 
 function resetPuzzle(){
@@ -1997,7 +2131,7 @@ resizeCanvas();
 
 
 /* =====================================================
-   ПОИСК ТОЧКИ ПОД ПАЛЬЦЕМ
+   ПОИСК ТОЧКИ
 ===================================================== */
 
 function getNodeAt(x,y){
@@ -2039,7 +2173,7 @@ return null;
 
 
 /* =====================================================
-   УПРАВЛЕНИЕ ГОЛОВОЛОМКОЙ
+   УПРАВЛЕНИЕ ПАЗЗЛОМ
 ===================================================== */
 
 pattern.addEventListener(
@@ -2133,12 +2267,14 @@ punchButton.classList.add(
 "active"
 );
 
-showMessage(
-"В коридоре кто-то есть..."
+shoot.style.display = "none";
+
+reloadButton.classList.remove(
+"active"
 );
 
-enemyHPText.classList.add(
-"show"
+showMessage(
+"В коридоре кто-то есть..."
 );
 
 },900);
@@ -2147,12 +2283,13 @@ enemyHPText.classList.add(
 
 
 /* =====================================================
-   ДВИЖЕНИЕ
+   ДВИЖЕНИЕ ИГРОКА
 ===================================================== */
 
 function updateMovement(){
 
-if(!started)return;
+if(!started || gameDead)
+return;
 
 if(keys.forward){
 
@@ -2177,9 +2314,6 @@ if(keys.right){
 playerX += speed;
 
 }
-
-
-/* Ограничения */
 
 playerX =
 Math.max(
@@ -2225,7 +2359,7 @@ rotateY(${-yaw}deg)
 
 
 /* =====================================================
-   ВЗГЛЯД
+   ОСМОТР
 ===================================================== */
 
 let touching = false;
@@ -2239,7 +2373,8 @@ lookArea.addEventListener(
 "pointerdown",
 e=>{
 
-if(!started)return;
+if(!started || gameDead)
+return;
 
 touching=true;
 
@@ -2260,21 +2395,14 @@ e=>{
 if(!started || !touching)
 return;
 
-
-/* Не мешаем головоломке */
-
 if(puzzle.classList.contains("active"))
 return;
-
-
-/* Не мешаем кнопкам */
 
 if(
 e.target.closest(".btn") ||
 e.target.closest(".action")
 )
 return;
-
 
 const dx =
 e.clientX-lastX;
@@ -2326,7 +2454,7 @@ stopLook
 
 
 /* =====================================================
-   КНОПКИ ДВИЖЕНИЯ
+   КНОПКИ
 ===================================================== */
 
 document
@@ -2342,6 +2470,9 @@ function down(e){
 e.preventDefault();
 
 e.stopPropagation();
+
+if(!started || gameDead)
+return;
 
 keys[key]=true;
 
@@ -2406,6 +2537,9 @@ keys.left=true;
 if(key==="d")
 keys.right=true;
 
+if(key==="r")
+reload();
+
 }
 );
 
@@ -2434,7 +2568,83 @@ keys.right=false;
 
 
 /* =====================================================
-   УДАР КУЛАКОМ
+   ВРАГ ДВИГАЕТСЯ
+===================================================== */
+
+function updateEnemy(){
+
+if(!doorOpened)
+return;
+
+if(enemyDefeated)
+return;
+
+if(gameDead)
+return;
+
+
+/*
+   Противник постепенно
+   приближается.
+*/
+
+if(enemyDistance > 170){
+
+enemyDistance -= 0.55;
+
+}
+
+
+/*
+   Небольшое покачивание.
+*/
+
+enemyMoveTimer += 0.05;
+
+const sway =
+Math.sin(enemyMoveTimer)*8;
+
+
+/*
+   Визуальная анимация врага.
+*/
+
+enemy.style.transform =
+
+`
+translateZ(${enemyDistance}px)
+translateX(${sway}px)
+scale(${Math.max(
+0.75,
+1.25-(enemyDistance/1200)
+)})
+`;
+
+
+/*
+   Когда враг подошёл —
+   атакует.
+*/
+
+if(enemyDistance <= 250){
+
+enemyAttackCooldown -= 16;
+
+if(enemyAttackCooldown <= 0){
+
+damagePlayer(8);
+
+enemyAttackCooldown = 1200;
+
+}
+
+}
+
+}
+
+
+/* =====================================================
+   КУЛАК
 ===================================================== */
 
 punchButton.addEventListener(
@@ -2443,7 +2653,7 @@ e=>{
 
 e.stopPropagation();
 
-if(!started)
+if(!started || gameDead)
 return;
 
 if(enemyDefeated)
@@ -2451,39 +2661,26 @@ return;
 
 
 /*
-   Для прототипа считаем,
-   что противник находится
-   в зоне удара.
+   Кулак работает только
+   когда враг близко.
+*/
+
+if(enemyDistance > 300){
+
+showMessage(
+"Слишком далеко. Подойдите ближе."
+);
+
+return;
+
+}
+
+
+/*
+   Урон.
 */
 
 enemyHP -= 25;
-
-
-/* Анимация удара */
-
-enemy.style.transform =
-"translateZ(-650px) scale(1.05)";
-
-setTimeout(()=>{
-
-enemy.style.transform =
-"translateZ(-700px)";
-
-},120);
-
-
-/* Показываем урон */
-
-damage.classList.add("show");
-
-setTimeout(()=>{
-
-damage.classList.remove("show");
-
-},100);
-
-
-/* Обновляем HP */
 
 enemyHP =
 Math.max(
@@ -2491,11 +2688,52 @@ Math.max(
 enemyHP
 );
 
-enemyHPText.textContent =
-`ENEMY HP ${enemyHP}`;
+
+/*
+   Эффект попадания.
+*/
+
+enemy.classList.add("hit");
+
+setTimeout(()=>{
+
+enemy.classList.remove("hit");
+
+},120);
 
 
-/* Проверяем смерть */
+/*
+   Отбрасываем врага.
+*/
+
+enemyDistance += 55;
+
+enemy.style.transform =
+
+`
+translateZ(${enemyDistance}px)
+scale(1.15)
+`;
+
+setTimeout(()=>{
+
+if(!enemyDefeated){
+
+enemy.style.transform =
+
+`
+translateZ(${enemyDistance}px)
+scale(1)
+`;
+
+}
+
+},120);
+
+
+/*
+   Проверяем смерть.
+*/
 
 if(enemyHP <= 0){
 
@@ -2504,7 +2742,7 @@ defeatEnemy();
 }else{
 
 showMessage(
-"Удар! Противник получил урон."
+`Удар! HP противника: ${enemyHP}`
 );
 
 }
@@ -2514,7 +2752,7 @@ showMessage(
 
 
 /* =====================================================
-   ПОБЕДА НАД ВРАГОМ
+   ПОБЕДА
 ===================================================== */
 
 function defeatEnemy(){
@@ -2522,10 +2760,6 @@ function defeatEnemy(){
 enemyDefeated = true;
 
 enemy.classList.add("dead");
-
-enemyHPText.classList.remove(
-"show"
-);
 
 showMessage(
 "Противник повержен."
@@ -2547,8 +2781,40 @@ showMessage(
 
 
 /* =====================================================
-   ПОДБОР ОРУЖИЯ
+   ПОДБОР ПИСТОЛЕТА
 ===================================================== */
+
+function pickupGun(){
+
+if(hasGun)
+return;
+
+hasGun = true;
+
+weaponObject.classList.remove(
+"show"
+);
+
+punchButton.classList.remove(
+"active"
+);
+
+shoot.style.display =
+"flex";
+
+reloadButton.classList.add(
+"active"
+);
+
+weaponText.innerHTML =
+`EQUIPPED: PISTOL<br>AMMO: ${ammo}/${maxAmmo}`;
+
+showMessage(
+"ПИСТОЛЕТ ПОЛУЧЕН. Найдите выход из сектора."
+);
+
+}
+
 
 weaponObject.addEventListener(
 "pointerdown",
@@ -2559,63 +2825,89 @@ e.stopPropagation();
 if(!enemyDefeated)
 return;
 
-if(hasGun)
-return;
-
-hasGun=true;
-
-weaponObject.classList.remove(
-"show"
-);
-
-weaponText.textContent =
-"EQUIPPED: PISTOL";
-
-showMessage(
-"Оружие получено. ПИСТОЛЕТ."
-);
-
-}
-);
-
-
-/*
-   Также позволяем подобрать
-   оружие кнопкой взаимодействия.
-*/
-
-document
-.getElementById("interact")
-.addEventListener(
-"pointerdown",
-()=>{
-
-if(
-enemyDefeated &&
-!hasGun
-){
-
-hasGun=true;
-
-weaponObject.classList.remove(
-"show"
-);
-
-weaponText.textContent =
-"EQUIPPED: PISTOL";
-
-showMessage(
-"Оружие получено. ПИСТОЛЕТ."
-);
-
-}
+pickupGun();
 
 }
 );
 
 
 /* =====================================================
-   ОГОНЬ
+   ОБНОВЛЕНИЕ ОРУЖИЯ
+===================================================== */
+
+function updateWeaponHUD(){
+
+if(!hasGun)
+return;
+
+weaponText.innerHTML =
+`EQUIPPED: PISTOL<br>AMMO: ${ammo}/${maxAmmo}`;
+
+}
+
+
+/* =====================================================
+   ПЕРЕЗАРЯДКА
+===================================================== */
+
+function reload(){
+
+if(!hasGun)
+return;
+
+if(reloading)
+return;
+
+if(ammo >= maxAmmo){
+
+showMessage(
+"Магазин уже полный."
+);
+
+return;
+
+}
+
+reloading = true;
+
+showMessage(
+"Перезарядка..."
+);
+
+setTimeout(()=>{
+
+ammo = maxAmmo;
+
+reloading = false;
+
+updateWeaponHUD();
+
+showMessage(
+"Пистолет перезаряжен."
+);
+
+},1200);
+
+}
+
+
+reloadButton.addEventListener(
+"pointerdown",
+e=>{
+
+e.stopPropagation();
+
+if(!started || gameDead)
+return;
+
+reload();
+
+}
+);
+
+
+/* =====================================================
+   ВЫСТРЕЛ
 ===================================================== */
 
 shoot.addEventListener(
@@ -2624,13 +2916,37 @@ e=>{
 
 e.stopPropagation();
 
-if(!started)
+if(!started || gameDead)
 return;
 
-if(!hasGun){
+if(!hasGun)
+return;
+
+if(reloading){
 
 showMessage(
-"У вас нет оружия."
+"Идёт перезарядка."
+);
+
+return;
+
+}
+
+if(shootCooldown > 0){
+
+return;
+
+}
+
+
+/*
+   НЕТ ПАТРОНОВ
+*/
+
+if(ammo <= 0){
+
+showMessage(
+"ПУСТОЙ МАГАЗИН. Перезарядитесь."
 );
 
 return;
@@ -2638,13 +2954,164 @@ return;
 }
 
 
-/* Пока просто выстрел */
+/*
+   Расход патрона.
+*/
 
-showMessage(
-"ВЫСТРЕЛ!"
+ammo--;
+
+updateWeaponHUD();
+
+
+/*
+   ВСПЫШКА
+*/
+
+muzzleFlash.classList.remove(
+"show"
 );
 
-});
+void muzzleFlash.offsetWidth;
+
+muzzleFlash.classList.add(
+"show"
+);
+
+
+/*
+   ОТДАЧА
+*/
+
+const oldPitch = pitch;
+
+pitch += 2.5;
+
+setTimeout(()=>{
+
+pitch = oldPitch;
+
+},100);
+
+
+/*
+   КУЛЯ
+*/
+
+fireBullet();
+
+
+shootCooldown = 300;
+
+}
+);
+
+
+/* =====================================================
+   ВЫСТРЕЛ
+===================================================== */
+
+function fireBullet(){
+
+if(enemyDefeated)
+return;
+
+
+/*
+   Проверяем,
+   смотрит ли игрок
+   примерно на врага.
+*/
+
+
+const aimYaw =
+Math.abs(
+yaw % 360
+);
+
+const aimPitch =
+Math.abs(pitch);
+
+
+/*
+   Враг считается в прицеле,
+   если игрок смотрит примерно
+   прямо.
+*/
+
+const aimed =
+(
+aimYaw < 14 ||
+aimYaw > 346
+)
+&&
+aimPitch < 14;
+
+
+/*
+   Дистанция влияет
+   на шанс попадания.
+*/
+
+if(aimed){
+
+enemyHP -= 50;
+
+enemyHP =
+Math.max(
+0,
+enemyHP
+);
+
+enemy.classList.add("hit");
+
+setTimeout(()=>{
+
+enemy.classList.remove("hit");
+
+},100);
+
+
+/*
+   Отбрасывание.
+*/
+
+enemyDistance += 70;
+
+showMessage(
+`ПОПАДАНИЕ! HP противника: ${enemyHP}`
+);
+
+
+if(enemyHP <= 0){
+
+defeatEnemy();
+
+}
+
+}else{
+
+showMessage(
+"Промах."
+);
+
+}
+
+}
+
+
+/* =====================================================
+   ОБНОВЛЕНИЕ ПЕРЕЗАРЯДКИ
+===================================================== */
+
+function updateTimers(){
+
+if(shootCooldown > 0){
+
+shootCooldown -= 16;
+
+}
+
+}
 
 
 /* =====================================================
@@ -2654,6 +3121,10 @@ showMessage(
 function loop(){
 
 updateMovement();
+
+updateEnemy();
+
+updateTimers();
 
 render();
 
