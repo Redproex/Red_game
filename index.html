@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="ru">
 <head>
+
 <meta charset="utf-8">
 
 <meta name="viewport"
@@ -27,7 +28,7 @@ width:100%;
 height:100%;
 overflow:hidden;
 background:#050609;
-color:white;
+color:#fff;
 font-family:Arial,Helvetica,sans-serif;
 touch-action:none;
 }
@@ -41,7 +42,7 @@ background:#050609;
 }
 
 /* =========================
-   3D СЦЕНА
+   СЦЕНА
 ========================= */
 
 #scene{
@@ -60,8 +61,17 @@ transparent 45%
 #050609;
 }
 
+/*
+   МИР
+
+   ВАЖНО:
+   Поворот камеры и движение
+   теперь разделены.
+*/
+
 .world{
 position:absolute;
+
 left:50%;
 top:50%;
 
@@ -72,11 +82,15 @@ transform-style:preserve-3d;
 
 transform:
 translate(-50%,-50%)
+translate3d(0,0,0)
 rotateX(0deg)
 rotateY(0deg);
+
 }
 
-/* пол */
+/* =========================
+   ПОЛ
+========================= */
 
 .floor{
 position:absolute;
@@ -88,16 +102,19 @@ width:1000px;
 height:3000px;
 
 background:
+
 repeating-linear-gradient(
 90deg,
 rgba(255,255,255,.025) 0 2px,
 transparent 2px 100px
 ),
+
 repeating-linear-gradient(
 0deg,
 rgba(255,255,255,.018) 0 2px,
 transparent 2px 100px
 ),
+
 linear-gradient(
 180deg,
 #171920,
@@ -111,7 +128,9 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* потолок */
+/* =========================
+   ПОТОЛОК
+========================= */
 
 .ceiling{
 position:absolute;
@@ -136,7 +155,9 @@ translateZ(-350px);
 transform-origin:center top;
 }
 
-/* стены */
+/* =========================
+   СТЕНЫ
+========================= */
 
 .wall{
 position:absolute;
@@ -160,17 +181,43 @@ box-shadow:
 
 .wall.left{
 left:-500px;
-transform:
-translateZ(-1500px);
+transform:translateZ(-1500px);
 }
 
 .wall.right{
 right:-500px;
-transform:
-translateZ(-1500px);
+transform:translateZ(-1500px);
 }
 
-/* задняя дверь */
+/* =========================
+   СВЕТ
+========================= */
+
+.light{
+position:absolute;
+
+width:280px;
+height:30px;
+
+left:50%;
+top:50%;
+
+margin-left:-140px;
+margin-top:-300px;
+
+background:#bfc5d2;
+
+box-shadow:
+0 0 30px #cbd0da,
+0 0 100px rgba(190,198,215,.25);
+
+transform:
+translateZ(-900px);
+}
+
+/* =========================
+   ДВЕРЬ
+========================= */
 
 .door{
 position:absolute;
@@ -198,8 +245,13 @@ box-shadow:
 0 0 50px rgba(0,0,0,.95),
 inset 0 0 35px #000;
 
+/*
+   Дверь находится
+   ФИЗИЧЕСКИ перед игроком.
+*/
+
 transform:
-translateZ(-1200px);
+translate3d(0,0,-1200px);
 
 transition:
 transform .7s ease,
@@ -258,41 +310,19 @@ border-radius:5px;
 background:#777c88;
 }
 
-/* свет в конце коридора */
-
-.light{
-position:absolute;
-
-width:280px;
-height:30px;
-
-left:50%;
-top:50%;
-
-margin-left:-140px;
-margin-top:-300px;
-
-background:#bfc5d2;
-
-box-shadow:
-0 0 30px #cbd0da,
-0 0 100px rgba(190,198,215,.25);
-
-transform:
-translateZ(-900px);
-}
-
 /* =========================
    ФОНАРИК
 ========================= */
 
 #flashlight{
 position:absolute;
+
 inset:0;
 
 pointer-events:none;
 
 background:
+
 radial-gradient(
 ellipse 35% 45% at 50% 48%,
 transparent 0%,
@@ -317,6 +347,7 @@ rgba(0,0,0,.9)!important;
 
 #hud{
 position:absolute;
+
 inset:0;
 
 z-index:10;
@@ -334,6 +365,7 @@ left:18px;
 right:18px;
 
 display:flex;
+
 justify-content:space-between;
 
 font-size:12px;
@@ -345,6 +377,10 @@ color:#c7cad2;
 text-shadow:
 0 1px 5px #000;
 }
+
+/* =========================
+   ПРИЦЕЛ
+========================= */
 
 .crosshair{
 position:absolute;
@@ -581,6 +617,48 @@ color:#aeb2bb;
 }
 
 /* =========================
+   ЗОНА ОСМОТРА
+========================= */
+
+#lookArea{
+position:absolute;
+
+inset:0;
+
+z-index:4;
+
+pointer-events:auto;
+}
+
+#lookHint{
+position:absolute;
+
+left:50%;
+top:58%;
+
+transform:
+translate(-50%,-50%);
+
+font-size:11px;
+
+letter-spacing:1px;
+
+color:rgba(255,255,255,.35);
+
+pointer-events:none;
+
+transition:opacity 1s;
+
+text-align:center;
+
+width:90%;
+}
+
+.hide{
+opacity:0!important;
+}
+
+/* =========================
    СТАРТ
 ========================= */
 
@@ -656,44 +734,6 @@ border-radius:8px;
 font-size:15px;
 }
 
-/* =========================
-   УПРАВЛЕНИЕ ВЗГЛЯДОМ
-========================= */
-
-#lookArea{
-position:absolute;
-
-inset:0;
-
-z-index:4;
-
-pointer-events:auto;
-}
-
-#lookHint{
-position:absolute;
-
-left:50%;
-top:58%;
-
-transform:
-translate(-50%,-50%);
-
-font-size:11px;
-
-letter-spacing:1px;
-
-color:rgba(255,255,255,.35);
-
-pointer-events:none;
-
-transition:opacity 1s;
-}
-
-.hide{
-opacity:0!important;
-}
-
 </style>
 </head>
 
@@ -701,7 +741,9 @@ opacity:0!important;
 
 <div id="game">
 
-<!-- ================= SCENE ================= -->
+<!-- =========================
+     СЦЕНА
+========================= -->
 
 <div id="scene">
 
@@ -735,19 +777,31 @@ SECTOR 01
 
 </div>
 
-<!-- управление взглядом -->
+
+<!-- =========================
+     ОСМОТР
+========================= -->
 
 <div id="lookArea"></div>
 
 <div id="lookHint">
-Проведи пальцем по экрану, чтобы осмотреться
+
+Проведи пальцем по экрану,<br>
+чтобы осмотреться
+
 </div>
 
-<!-- фонарик -->
+
+<!-- =========================
+     ФОНАРИК
+========================= -->
 
 <div id="flashlight"></div>
 
-<!-- ================= HUD ================= -->
+
+<!-- =========================
+     HUD
+========================= -->
 
 <div id="hud">
 
@@ -763,48 +817,68 @@ HP 100
 
 </div>
 
+
 <div class="crosshair"></div>
+
 
 <div
 class="message"
 id="message">
 </div>
 
+
 <div class="weapon">
 EQUIPPED: NONE
 </div>
 
-<!-- кнопки движения -->
+
+<!-- =========================
+     ДВИЖЕНИЕ
+========================= -->
 
 <div class="controls">
 
 <div
 class="btn up"
 data-key="forward">
+
 ▲
+
 </div>
+
 
 <div
 class="btn left"
 data-key="left">
+
 ◀
+
 </div>
+
 
 <div
 class="btn down"
 data-key="back">
+
 ▼
+
 </div>
+
 
 <div
 class="btn right"
 data-key="right">
+
 ▶
-</div>
 
 </div>
 
-<!-- кнопки действий -->
+</div>
+
+
+<!-- =========================
+     ДЕЙСТВИЯ
+========================= -->
 
 <div class="actions">
 
@@ -816,6 +890,7 @@ id="interact">
 
 </div>
 
+
 <div
 class="action"
 id="flash">
@@ -823,6 +898,7 @@ id="flash">
 ФОНАРЬ<br>🔦
 
 </div>
+
 
 <div
 class="action"
@@ -836,7 +912,10 @@ id="shoot">
 
 </div>
 
-<!-- ================= START ================= -->
+
+<!-- =========================
+     START
+========================= -->
 
 <div id="start">
 
@@ -856,6 +935,7 @@ GAME PROTOTYPE<br><br>
 
 </p>
 
+
 <button
 class="start-button"
 id="startButton">
@@ -870,11 +950,12 @@ id="startButton">
 
 </div>
 
+
 <script>
 
-/* ==========================================
-   СОСТОЯНИЕ ИГРЫ
-========================================== */
+/* =================================================
+   СОСТОЯНИЕ
+================================================= */
 
 const start =
 document.getElementById("start");
@@ -884,9 +965,6 @@ document.getElementById("startButton");
 
 const world =
 document.getElementById("world");
-
-const door =
-document.getElementById("door");
 
 const flashlight =
 document.getElementById("flashlight");
@@ -900,51 +978,76 @@ document.getElementById("lookArea");
 const lookHint =
 document.getElementById("lookHint");
 
-let started=false;
+let started = false;
 
-let lightOn=true;
+let lightOn = true;
 
-/* положение игрока */
 
-let playerX=0;
+/* =================================================
+   ПОЗИЦИЯ ИГРОКА
+================================================= */
 
-let playerZ=0;
+/*
+   X = влево / вправо
 
-/* направление взгляда */
+   Z = вперёд / назад
 
-let yaw=0;
+   ВАЖНО:
+   вперёд теперь уменьшает Z.
+*/
 
-let pitch=0;
+let playerX = 0;
 
-/* скорость */
+let playerZ = 0;
 
-const speed=4;
 
-/* кнопки */
+/* =================================================
+   ВЗГЛЯД
+================================================= */
 
-const keys={
+let yaw = 0;
+
+let pitch = 0;
+
+
+/* =================================================
+   СКОРОСТЬ
+================================================= */
+
+const speed = 5;
+
+
+/* =================================================
+   КНОПКИ
+================================================= */
+
+const keys = {
 
 forward:false,
+
 back:false,
+
 left:false,
+
 right:false
 
 };
 
 
-/* ==========================================
+/* =================================================
    СООБЩЕНИЯ
-========================================== */
+================================================= */
 
 function showMessage(text){
 
-message.textContent=text;
+message.textContent = text;
 
 message.classList.add("show");
 
 clearTimeout(showMessage.timer);
 
-showMessage.timer=setTimeout(()=>{
+showMessage.timer =
+setTimeout(()=>{
 
 message.classList.remove("show");
 
@@ -953,17 +1056,17 @@ message.classList.remove("show");
 }
 
 
-/* ==========================================
-   START
-========================================== */
+/* =================================================
+   НАЧАЛО
+================================================= */
 
 startButton.addEventListener(
 "click",
 ()=>{
 
-started=true;
+started = true;
 
-start.style.display="none";
+start.style.display = "none";
 
 showMessage(
 "Объект неизвестен. Осмотритесь."
@@ -979,9 +1082,9 @@ lookHint.classList.add("hide");
 );
 
 
-/* ==========================================
-   ФОНАРИК
-========================================== */
+/* =================================================
+   ФОНАРЬ
+================================================= */
 
 document
 .getElementById("flash")
@@ -993,7 +1096,7 @@ event.stopPropagation();
 
 if(!started)return;
 
-lightOn=!lightOn;
+lightOn = !lightOn;
 
 flashlight.classList.toggle(
 "light-off",
@@ -1014,9 +1117,9 @@ lightOn
 );
 
 
-/* ==========================================
+/* =================================================
    ВЗАИМОДЕЙСТВИЕ
-========================================== */
+================================================= */
 
 document
 .getElementById("interact")
@@ -1028,13 +1131,16 @@ event.stopPropagation();
 
 if(!started)return;
 
-const distance=
-Math.sqrt(
-playerX*playerX+
-playerZ*playerZ
-);
 
-if(distance<300){
+/*
+   Расстояние до двери.
+*/
+
+const distance =
+Math.abs(playerZ + 1200);
+
+
+if(distance < 350){
 
 showMessage(
 "Дверь заперта. Нужен доступ."
@@ -1043,7 +1149,7 @@ showMessage(
 }else{
 
 showMessage(
-"Слишком далеко."
+"Подойдите ближе к двери."
 );
 
 }
@@ -1052,9 +1158,9 @@ showMessage(
 );
 
 
-/* ==========================================
+/* =================================================
    ОРУЖИЕ
-========================================== */
+================================================= */
 
 document
 .getElementById("shoot")
@@ -1074,16 +1180,17 @@ showMessage(
 );
 
 
-/* ==========================================
-   КНОПКИ
-========================================== */
+/* =================================================
+   КНОПКИ ДВИЖЕНИЯ
+================================================= */
 
 document
 .querySelectorAll(".btn")
 .forEach(button=>{
 
-const key=
+const key =
 button.dataset.key;
+
 
 function down(e){
 
@@ -1091,9 +1198,10 @@ e.preventDefault();
 
 e.stopPropagation();
 
-keys[key]=true;
+keys[key] = true;
 
 }
+
 
 function up(e){
 
@@ -1101,9 +1209,10 @@ e.preventDefault();
 
 e.stopPropagation();
 
-keys[key]=false;
+keys[key] = false;
 
 }
+
 
 button.addEventListener(
 "pointerdown",
@@ -1129,58 +1238,60 @@ up
 );
 
 
-/* ==========================================
+/* =================================================
    КЛАВИАТУРА
-========================================== */
+================================================= */
 
 document.addEventListener(
 "keydown",
 e=>{
 
-if(e.key==="w")
-keys.forward=true;
+if(e.key.toLowerCase()==="w")
+keys.forward = true;
 
-if(e.key==="s")
-keys.back=true;
+if(e.key.toLowerCase()==="s")
+keys.back = true;
 
-if(e.key==="a")
-keys.left=true;
+if(e.key.toLowerCase()==="a")
+keys.left = true;
 
-if(e.key==="d")
-keys.right=true;
+if(e.key.toLowerCase()==="d")
+keys.right = true;
 
 }
 );
+
 
 document.addEventListener(
 "keyup",
 e=>{
 
-if(e.key==="w")
-keys.forward=false;
+if(e.key.toLowerCase()==="w")
+keys.forward = false;
 
-if(e.key==="s")
-keys.back=false;
+if(e.key.toLowerCase()==="s")
+keys.back = false;
 
-if(e.key==="a")
-keys.left=false;
+if(e.key.toLowerCase()==="a")
+keys.left = false;
 
-if(e.key==="d")
-keys.right=false;
+if(e.key.toLowerCase()==="d")
+keys.right = false;
 
 }
 );
 
 
-/* ==========================================
+/* =================================================
    ОСМОТР ПАЛЬЦЕМ
-========================================== */
+================================================= */
 
-let touching=false;
+let touching = false;
 
-let lastX=0;
+let lastX = 0;
 
-let lastY=0;
+let lastY = 0;
+
 
 lookArea.addEventListener(
 "pointerdown",
@@ -1188,44 +1299,56 @@ e=>{
 
 if(!started)return;
 
-touching=true;
+touching = true;
 
-lastX=e.clientX;
+lastX = e.clientX;
 
-lastY=e.clientY;
+lastY = e.clientY;
 
 lookHint.classList.add("hide");
 
 }
 );
 
+
 lookArea.addEventListener(
 "pointermove",
 e=>{
 
-if(!started || !touching)return;
+if(!started || !touching)
+return;
 
-const dx=
-e.clientX-lastX;
 
-const dy=
-e.clientY-lastY;
+/*
+   Изменение пальца.
+*/
 
-lastX=e.clientX;
+const dx =
+e.clientX - lastX;
 
-lastY=e.clientY;
+const dy =
+e.clientY - lastY;
 
-/* горизонт */
 
-yaw+=dx*.12;
+lastX = e.clientX;
 
-/* вертикаль */
+lastY = e.clientY;
 
-pitch-=dy*.08;
 
-/* ограничение */
+/*
+   Поворот камеры.
+*/
 
-pitch=
+yaw += dx * 0.12;
+
+pitch -= dy * 0.08;
+
+
+/*
+   Ограничиваем взгляд вверх/вниз.
+*/
+
+pitch =
 Math.max(
 -35,
 Math.min(
@@ -1237,11 +1360,13 @@ pitch
 }
 );
 
+
 function stopLook(){
 
-touching=false;
+touching = false;
 
 }
+
 
 lookArea.addEventListener(
 "pointerup",
@@ -1259,29 +1384,66 @@ stopLook
 );
 
 
-/* ==========================================
+/* =================================================
    ДВИЖЕНИЕ
-========================================== */
+================================================= */
 
 function updateMovement(){
 
 if(!started)return;
 
-if(keys.forward)
-playerZ+=speed;
 
-if(keys.back)
-playerZ-=speed;
+/*
+   ВПЕРЁД
+   Z уменьшается.
+*/
 
-if(keys.left)
-playerX-=speed;
+if(keys.forward){
 
-if(keys.right)
-playerX+=speed;
+playerZ -= speed;
 
-/* границы коридора */
+}
 
-playerX=
+
+/*
+   НАЗАД
+   Z увеличивается.
+*/
+
+if(keys.back){
+
+playerZ += speed;
+
+}
+
+
+/*
+   ВЛЕВО
+*/
+
+if(keys.left){
+
+playerX -= speed;
+
+}
+
+
+/*
+   ВПРАВО
+*/
+
+if(keys.right){
+
+playerX += speed;
+
+}
+
+
+/*
+   Границы коридора.
+*/
+
+playerX =
 Math.max(
 -360,
 Math.min(
@@ -1290,11 +1452,16 @@ playerX
 )
 );
 
-/* границы глубины */
 
-playerZ=
+/*
+   Граница уровня.
+
+   Дверь находится на -1200.
+*/
+
+playerZ =
 Math.max(
--800,
+-1150,
 Math.min(
 600,
 playerZ
@@ -1304,39 +1471,44 @@ playerZ
 }
 
 
-/* ==========================================
+/* =================================================
    ОТРИСОВКА
-========================================== */
+================================================= */
 
 function render(){
 
 /*
-   Чем дальше игрок идёт,
-   тем ближе становится окружение.
+   Мир перемещается
+   относительно игрока.
+
+   ВАЖНО:
+
+   translate идёт ПЕРЕД
+   поворотом камеры.
+
+   Благодаря этому дверь
+   не прыгает за спину.
 */
 
-const z=
--playerZ;
-
-world.style.transform=
+world.style.transform =
 
 `
 translate(-50%,-50%)
-rotateX(${pitch}deg)
-rotateY(${yaw}deg)
 translate3d(
 ${-playerX}px,
 0px,
-${z}px
+${-playerZ}px
 )
+rotateX(${pitch}deg)
+rotateY(${-yaw}deg)
 `;
 
 }
 
 
-/* ==========================================
-   GAME LOOP
-========================================== */
+/* =================================================
+   ИГРОВОЙ ЦИКЛ
+================================================= */
 
 function loop(){
 
@@ -1351,9 +1523,9 @@ requestAnimationFrame(loop);
 loop();
 
 
-/* ==========================================
-   ПРЕДОТВРАЩАЕМ ПРОКРУТКУ
-========================================== */
+/* =================================================
+   ЗАПРЕТ ПРОКРУТКИ
+================================================= */
 
 document.addEventListener(
 "touchmove",
@@ -1368,4 +1540,4 @@ e.preventDefault();
 </script>
 
 </body>
-      </html>
+   </html>
