@@ -1,16 +1,14 @@
 <!doctype html>
 <html lang="ru">
-
 <head>
-
 <meta charset="utf-8">
 
 <meta name="viewport"
-      content="width=device-width,
-               initial-scale=1,
-               maximum-scale=1,
-               user-scalable=no,
-               viewport-fit=cover">
+content="width=device-width,
+initial-scale=1,
+maximum-scale=1,
+user-scalable=no,
+viewport-fit=cover">
 
 <title>The Redpro Archives</title>
 
@@ -23,10 +21,6 @@
 
 <style>
 
-/* =========================================================
-   BASE
-========================================================= */
-
 *{
   box-sizing:border-box;
   -webkit-tap-highlight-color:transparent;
@@ -34,19 +28,14 @@
   -webkit-user-select:none;
 }
 
-html,
-body{
+html,body{
   margin:0;
   width:100%;
   height:100%;
-
   overflow:hidden;
-
   background:#000;
   color:#fff;
-
   font-family:Arial,Helvetica,sans-serif;
-
   touch-action:none;
 }
 
@@ -60,51 +49,29 @@ button{
   color:inherit;
 }
 
-
-/* =========================================================
-   GAME
-========================================================= */
-
 #game{
   position:fixed;
   inset:0;
-
   width:100%;
   height:100%;
-
   overflow:hidden;
-
   background:#050609;
 }
-
-
-/* =========================================================
-   SCENE / CAMERA
-========================================================= */
 
 #scene{
-
   position:absolute;
   inset:0;
-
   overflow:hidden;
-
-  background:#050609;
-
   perspective:900px;
   perspective-origin:50% 50%;
-
-  transform-style:preserve-3d;
-
+  background:#050609;
 }
-
 
 /* =========================================================
    WORLD
 ========================================================= */
 
 #world{
-
   position:absolute;
 
   left:50%;
@@ -114,20 +81,12 @@ button{
   height:2100px;
 
   transform-style:preserve-3d;
-
   transform-origin:50% 50%;
 
-  transition:none;
-
+  will-change:transform;
 }
 
-
-/* =========================================================
-   FLOOR
-========================================================= */
-
 .floor{
-
   position:absolute;
 
   left:-450px;
@@ -137,7 +96,6 @@ button{
   height:2100px;
 
   background:
-
     repeating-linear-gradient(
       90deg,
       rgba(255,255,255,.025) 0px,
@@ -145,7 +103,13 @@ button{
       transparent 2px,
       transparent 80px
     ),
-
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 2px,
+      transparent 2px,
+      transparent 80px
+    ),
     linear-gradient(
       180deg,
       #101218,
@@ -158,16 +122,9 @@ button{
     translateZ(-300px);
 
   transform-origin:50% 0;
-
 }
 
-
-/* =========================================================
-   CEILING
-========================================================= */
-
 .ceiling{
-
   position:absolute;
 
   left:-450px;
@@ -188,16 +145,9 @@ button{
     translateZ(300px);
 
   transform-origin:50% 0;
-
 }
 
-
-/* =========================================================
-   WALLS
-========================================================= */
-
 .wall{
-
   position:absolute;
 
   top:0;
@@ -213,12 +163,9 @@ button{
     );
 
   border:1px solid #171a22;
-
 }
 
-
 .wall.left{
-
   left:-600px;
 
   transform:
@@ -226,12 +173,9 @@ button{
     translateZ(450px);
 
   transform-origin:right center;
-
 }
 
-
 .wall.right{
-
   right:-600px;
 
   transform:
@@ -239,16 +183,9 @@ button{
     translateZ(450px);
 
   transform-origin:left center;
-
 }
 
-
-/* =========================================================
-   LIGHT
-========================================================= */
-
 .light{
-
   position:absolute;
 
   width:250px;
@@ -263,18 +200,14 @@ button{
     0 0 25px rgba(180,190,210,.18),
     0 0 90px rgba(130,140,170,.10);
 
-  transform:
-    translateZ(-700px);
-
+  transform:translateZ(-700px);
 }
-
 
 /* =========================================================
    DOOR
 ========================================================= */
 
 #door{
-
   position:absolute;
 
   left:250px;
@@ -305,12 +238,9 @@ button{
   transition:
     transform 900ms ease,
     opacity 900ms ease;
-
 }
 
-
 #door::before{
-
   content:"";
 
   position:absolute;
@@ -327,52 +257,38 @@ button{
 
   box-shadow:
     0 0 8px rgba(255,255,255,.5);
-
 }
 
-
 #door.open{
-
   transform:
     translateZ(-1000px)
     rotateY(-85deg);
 
   opacity:.3;
-
 }
-
 
 /* =========================================================
    SECOND AREA
 ========================================================= */
 
 #secondArea{
-
   position:absolute;
   inset:0;
 
   opacity:0;
-
   pointer-events:none;
 
   transition:opacity 600ms ease;
 
   z-index:2;
-
 }
-
 
 #secondArea.active{
-
   opacity:1;
-
   pointer-events:auto;
-
 }
 
-
 .backLight{
-
   position:absolute;
 
   width:180px;
@@ -386,16 +302,13 @@ button{
   box-shadow:
     0 0 30px rgba(210,220,255,.2),
     0 0 130px rgba(150,160,190,.12);
-
 }
-
 
 /* =========================================================
    ENEMY
 ========================================================= */
 
 .enemy{
-
   position:absolute;
 
   width:100px;
@@ -412,19 +325,13 @@ button{
   transition:
     opacity 400ms ease,
     transform 250ms ease;
-
 }
-
 
 #secondArea.active .enemy{
-
   opacity:1;
-
 }
 
-
 .enemyHead{
-
   position:absolute;
 
   width:55px;
@@ -444,12 +351,9 @@ button{
 
   box-shadow:
     0 0 15px rgba(0,0,0,.8);
-
 }
 
-
 .enemyBody{
-
   position:absolute;
 
   width:100px;
@@ -470,39 +374,30 @@ button{
 
   box-shadow:
     inset 0 0 30px rgba(0,0,0,.7);
-
 }
 
-
 .enemy.hit{
-
   transform:
     translateZ(-500px)
     translateX(25px);
 
   filter:brightness(2);
-
 }
 
-
 .enemy.dead{
-
   opacity:0 !important;
 
   transform:
     translateZ(-500px)
     rotate(80deg)
     translateY(100px);
-
 }
-
 
 /* =========================================================
    WEAPON
 ========================================================= */
 
 .weaponObject{
-
   position:absolute;
 
   width:80px;
@@ -512,7 +407,6 @@ button{
   top:60%;
 
   opacity:0;
-
   pointer-events:none;
 
   transform:
@@ -521,21 +415,14 @@ button{
 
   transition:
     opacity 400ms ease;
-
 }
-
 
 .weaponObject.visible{
-
   opacity:1;
-
   pointer-events:auto;
-
 }
 
-
 .weaponBody{
-
   position:absolute;
 
   width:55px;
@@ -550,12 +437,9 @@ button{
 
   box-shadow:
     0 0 8px rgba(255,255,255,.1);
-
 }
 
-
 .weaponGrip{
-
   position:absolute;
 
   width:18px;
@@ -569,16 +453,13 @@ button{
   transform:rotate(15deg);
 
   border-radius:2px;
-
 }
 
-
 /* =========================================================
-   LOOK AREA
+   LOOK
 ========================================================= */
 
 #lookArea{
-
   position:absolute;
   inset:0;
 
@@ -587,12 +468,9 @@ button{
   pointer-events:auto;
 
   touch-action:none;
-
 }
 
-
 #lookHint{
-
   position:absolute;
 
   left:50%;
@@ -611,16 +489,13 @@ button{
   z-index:7;
 
   pointer-events:none;
-
 }
-
 
 /* =========================================================
    FLASHLIGHT
 ========================================================= */
 
 #flashlight{
-
   position:absolute;
   inset:0;
 
@@ -629,7 +504,6 @@ button{
   pointer-events:none;
 
   background:
-
     radial-gradient(
       ellipse at 50% 50%,
       rgba(255,255,255,.12) 0%,
@@ -641,23 +515,17 @@ button{
   mix-blend-mode:screen;
 
   opacity:.8;
-
 }
-
 
 #flashlight.off{
-
   opacity:0;
-
 }
-
 
 /* =========================================================
    DAMAGE
 ========================================================= */
 
 #damage{
-
   position:absolute;
   inset:0;
 
@@ -666,7 +534,6 @@ button{
   pointer-events:none;
 
   background:
-
     radial-gradient(
       circle,
       transparent 35%,
@@ -676,35 +543,26 @@ button{
   opacity:0;
 
   transition:opacity 120ms ease;
-
 }
-
 
 #damage.show{
-
   opacity:1;
-
 }
-
 
 /* =========================================================
    HUD
 ========================================================= */
 
 #hud{
-
   position:absolute;
   inset:0;
 
   z-index:20;
 
   pointer-events:none;
-
 }
 
-
 .top{
-
   position:absolute;
 
   left:28px;
@@ -712,9 +570,7 @@ button{
   top:28px;
 
   display:flex;
-
   justify-content:space-between;
-
   align-items:center;
 
   font-size:17px;
@@ -722,19 +578,13 @@ button{
   letter-spacing:1px;
 
   color:#d8d9de;
-
 }
-
 
 #hp{
-
   font-size:16px;
-
 }
 
-
 .crosshair{
-
   position:absolute;
 
   left:50%;
@@ -743,17 +593,13 @@ button{
   width:28px;
   height:28px;
 
-  transform:
-    translate(-50%,-50%);
+  transform:translate(-50%,-50%);
 
   pointer-events:none;
-
 }
-
 
 .crosshair::before,
 .crosshair::after{
-
   content:"";
 
   position:absolute;
@@ -761,34 +607,25 @@ button{
   background:#fff;
 
   opacity:.85;
-
 }
 
-
 .crosshair::before{
-
   width:28px;
   height:2px;
 
   left:0;
   top:13px;
-
 }
 
-
 .crosshair::after{
-
   width:2px;
   height:28px;
 
   left:13px;
   top:0;
-
 }
 
-
 #enemyHP{
-
   position:absolute;
 
   top:80px;
@@ -804,24 +641,18 @@ button{
   background:#090a0d;
 
   display:none;
-
 }
 
-
 #enemyHPFill{
-
   width:100%;
   height:100%;
 
   background:#bfc3ca;
 
   transition:width 150ms ease;
-
 }
 
-
 #message{
-
   position:absolute;
 
   left:50%;
@@ -847,19 +678,13 @@ button{
   transition:opacity 200ms ease;
 
   pointer-events:none;
-
 }
-
 
 #message.show{
-
   opacity:1;
-
 }
 
-
 #weaponText{
-
   position:absolute;
 
   right:28px;
@@ -874,16 +699,13 @@ button{
   letter-spacing:1px;
 
   color:#c9cbd1;
-
 }
 
-
 /* =========================================================
-   MOVEMENT CONTROLS
+   MOVEMENT
 ========================================================= */
 
 .controls{
-
   position:absolute;
 
   left:30px;
@@ -895,12 +717,9 @@ button{
   z-index:40;
 
   pointer-events:auto;
-
 }
 
-
 .moveBtn{
-
   position:absolute;
 
   width:88px;
@@ -918,7 +737,6 @@ button{
   font-size:30px;
 
   display:flex;
-
   justify-content:center;
   align-items:center;
 
@@ -928,63 +746,39 @@ button{
 
   box-shadow:
     0 5px 20px rgba(0,0,0,.25);
-
-  transition:
-    background 80ms ease,
-    transform 80ms ease;
-
 }
-
 
 .moveBtn:active,
 .moveBtn.active{
-
-  background:
-    rgba(100,105,115,.35);
-
+  background:rgba(100,105,115,.35);
   transform:scale(.94);
-
 }
-
 
 #up{
-
   left:100px;
   top:0;
-
 }
-
 
 #left{
-
   left:0;
   top:100px;
-
 }
-
 
 #down{
-
   left:100px;
   top:100px;
-
 }
-
 
 #right{
-
   left:200px;
   top:100px;
-
 }
 
-
 /* =========================================================
-   ACTION BUTTONS
+   ACTIONS
 ========================================================= */
 
 .actions{
-
   position:absolute;
 
   right:28px;
@@ -997,12 +791,9 @@ button{
   z-index:40;
 
   pointer-events:auto;
-
 }
 
-
 .actionBtn{
-
   width:105px;
   height:105px;
 
@@ -1018,7 +809,6 @@ button{
   font-size:14px;
 
   display:flex;
-
   flex-direction:column;
 
   justify-content:center;
@@ -1031,62 +821,35 @@ button{
   touch-action:none;
 
   pointer-events:auto;
-
-  box-shadow:
-    0 5px 25px rgba(0,0,0,.3);
-
-  transition:
-    transform 80ms ease,
-    background 80ms ease;
-
 }
-
 
 .actionBtn span{
-
   font-size:24px;
-
 }
-
 
 .actionBtn:active,
 .actionBtn.active{
-
   transform:scale(.93);
 
-  background:
-    rgba(100,105,115,.35);
-
+  background:rgba(100,105,115,.35);
 }
 
-
-#punch{
-
-  display:none;
-
-}
-
-
+#punch,
 #shoot{
-
   display:none;
-
 }
-
 
 /* =========================================================
    START
 ========================================================= */
 
 #start{
-
   position:absolute;
   inset:0;
 
   z-index:100;
 
   background:
-
     radial-gradient(
       circle at center,
       #171a22 0%,
@@ -1099,16 +862,12 @@ button{
   flex-direction:column;
 
   justify-content:center;
-
   align-items:center;
 
   text-align:center;
-
 }
 
-
 #start h1{
-
   margin:0;
 
   font-size:34px;
@@ -1116,23 +875,17 @@ button{
   letter-spacing:5px;
 
   font-weight:400;
-
 }
 
-
 #start p{
-
   margin:15px 0 35px;
 
   color:#777c87;
 
   letter-spacing:2px;
-
 }
 
-
 #start button{
-
   width:220px;
   height:58px;
 
@@ -1147,23 +900,13 @@ button{
   letter-spacing:2px;
 
   touch-action:none;
-
 }
-
-
-#start button:active{
-
-  transform:scale(.96);
-
-}
-
 
 /* =========================================================
    PUZZLE
 ========================================================= */
 
 #puzzle{
-
   position:absolute;
   inset:0;
 
@@ -1172,17 +915,13 @@ button{
   display:none;
 
   justify-content:center;
-
   align-items:center;
 
   background:
     rgba(0,0,0,.82);
-
 }
 
-
 #puzzleBox{
-
   width:min(340px,85vw);
 
   padding:25px;
@@ -1194,23 +933,17 @@ button{
   border-radius:15px;
 
   text-align:center;
-
 }
 
-
 #puzzleTitle{
-
   font-size:18px;
 
   letter-spacing:2px;
 
   margin-bottom:8px;
-
 }
 
-
 #puzzleText{
-
   color:#858a94;
 
   font-size:12px;
@@ -1218,24 +951,18 @@ button{
   line-height:1.5;
 
   margin-bottom:20px;
-
 }
 
-
 #dots{
-
   position:relative;
 
   width:210px;
   height:210px;
 
   margin:0 auto 20px;
-
 }
 
-
 .dot{
-
   position:absolute;
 
   width:38px;
@@ -1256,23 +983,16 @@ button{
   z-index:3;
 
   touch-action:none;
-
 }
 
-
 .dot.selected{
-
   background:#d8d9de;
 
   color:#050609;
-
 }
 
-
 #puzzleCanvas{
-
   position:absolute;
-
   inset:0;
 
   width:100%;
@@ -1281,12 +1001,9 @@ button{
   pointer-events:none;
 
   z-index:2;
-
 }
 
-
 #puzzleClose{
-
   width:100%;
   height:45px;
 
@@ -1297,16 +1014,13 @@ button{
   background:#151820;
 
   color:#fff;
-
 }
 
-
 /* =========================================================
-   MUZZLE FLASH
+   MUZZLE
 ========================================================= */
 
 #muzzleFlash{
-
   position:absolute;
 
   left:50%;
@@ -1315,13 +1029,11 @@ button{
   width:160px;
   height:160px;
 
-  transform:
-    translate(-50%,-50%);
+  transform:translate(-50%,-50%);
 
   border-radius:50%;
 
   background:
-
     radial-gradient(
       circle,
       rgba(255,255,255,.95),
@@ -1335,48 +1047,29 @@ button{
   z-index:17;
 
   pointer-events:none;
-
 }
-
 
 #muzzleFlash.show{
-
   animation:muzzle .12s ease;
-
 }
 
-
 @keyframes muzzle{
-
   0%{
-
     opacity:1;
-
-    transform:
-      translate(-50%,-50%)
-      scale(.5);
-
+    transform:translate(-50%,-50%) scale(.5);
   }
 
   100%{
-
     opacity:0;
-
-    transform:
-      translate(-50%,-50%)
-      scale(1.4);
-
+    transform:translate(-50%,-50%) scale(1.4);
   }
-
 }
 
-
 /* =========================================================
-   PORTRAIT WARNING
+   ROTATE
 ========================================================= */
 
 #rotateHint{
-
   display:none;
 
   position:absolute;
@@ -1394,69 +1087,32 @@ button{
   font-size:18px;
 
   letter-spacing:2px;
-
 }
-
-
-/* =========================================================
-   FULLSCREEN
-========================================================= */
-
-:fullscreen #game{
-
-  width:100vw;
-  height:100vh;
-
-}
-
-
-:-webkit-full-screen #game{
-
-  width:100vw;
-  height:100vh;
-
-}
-
-
-/* =========================================================
-   MOBILE
-========================================================= */
 
 @media(max-width:700px){
 
   .top{
-
     left:25px;
     right:25px;
     top:25px;
-
   }
-
 
   #weaponText{
-
     right:25px;
     top:120px;
-
     font-size:14px;
-
   }
 
-
   .controls{
-
     left:25px;
     bottom:25px;
 
     transform:scale(.82);
 
     transform-origin:left bottom;
-
   }
 
-
   .actions{
-
     right:20px;
     bottom:25px;
 
@@ -1465,444 +1121,264 @@ button{
     transform:scale(.72);
 
     transform-origin:right bottom;
-
   }
-
 }
-
 
 @media(orientation:portrait){
 
   #rotateHint{
-
     display:flex;
-
   }
 
 }
 
+:fullscreen #game{
+  width:100vw;
+  height:100vh;
+}
+
+:-webkit-full-screen #game{
+  width:100vw;
+  height:100vh;
+}
+
 </style>
-
 </head>
-
 
 <body>
 
-
 <div id="game">
 
+<div id="scene">
 
-  <!-- =====================================================
-       3D SCENE
-  ====================================================== -->
+<div id="world">
 
-  <div id="scene">
+<div class="floor"></div>
+<div class="ceiling"></div>
 
+<div class="wall left"></div>
+<div class="wall right"></div>
 
-    <div id="world">
+<div class="light"></div>
 
+<div id="door"></div>
 
-      <div class="floor"></div>
+<div id="secondArea">
 
-      <div class="ceiling"></div>
+<div class="backLight"></div>
 
-      <div class="wall left"></div>
+<div id="enemy" class="enemy">
 
-      <div class="wall right"></div>
-
-      <div class="light"></div>
-
-      <div id="door"></div>
-
-
-    </div>
-
-
-    <!-- SECOND AREA -->
-
-    <div id="secondArea">
-
-
-      <div class="backLight"></div>
-
-
-      <div id="enemy" class="enemy">
-
-        <div class="enemyHead"></div>
-
-        <div class="enemyBody"></div>
-
-      </div>
-
-
-      <div id="weaponObject" class="weaponObject">
-
-        <div class="weaponBody"></div>
-
-        <div class="weaponGrip"></div>
-
-      </div>
-
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =====================================================
-       LOOK
-  ====================================================== -->
-
-  <div id="lookArea"></div>
-
-
-  <!-- FLASHLIGHT -->
-
-  <div id="flashlight"></div>
-
-
-  <!-- DAMAGE -->
-
-  <div id="damage"></div>
-
-
-  <!-- MUZZLE -->
-
-  <div id="muzzleFlash"></div>
-
-
-  <!-- =====================================================
-       HUD
-  ====================================================== -->
-
-  <div id="hud">
-
-
-    <div class="top">
-
-      <div>
-        REDPRO ARCHIVES
-      </div>
-
-      <div id="hp">
-        HP 100
-      </div>
-
-    </div>
-
-
-    <div class="crosshair"></div>
-
-
-    <div id="enemyHP">
-
-      <div id="enemyHPFill"></div>
-
-    </div>
-
-
-    <div id="weaponText">
-      UNARMED
-    </div>
-
-
-    <div id="message"></div>
-
-
-    <!-- ===================================================
-         MOVEMENT
-    ==================================================== -->
-
-    <div class="controls">
-
-
-      <button
-        class="moveBtn"
-        id="up"
-        data-key="forward">
-
-        ▲
-
-      </button>
-
-
-      <button
-        class="moveBtn"
-        id="left"
-        data-key="left">
-
-        ◀
-
-      </button>
-
-
-      <button
-        class="moveBtn"
-        id="down"
-        data-key="back">
-
-        ▼
-
-      </button>
-
-
-      <button
-        class="moveBtn"
-        id="right"
-        data-key="right">
-
-        ▶
-
-      </button>
-
-
-    </div>
-
-
-    <!-- ===================================================
-         ACTIONS
-    ==================================================== -->
-
-    <div class="actions">
-
-
-      <button
-        class="actionBtn"
-        id="interact">
-
-        ВЗАИМОД.
-
-        <span>
-          🖐️
-        </span>
-
-      </button>
-
-
-      <button
-        class="actionBtn"
-        id="flash">
-
-        ФОНАРЬ
-
-        <span>
-          🔦
-        </span>
-
-      </button>
-
-
-      <button
-        class="actionBtn"
-        id="punch">
-
-        УДАР
-
-        <span>
-          👊
-        </span>
-
-      </button>
-
-
-      <button
-        class="actionBtn"
-        id="shoot">
-
-        ОГОНЬ
-
-        <span>
-          🔫
-        </span>
-
-      </button>
-
-
-      <button
-        class="actionBtn"
-        id="reload">
-
-        ПЕРЕЗАР.
-
-        <span>
-          ↪️
-        </span>
-
-      </button>
-
-
-    </div>
-
-
-  </div>
-
-
-  <div id="lookHint">
-
-    ПРОВЕДИТЕ ПАЛЬЦЕМ ДЛЯ ОБЗОРА
-
-  </div>
-
-
-  <!-- =====================================================
-       START SCREEN
-  ====================================================== -->
-
-  <div id="start">
-
-
-    <h1>
-      THE REDPRO ARCHIVES
-    </h1>
-
-
-    <p>
-      ARCHIVE 01
-    </p>
-
-
-    <button id="startButton">
-
-      НАЧАТЬ
-
-    </button>
-
-
-  </div>
-
-
-  <!-- =====================================================
-       PUZZLE
-  ====================================================== -->
-
-  <div id="puzzle">
-
-
-    <div id="puzzleBox">
-
-
-      <div id="puzzleTitle">
-
-        СИСТЕМА ДОСТУПА
-
-      </div>
-
-
-      <div id="puzzleText">
-
-        Соедините 7 точек в правильной последовательности.
-
-      </div>
-
-
-      <div id="dots">
-
-
-        <canvas id="puzzleCanvas"></canvas>
-
-
-        <button
-          class="dot"
-          data-n="1"
-          style="left:25%;top:25%;">
-
-          1
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="2"
-          style="left:50%;top:25%;">
-
-          2
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="3"
-          style="left:75%;top:25%;">
-
-          3
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="4"
-          style="left:25%;top:50%;">
-
-          4
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="5"
-          style="left:50%;top:50%;">
-
-          5
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="6"
-          style="left:75%;top:50%;">
-
-          6
-
-        </button>
-
-
-        <button
-          class="dot"
-          data-n="7"
-          style="left:25%;top:75%;">
-
-          7
-
-        </button>
-
-
-      </div>
-
-
-      <button id="puzzleClose">
-
-        ОТМЕНА
-
-      </button>
-
-
-    </div>
-
-
-  </div>
-
-
-  <!-- =====================================================
-       ROTATE WARNING
-  ====================================================== -->
-
-  <div id="rotateHint">
-
-    ПОВЕРНИТЕ ТЕЛЕФОН<br>
-
-    В ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
-
-  </div>
-
+<div class="enemyHead"></div>
+<div class="enemyBody"></div>
 
 </div>
 
+<div id="weaponObject" class="weaponObject">
+
+<div class="weaponBody"></div>
+<div class="weaponGrip"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="lookArea"></div>
+
+<div id="flashlight"></div>
+
+<div id="damage"></div>
+
+<div id="muzzleFlash"></div>
+
+<div id="hud">
+
+<div class="top">
+
+<div>REDPRO ARCHIVES</div>
+
+<div id="hp">
+HP 100
+</div>
+
+</div>
+
+<div class="crosshair"></div>
+
+<div id="enemyHP">
+
+<div id="enemyHPFill"></div>
+
+</div>
+
+<div id="weaponText">
+UNARMED
+</div>
+
+<div id="message"></div>
+
+<div class="controls">
+
+<button class="moveBtn"
+id="up"
+data-key="forward">
+▲
+</button>
+
+<button class="moveBtn"
+id="left"
+data-key="left">
+◀
+</button>
+
+<button class="moveBtn"
+id="down"
+data-key="back">
+▼
+</button>
+
+<button class="moveBtn"
+id="right"
+data-key="right">
+▶
+</button>
+
+</div>
+
+<div class="actions">
+
+<button class="actionBtn"
+id="interact">
+ВЗАИМОД.
+<span>🖐️</span>
+</button>
+
+<button class="actionBtn"
+id="flash">
+ФОНАРЬ
+<span>🔦</span>
+</button>
+
+<button class="actionBtn"
+id="punch">
+УДАР
+<span>👊</span>
+</button>
+
+<button class="actionBtn"
+id="shoot">
+ОГОНЬ
+<span>🔫</span>
+</button>
+
+<button class="actionBtn"
+id="reload">
+ПЕРЕЗАР.
+<span>↪️</span>
+</button>
+
+</div>
+
+</div>
+
+<div id="lookHint">
+ПРОВЕДИТЕ ПАЛЬЦЕМ ДЛЯ ОБЗОРА
+</div>
+
+<div id="start">
+
+<h1>
+THE REDPRO ARCHIVES
+</h1>
+
+<p>
+ARCHIVE 01
+</p>
+
+<button id="startButton">
+НАЧАТЬ
+</button>
+
+</div>
+
+<div id="puzzle">
+
+<div id="puzzleBox">
+
+<div id="puzzleTitle">
+СИСТЕМА ДОСТУПА
+</div>
+
+<div id="puzzleText">
+Соедините 7 точек в правильной последовательности.
+</div>
+
+<div id="dots">
+
+<canvas id="puzzleCanvas"></canvas>
+
+<button class="dot"
+data-n="1"
+style="left:25%;top:25%">
+1
+</button>
+
+<button class="dot"
+data-n="2"
+style="left:50%;top:25%">
+2
+</button>
+
+<button class="dot"
+data-n="3"
+style="left:75%;top:25%">
+3
+</button>
+
+<button class="dot"
+data-n="4"
+style="left:25%;top:50%">
+4
+</button>
+
+<button class="dot"
+data-n="5"
+style="left:50%;top:50%">
+5
+</button>
+
+<button class="dot"
+data-n="6"
+style="left:75%;top:50%">
+6
+</button>
+
+<button class="dot"
+data-n="7"
+style="left:25%;top:75%">
+7
+</button>
+
+</div>
+
+<button id="puzzleClose">
+ОТМЕНА
+</button>
+
+</div>
+
+</div>
+
+<div id="rotateHint">
+ПОВЕРНИТЕ ТЕЛЕФОН<br>
+В ГОРИЗОНТАЛЬНЫЙ РЕЖИМ
+</div>
+
+</div>
 
 <script>
 
@@ -1912,116 +1388,105 @@ button{
 
 if("serviceWorker" in navigator){
 
-  window.addEventListener("load",()=>{
+window.addEventListener("load",()=>{
 
-    navigator.serviceWorker
-      .register("./sw.js")
-      .then(()=>{
+navigator.serviceWorker
+.register("./sw.js")
+.then(()=>{
+console.log("SW OK");
+})
+.catch(err=>{
+console.log("SW ERROR",err);
+});
 
-        console.log(
-          "Redpro Archives: offline mode enabled"
-        );
-
-      })
-      .catch(err=>{
-
-        console.log(
-          "Service Worker error:",
-          err
-        );
-
-      });
-
-  });
+});
 
 }
-
 
 /* =========================================================
    ELEMENTS
 ========================================================= */
 
 const game =
-  document.getElementById("game");
+document.getElementById("game");
 
 const scene =
-  document.getElementById("scene");
+document.getElementById("scene");
 
 const world =
-  document.getElementById("world");
+document.getElementById("world");
 
 const door =
-  document.getElementById("door");
+document.getElementById("door");
 
 const secondArea =
-  document.getElementById("secondArea");
+document.getElementById("secondArea");
 
 const enemy =
-  document.getElementById("enemy");
+document.getElementById("enemy");
 
 const weaponObject =
-  document.getElementById("weaponObject");
+document.getElementById("weaponObject");
 
 const start =
-  document.getElementById("start");
+document.getElementById("start");
 
 const startButton =
-  document.getElementById("startButton");
+document.getElementById("startButton");
 
 const puzzle =
-  document.getElementById("puzzle");
+document.getElementById("puzzle");
 
 const puzzleClose =
-  document.getElementById("puzzleClose");
+document.getElementById("puzzleClose");
 
 const interact =
-  document.getElementById("interact");
+document.getElementById("interact");
 
 const flash =
-  document.getElementById("flash");
+document.getElementById("flash");
 
 const punch =
-  document.getElementById("punch");
+document.getElementById("punch");
 
 const shoot =
-  document.getElementById("shoot");
+document.getElementById("shoot");
 
 const reload =
-  document.getElementById("reload");
+document.getElementById("reload");
 
 const flashlight =
-  document.getElementById("flashlight");
+document.getElementById("flashlight");
 
 const damage =
-  document.getElementById("damage");
+document.getElementById("damage");
 
 const muzzleFlash =
-  document.getElementById("muzzleFlash");
+document.getElementById("muzzleFlash");
 
 const hpText =
-  document.getElementById("hp");
+document.getElementById("hp");
 
 const weaponText =
-  document.getElementById("weaponText");
+document.getElementById("weaponText");
 
 const message =
-  document.getElementById("message");
+document.getElementById("message");
 
 const enemyHP =
-  document.getElementById("enemyHP");
+document.getElementById("enemyHP");
 
 const enemyHPFill =
-  document.getElementById("enemyHPFill");
+document.getElementById("enemyHPFill");
 
 const lookArea =
-  document.getElementById("lookArea");
+document.getElementById("lookArea");
 
 const puzzleCanvas =
-  document.getElementById("puzzleCanvas");
+document.getElementById("puzzleCanvas");
 
 const puzzleCtx =
-  puzzleCanvas.getContext("2d");
-
+puzzleCanvas.getContext("2d");
 
 /* =========================================================
    GAME STATE
@@ -2030,7 +1495,6 @@ const puzzleCtx =
 let started = false;
 
 let doorUnlocked = false;
-
 let doorOpened = false;
 
 let enemyDefeated = false;
@@ -2044,18 +1508,12 @@ let playerHP = 100;
 let enemyHealth = 100;
 
 let ammo = 12;
-
 let maxAmmo = 12;
 
 let reloading = false;
 
-
 /*
-   ПОЗИЦИЯ ИГРОКА
-
-   X = влево / вправо
-   Y = высота
-   Z = вперёд / назад
+  НАСТОЯЩАЯ ПОЗИЦИЯ ИГРОКА
 */
 
 let playerX = 0;
@@ -2064,41 +1522,50 @@ let playerY = 0;
 
 let playerZ = 500;
 
-
 /*
-   ПОВОРОТ КАМЕРЫ
+  НАПРАВЛЕНИЕ КАМЕРЫ
 */
 
 let yaw = 0;
 
 let pitch = 0;
 
-
-let speed = 5;
+let speed = 260;
 
 let enemyAttackTimer = 0;
 
-let enemyDistance = 700;
-
 let lastTime = performance.now();
 
-
 /* =========================================================
-   MOVEMENT STATE
+   MOVEMENT
 ========================================================= */
 
 const keys = {
 
-  forward:false,
+forward:false,
 
-  back:false,
+back:false,
 
-  left:false,
+left:false,
 
-  right:false
+right:false
 
 };
 
+function clearMovement(){
+
+keys.forward = false;
+keys.back = false;
+keys.left = false;
+keys.right = false;
+
+document
+.querySelectorAll(".moveBtn")
+.forEach(btn=>{
+btn.classList.remove("active");
+});
+
+}
 
 /* =========================================================
    MESSAGE
@@ -2106,24 +1573,22 @@ const keys = {
 
 let messageTimer = null;
 
-
 function showMessage(text,time=1800){
 
-  message.textContent = text;
+message.textContent = text;
 
-  message.classList.add("show");
+message.classList.add("show");
 
-  clearTimeout(messageTimer);
+clearTimeout(messageTimer);
 
-  messageTimer =
-    setTimeout(()=>{
+messageTimer =
+setTimeout(()=>{
 
-      message.classList.remove("show");
+message.classList.remove("show");
 
-    },time);
+},time);
 
 }
-
 
 /* =========================================================
    FULLSCREEN
@@ -2131,310 +1596,201 @@ function showMessage(text,time=1800){
 
 async function enterFullscreen(){
 
-  try{
+try{
 
-    if(document.fullscreenElement){
+if(document.fullscreenElement){
+return;
+}
 
-      return;
+if(game.requestFullscreen){
 
-    }
-
-
-    if(game.requestFullscreen){
-
-      await game.requestFullscreen();
-
-    }
-
-    else if(game.webkitRequestFullscreen){
-
-      game.webkitRequestFullscreen();
-
-    }
-
-  }
-
-  catch(e){
-
-    console.log(
-      "Fullscreen:",
-      e
-    );
-
-  }
+await game.requestFullscreen();
 
 }
 
+}catch(e){
+
+console.log(e);
+
+}
+
+}
 
 /* =========================================================
-   START GAME
+   START
 ========================================================= */
 
-startButton.addEventListener(
-  "click",
-  async()=>{
+startButton.addEventListener("click",async()=>{
 
-    started = true;
+started = true;
 
-    start.style.display = "none";
+start.style.display = "none";
 
-    await enterFullscreen();
+await enterFullscreen();
 
-    showMessage(
-      "Найдите способ открыть дверь",
-      2500
-    );
-
-    render();
-
-  }
+showMessage(
+"Найдите способ открыть дверь",
+2500
 );
 
+render();
+
+});
 
 /* =========================================================
    MOVEMENT BUTTONS
 ========================================================= */
 
 const movementButtons =
-  document.querySelectorAll(".moveBtn");
-
-
-function clearMovement(){
-
-  keys.forward = false;
-
-  keys.back = false;
-
-  keys.left = false;
-
-  keys.right = false;
-
-
-  movementButtons.forEach(btn=>{
-
-    btn.classList.remove("active");
-
-  });
-
-}
-
+document.querySelectorAll(".moveBtn");
 
 movementButtons.forEach(button=>{
 
-  const key =
-    button.dataset.key;
+const key =
+button.dataset.key;
 
+button.addEventListener(
+"pointerdown",
+e=>{
 
-  button.addEventListener(
-    "pointerdown",
-    e=>{
+e.preventDefault();
+e.stopPropagation();
 
-      e.preventDefault();
+if(!started)return;
 
-      e.stopPropagation();
+keys[key] = true;
 
+button.classList.add("active");
 
-      if(!started){
+try{
+button.setPointerCapture(e.pointerId);
+}catch(err){}
 
-        return;
+},
+{passive:false}
+);
 
-      }
+button.addEventListener(
+"pointerup",
+e=>{
 
+e.preventDefault();
+e.stopPropagation();
 
-      keys[key] = true;
+keys[key] = false;
 
-      button.classList.add("active");
+button.classList.remove("active");
 
+try{
+button.releasePointerCapture(e.pointerId);
+}catch(err){}
 
-      try{
+},
+{passive:false}
+);
 
-        button.setPointerCapture(
-          e.pointerId
-        );
+button.addEventListener(
+"pointercancel",
+e=>{
 
-      }
+keys[key] = false;
 
-      catch(err){}
+button.classList.remove("active");
 
-    },
-    {
-      passive:false
-    }
-  );
-
-
-  button.addEventListener(
-    "pointerup",
-    e=>{
-
-      e.preventDefault();
-
-      e.stopPropagation();
-
-
-      keys[key] = false;
-
-      button.classList.remove("active");
-
-
-      try{
-
-        button.releasePointerCapture(
-          e.pointerId
-        );
-
-      }
-
-      catch(err){}
-
-    },
-    {
-      passive:false
-    }
-  );
-
-
-  button.addEventListener(
-    "pointercancel",
-    ()=>{
-
-      keys[key] = false;
-
-      button.classList.remove("active");
-
-    },
-    {
-      passive:false
-    }
-  );
-
-
-  button.addEventListener(
-    "lostpointercapture",
-    ()=>{
-
-      keys[key] = false;
-
-      button.classList.remove("active");
-
-    }
-  );
+},
+{passive:false}
+);
 
 });
 
-
 window.addEventListener(
-  "pointerup",
-  clearMovement
+"pointerup",
+clearMovement
 );
 
-
 window.addEventListener(
-  "pointercancel",
-  clearMovement
+"pointercancel",
+clearMovement
 );
-
 
 /* =========================================================
    KEYBOARD
 ========================================================= */
 
-window.addEventListener(
-  "keydown",
-  e=>{
+window.addEventListener("keydown",e=>{
 
-    if(
-      e.key==="w" ||
-      e.key==="ArrowUp"
-    ){
+if(e.key==="w" ||
+e.key==="W" ||
+e.key==="ArrowUp"){
 
-      keys.forward = true;
+keys.forward=true;
 
-    }
+}
 
+if(e.key==="s" ||
+e.key==="S" ||
+e.key==="ArrowDown"){
 
-    if(
-      e.key==="s" ||
-      e.key==="ArrowDown"
-    ){
+keys.back=true;
 
-      keys.back = true;
+}
 
-    }
+if(e.key==="a" ||
+e.key==="A" ||
+e.key==="ArrowLeft"){
 
+keys.left=true;
 
-    if(
-      e.key==="a" ||
-      e.key==="ArrowLeft"
-    ){
+}
 
-      keys.left = true;
+if(e.key==="d" ||
+e.key==="D" ||
+e.key==="ArrowRight"){
 
-    }
+keys.right=true;
 
+}
 
-    if(
-      e.key==="d" ||
-      e.key==="ArrowRight"
-    ){
+});
 
-      keys.right = true;
+window.addEventListener("keyup",e=>{
 
-    }
+if(e.key==="w" ||
+e.key==="W" ||
+e.key==="ArrowUp"){
 
-  }
-);
+keys.forward=false;
 
+}
 
-window.addEventListener(
-  "keyup",
-  e=>{
+if(e.key==="s" ||
+e.key==="S" ||
+e.key==="ArrowDown"){
 
-    if(
-      e.key==="w" ||
-      e.key==="ArrowUp"
-    ){
+keys.back=false;
 
-      keys.forward = false;
+}
 
-    }
+if(e.key==="a" ||
+e.key==="A" ||
+e.key==="ArrowLeft"){
 
+keys.left=false;
 
-    if(
-      e.key==="s" ||
-      e.key==="ArrowDown"
-    ){
+}
 
-      keys.back = false;
+if(e.key==="d" ||
+e.key==="D" ||
+e.key==="ArrowRight"){
 
-    }
+keys.right=false;
 
+}
 
-    if(
-      e.key==="a" ||
-      e.key==="ArrowLeft"
-    ){
-
-      keys.left = false;
-
-    }
-
-
-    if(
-      e.key==="d" ||
-      e.key==="ArrowRight"
-    ){
-
-      keys.right = false;
-
-    }
-
-  }
-);
-
+});
 
 /* =========================================================
-   CAMERA LOOK
+   LOOK
 ========================================================= */
 
 let looking = false;
@@ -2445,730 +1801,542 @@ let lastLookX = 0;
 
 let lastLookY = 0;
 
-
 lookArea.addEventListener(
-  "pointerdown",
-  e=>{
+"pointerdown",
+e=>{
 
-    if(!started){
+if(!started)return;
 
-      return;
+looking=true;
 
-    }
+lookPointer=e.pointerId;
 
+lastLookX=e.clientX;
 
-    looking = true;
+lastLookY=e.clientY;
 
-    lookPointer =
-      e.pointerId;
+try{
 
-
-    lastLookX =
-      e.clientX;
-
-    lastLookY =
-      e.clientY;
-
-
-    try{
-
-      lookArea.setPointerCapture(
-        e.pointerId
-      );
-
-    }
-
-    catch(err){}
-
-  },
-  {
-    passive:true
-  }
+lookArea.setPointerCapture(
+e.pointerId
 );
 
+}catch(err){}
 
-lookArea.addEventListener(
-  "pointermove",
-  e=>{
-
-    if(!looking){
-
-      return;
-
-    }
-
-
-    if(
-      e.pointerId !==
-      lookPointer
-    ){
-
-      return;
-
-    }
-
-
-    const dx =
-      e.clientX -
-      lastLookX;
-
-
-    const dy =
-      e.clientY -
-      lastLookY;
-
-
-    lastLookX =
-      e.clientX;
-
-    lastLookY =
-      e.clientY;
-
-
-    /*
-      ГОРИЗОНТАЛЬНЫЙ ПОВОРОТ
-
-      Двигаем палец вправо →
-      камера поворачивается вправо.
-    */
-
-    yaw += dx * .35;
-
-
-    /*
-      ВЕРТИКАЛЬНЫЙ ПОВОРОТ
-
-      Двигаем палец вверх →
-      камера смотрит вверх.
-    */
-
-    pitch -= dy * .20;
-
-
-    /*
-      Ограничиваем вертикальный взгляд.
-    */
-
-    pitch =
-      Math.max(
-        -35,
-        Math.min(
-          35,
-          pitch
-        )
-      );
-
-  },
-  {
-    passive:true
-  }
+},
+{passive:false}
 );
 
+lookArea.addEventListener(
+"pointermove",
+e=>{
+
+if(!looking)return;
+
+if(e.pointerId!==lookPointer)return;
+
+const dx =
+e.clientX-lastLookX;
+
+const dy =
+e.clientY-lastLookY;
+
+lastLookX=e.clientX;
+
+lastLookY=e.clientY;
+
+/*
+  Поворот камеры
+*/
+
+yaw += dx * .22;
+
+pitch -= dy * .15;
+
+/*
+  Ограничение взгляда вверх/вниз
+*/
+
+pitch =
+Math.max(
+-45,
+Math.min(45,pitch)
+);
+
+},
+{passive:false}
+);
 
 function stopLook(){
 
-  looking = false;
+looking=false;
 
-  lookPointer = null;
+lookPointer=null;
 
 }
 
-
 lookArea.addEventListener(
-  "pointerup",
-  stopLook
+"pointerup",
+stopLook
 );
 
-
 lookArea.addEventListener(
-  "pointercancel",
-  stopLook
+"pointercancel",
+stopLook
 );
-
 
 /* =========================================================
-   MOVEMENT UPDATE
+   REAL PLAYER MOVEMENT
 ========================================================= */
 
 function updateMovement(dt){
 
-  if(!started){
+if(!started)return;
 
-    return;
+const amount =
+speed * dt;
 
-  }
+const angle =
+yaw * Math.PI / 180;
 
+let moveX = 0;
 
-  const amount =
-    speed * dt;
+let moveZ = 0;
 
+/*
+  ВПЕРЁД
+*/
 
-  /*
-    ПРЕОБРАЗУЕМ УГОЛ КАМЕРЫ
-    В НАПРАВЛЕНИЕ ДВИЖЕНИЯ.
-  */
+if(keys.forward){
 
-  const rad =
-    yaw *
-    Math.PI /
-    180;
+moveX += Math.sin(angle);
 
-
-  let moveX = 0;
-
-  let moveZ = 0;
-
-
-  /*
-    ВПЕРЁД
-
-    Игрок идёт именно туда,
-    куда смотрит камера.
-  */
-
-  if(keys.forward){
-
-    moveX +=
-      Math.sin(rad);
-
-    moveZ -=
-      Math.cos(rad);
-
-  }
-
-
-  /*
-    НАЗАД
-  */
-
-  if(keys.back){
-
-    moveX -=
-      Math.sin(rad);
-
-    moveZ +=
-      Math.cos(rad);
-
-  }
-
-
-  /*
-    СТРЕЙФ ВЛЕВО
-  */
-
-  if(keys.left){
-
-    moveX -=
-      Math.cos(rad);
-
-    moveZ -=
-      Math.sin(rad);
-
-  }
-
-
-  /*
-    СТРЕЙФ ВПРАВО
-  */
-
-  if(keys.right){
-
-    moveX +=
-      Math.cos(rad);
-
-    moveZ +=
-      Math.sin(rad);
-
-  }
-
-
-  /*
-    НОРМАЛИЗАЦИЯ
-
-    Чтобы диагональное движение
-    не было быстрее обычного.
-  */
-
-  const length =
-    Math.sqrt(
-      moveX * moveX +
-      moveZ * moveZ
-    );
-
-
-  if(length > 0){
-
-    moveX /= length;
-
-    moveZ /= length;
-
-
-    playerX +=
-      moveX * amount;
-
-    playerZ +=
-      moveZ * amount;
-
-  }
-
-
-  /*
-    ГРАНИЦЫ КОРИДОРА
-  */
-
-  playerX =
-    Math.max(
-      -360,
-      Math.min(
-        360,
-        playerX
-      )
-    );
-
-
-  playerZ =
-    Math.max(
-      -1900,
-      Math.min(
-        700,
-        playerZ
-      )
-    );
+moveZ -= Math.cos(angle);
 
 }
 
+/*
+  НАЗАД
+*/
+
+if(keys.back){
+
+moveX -= Math.sin(angle);
+
+moveZ += Math.cos(angle);
+
+}
+
+/*
+  ВЛЕВО
+*/
+
+if(keys.left){
+
+moveX -= Math.cos(angle);
+
+moveZ -= Math.sin(angle);
+
+}
+
+/*
+  ВПРАВО
+*/
+
+if(keys.right){
+
+moveX += Math.cos(angle);
+
+moveZ += Math.sin(angle);
+
+}
+
+/*
+  Нормализация диагонального движения
+*/
+
+const length =
+Math.sqrt(
+moveX*moveX+
+moveZ*moveZ
+);
+
+if(length>0){
+
+moveX /= length;
+
+moveZ /= length;
+
+}
+
+/*
+  Реально перемещаем ИГРОКА,
+  а не камеру вверх/вниз.
+*/
+
+playerX +=
+moveX * amount;
+
+playerZ +=
+moveZ * amount;
+
+/*
+  Ограничения коридора
+*/
+
+playerX =
+Math.max(
+-350,
+Math.min(
+350,
+playerX
+)
+);
+
+playerZ =
+Math.max(
+-1900,
+Math.min(
+700,
+playerZ
+)
+);
+
+}
 
 /* =========================================================
-   RENDER / FPS CAMERA
+   REAL CAMERA
 ========================================================= */
 
 function render(){
 
-  /*
-    ВАЖНО:
+/*
+  Очень важно:
 
-    Игрок находится в центре камеры.
+  Мы не двигаем камеру отдельно.
 
-    Мы НЕ двигаем камеру через pitch.
+  Мы берём МИР и двигаем его
+  относительно позиции игрока.
 
-    Pitch отвечает только за вертикальный
-    поворот изображения.
+  Поэтому игрок всегда находится
+  ровно в центре камеры.
+*/
 
-    X/Z отвечают за реальное положение игрока.
-  */
+world.style.transform = `
 
+translate3d(
+${-playerX}px,
+${-playerY}px,
+${-playerZ}px
+)
 
-  world.style.transform = `
+rotateX(
+${-pitch}deg
+)
 
-    translate3d(
-      ${-playerX}px,
-      ${-playerY}px,
-      ${-playerZ}px
-    )
+rotateY(
+${-yaw}deg
+)
 
-    rotateX(${pitch}deg)
-
-    rotateY(${yaw}deg)
-
-  `;
+`;
 
 }
-
 
 /* =========================================================
    DOOR
 ========================================================= */
 
 interact.addEventListener(
-  "click",
-  ()=>{
+"click",
+()=>{
 
-    if(!started){
+if(!started)return;
 
-      return;
+if(!doorOpened){
 
-    }
+if(!doorUnlocked){
 
+openPuzzle();
 
-    if(!doorOpened){
+return;
 
-      if(!doorUnlocked){
+}
 
-        openPuzzle();
+openDoor();
 
-        return;
+return;
 
-      }
+}
 
+if(
+!enemyDefeated &&
+secondArea.classList.contains("active")
+){
 
-      openDoor();
-
-      return;
-
-    }
-
-
-    if(
-      !enemyDefeated &&
-      secondArea.classList.contains("active")
-    ){
-
-      showMessage(
-        "Сначала разберитесь с противником",
-        1600
-      );
-
-      return;
-
-    }
-
-
-    if(
-      enemyDefeated &&
-      !hasGun
-    ){
-
-      pickupWeapon();
-
-      return;
-
-    }
-
-
-    showMessage(
-      "Коридор продолжается...",
-      1500
-    );
-
-  }
+showMessage(
+"Сначала разберитесь с противником",
+1600
 );
 
+return;
+
+}
+
+if(
+enemyDefeated &&
+!hasGun
+){
+
+pickupWeapon();
+
+return;
+
+}
+
+showMessage(
+"Коридор продолжается...",
+1500
+);
+
+});
 
 /* =========================================================
    PUZZLE
 ========================================================= */
 
 const correctSequence =
-  [1,4,7,6,3,2,5];
+[1,4,7,6,3,2,5];
 
-
-let selectedDots = [];
-
+let selectedDots=[];
 
 function resizePuzzleCanvas(){
 
-  const rect =
-    document
-      .getElementById("dots")
-      .getBoundingClientRect();
+const rect =
+document
+.getElementById("dots")
+.getBoundingClientRect();
 
+const dpr =
+window.devicePixelRatio || 1;
 
-  const dpr =
-    window.devicePixelRatio || 1;
+puzzleCanvas.width =
+rect.width*dpr;
 
+puzzleCanvas.height =
+rect.height*dpr;
 
-  puzzleCanvas.width =
-    rect.width * dpr;
-
-
-  puzzleCanvas.height =
-    rect.height * dpr;
-
-
-  puzzleCtx.setTransform(
-    dpr,
-    0,
-    0,
-    dpr,
-    0,
-    0
-  );
+puzzleCtx.setTransform(
+dpr,
+0,
+0,
+dpr,
+0,
+0
+);
 
 }
-
 
 function openPuzzle(){
 
-  puzzle.style.display =
-    "flex";
+puzzle.style.display="flex";
 
+selectedDots=[];
 
-  selectedDots = [];
+document
+.querySelectorAll(".dot")
+.forEach(dot=>{
+dot.classList.remove("selected");
+});
 
-
-  document
-    .querySelectorAll(".dot")
-    .forEach(dot=>{
-
-      dot.classList.remove(
-        "selected"
-      );
-
-    });
-
-
-  setTimeout(
-    resizePuzzleCanvas,
-    30
-  );
+setTimeout(
+resizePuzzleCanvas,
+30
+);
 
 }
-
 
 function closePuzzle(){
 
-  puzzle.style.display =
-    "none";
+puzzle.style.display="none";
 
+selectedDots=[];
 
-  selectedDots = [];
+document
+.querySelectorAll(".dot")
+.forEach(dot=>{
+dot.classList.remove("selected");
+});
 
-
-  document
-    .querySelectorAll(".dot")
-    .forEach(dot=>{
-
-      dot.classList.remove(
-        "selected"
-      );
-
-    });
-
-
-  clearPuzzleCanvas();
+clearPuzzleCanvas();
 
 }
 
-
 puzzleClose.addEventListener(
-  "click",
-  closePuzzle
+"click",
+closePuzzle
 );
-
 
 function clearPuzzleCanvas(){
 
-  puzzleCtx.clearRect(
-    0,
-    0,
-    puzzleCanvas.width,
-    puzzleCanvas.height
-  );
+puzzleCtx.clearRect(
+0,
+0,
+puzzleCanvas.width,
+puzzleCanvas.height
+);
 
 }
-
 
 function drawPuzzleLines(){
 
-  clearPuzzleCanvas();
+clearPuzzleCanvas();
 
+if(selectedDots.length<2){
+return;
+}
 
-  if(selectedDots.length < 2){
+const container =
+document
+.getElementById("dots")
+.getBoundingClientRect();
 
-    return;
+puzzleCtx.beginPath();
 
-  }
+selectedDots.forEach(
+(number,index)=>{
 
+const dot =
+document.querySelector(
+`.dot[data-n="${number}"]`
+);
 
-  const container =
-    document
-      .getElementById("dots")
-      .getBoundingClientRect();
+const r =
+dot.getBoundingClientRect();
 
+const x =
+r.left-container.left+r.width/2;
 
-  puzzleCtx.beginPath();
+const y =
+r.top-container.top+r.height/2;
 
+if(index===0){
 
-  selectedDots.forEach(
-    (number,index)=>{
+puzzleCtx.moveTo(x,y);
 
+}else{
 
-      const dot =
-        document.querySelector(
-          `.dot[data-n="${number}"]`
-        );
-
-
-      const r =
-        dot.getBoundingClientRect();
-
-
-      const x =
-        r.left -
-        container.left +
-        r.width / 2;
-
-
-      const y =
-        r.top -
-        container.top +
-        r.height / 2;
-
-
-      if(index === 0){
-
-        puzzleCtx.moveTo(
-          x,
-          y
-        );
-
-      }
-
-      else{
-
-        puzzleCtx.lineTo(
-          x,
-          y
-        );
-
-      }
-
-    }
-  );
-
-
-  puzzleCtx.strokeStyle =
-    "#d8d9de";
-
-
-  puzzleCtx.lineWidth = 3;
-
-
-  puzzleCtx.stroke();
+puzzleCtx.lineTo(x,y);
 
 }
 
+});
+
+puzzleCtx.strokeStyle="#d8d9de";
+
+puzzleCtx.lineWidth=3;
+
+puzzleCtx.stroke();
+
+}
 
 document
-  .querySelectorAll(".dot")
-  .forEach(dot=>{
+.querySelectorAll(".dot")
+.forEach(dot=>{
 
+dot.addEventListener(
+"pointerdown",
+e=>{
 
-    dot.addEventListener(
-      "pointerdown",
-      e=>{
+e.preventDefault();
 
-        e.preventDefault();
+const n =
+Number(dot.dataset.n);
 
+if(selectedDots.includes(n)){
+return;
+}
 
-        const n =
-          Number(
-            dot.dataset.n
-          );
+selectedDots.push(n);
 
+dot.classList.add("selected");
 
-        if(
-          selectedDots.includes(n)
-        ){
+drawPuzzleLines();
 
-          return;
+checkPuzzle();
 
-        }
+},
+{passive:false}
+);
 
-
-        selectedDots.push(n);
-
-
-        dot.classList.add(
-          "selected"
-        );
-
-
-        drawPuzzleLines();
-
-
-        checkPuzzle();
-
-      },
-      {
-        passive:false
-      }
-    );
-
-  });
-
+});
 
 function checkPuzzle(){
 
-  const length =
-    selectedDots.length;
+const length =
+selectedDots.length;
 
+for(
+let i=0;
+i<length;
+i++
+){
 
-  for(
-    let i=0;
-    i<length;
-    i++
-  ){
+if(
+selectedDots[i] !==
+correctSequence[i]
+){
 
-    if(
-      selectedDots[i] !==
-      correctSequence[i]
-    ){
+showMessage(
+"ОШИБКА. ПОСЛЕДОВАТЕЛЬНОСТЬ НЕВЕРНА",
+1500
+);
 
-      showMessage(
-        "ОШИБКА. ПОСЛЕДОВАТЕЛЬНОСТЬ НЕВЕРНА",
-        1500
-      );
+setTimeout(()=>{
 
+selectedDots=[];
 
-      setTimeout(()=>{
+document
+.querySelectorAll(".dot")
+.forEach(dot=>{
+dot.classList.remove("selected");
+});
 
-        selectedDots = [];
+clearPuzzleCanvas();
 
+},500);
 
-        document
-          .querySelectorAll(".dot")
-          .forEach(dot=>{
-
-            dot.classList.remove(
-              "selected"
-            );
-
-          });
-
-
-        clearPuzzleCanvas();
-
-      },500);
-
-
-      return;
-
-    }
-
-  }
-
-
-  if(
-    selectedDots.length ===
-    correctSequence.length
-  ){
-
-    doorUnlocked = true;
-
-
-    showMessage(
-      "ДОСТУП РАЗРЕШЁН",
-      2000
-    );
-
-
-    setTimeout(()=>{
-
-      closePuzzle();
-
-
-      showMessage(
-        "Дверь разблокирована. Нажмите ВЗАИМОД.",
-        2200
-      );
-
-    },800);
-
-  }
+return;
 
 }
 
+}
+
+if(
+selectedDots.length===
+correctSequence.length
+){
+
+doorUnlocked=true;
+
+showMessage(
+"ДОСТУП РАЗРЕШЁН",
+2000
+);
+
+setTimeout(()=>{
+
+closePuzzle();
+
+showMessage(
+"Дверь разблокирована. Нажмите ВЗАИМОД.",
+2200
+);
+
+},800);
+
+}
+
+}
 
 /* =========================================================
    OPEN DOOR
@@ -3176,54 +2344,35 @@ function checkPuzzle(){
 
 function openDoor(){
 
-  if(doorOpened){
+if(doorOpened)return;
 
-    return;
+doorOpened=true;
 
-  }
+door.classList.add("open");
 
+showMessage(
+"ДВЕРЬ ОТКРЫВАЕТСЯ...",
+1000
+);
 
-  doorOpened = true;
+setTimeout(()=>{
 
+secondArea.classList.add("active");
 
-  door.classList.add(
-    "open"
-  );
+enemyHP.style.display="block";
 
+punch.style.display="flex";
 
-  showMessage(
-    "ДВЕРЬ ОТКРЫВАЕТСЯ...",
-    1000
-  );
+updateEnemyHP();
 
+showMessage(
+"ВПЕРЕДИ ПРОТИВНИК",
+2000
+);
 
-  setTimeout(()=>{
-
-    secondArea.classList.add(
-      "active"
-    );
-
-
-    enemyHP.style.display =
-      "block";
-
-
-    punch.style.display =
-      "flex";
-
-
-    updateEnemyHP();
-
-
-    showMessage(
-      "ВПЕРЕДИ ПРОТИВНИК",
-      2000
-    );
-
-  },900);
+},900);
 
 }
-
 
 /* =========================================================
    ENEMY ATTACK
@@ -3231,160 +2380,103 @@ function openDoor(){
 
 function enemyAttack(dt){
 
-  if(
-    !doorOpened ||
-    enemyDefeated ||
-    !secondArea.classList.contains("active")
-  ){
+if(
+!doorOpened ||
+enemyDefeated ||
+!secondArea.classList.contains("active")
+){
 
-    return;
-
-  }
-
-
-  enemyAttackTimer += dt;
-
-
-  if(
-    enemyAttackTimer < 2.0
-  ){
-
-    return;
-
-  }
-
-
-  enemyAttackTimer = 0;
-
-
-  playerHP -= 8;
-
-
-  if(playerHP < 0){
-
-    playerHP = 0;
-
-  }
-
-
-  hpText.textContent =
-    "HP " +
-    playerHP;
-
-
-  damage.classList.add(
-    "show"
-  );
-
-
-  setTimeout(()=>{
-
-    damage.classList.remove(
-      "show"
-    );
-
-  },140);
-
-
-  if(playerHP <= 0){
-
-    playerHP = 100;
-
-
-    hpText.textContent =
-      "HP 100";
-
-
-    showMessage(
-      "ВЫ ПОТЕРЯЛИ СОЗНАНИЕ",
-      1800
-    );
-
-  }
+return;
 
 }
 
+enemyAttackTimer += dt;
+
+if(enemyAttackTimer<2){
+return;
+}
+
+enemyAttackTimer=0;
+
+playerHP-=8;
+
+if(playerHP<0){
+playerHP=0;
+}
+
+hpText.textContent =
+"HP "+playerHP;
+
+damage.classList.add("show");
+
+setTimeout(()=>{
+damage.classList.remove("show");
+},140);
+
+if(playerHP<=0){
+
+playerHP=100;
+
+hpText.textContent="HP 100";
+
+showMessage(
+"ВЫ ПОТЕРЯЛИ СОЗНАНИЕ",
+1800
+);
+
+}
+
+}
 
 /* =========================================================
    PUNCH
 ========================================================= */
 
 punch.addEventListener(
-  "click",
-  ()=>{
+"click",
+()=>{
 
-    if(
-      !doorOpened ||
-      enemyDefeated
-    ){
+if(
+!doorOpened ||
+enemyDefeated
+){
 
-      return;
+return;
 
-    }
+}
 
+if(hasGun){
 
-    if(hasGun){
-
-      showMessage(
-        "Используйте пистолет",
-        1000
-      );
-
-      return;
-
-    }
-
-
-    enemyHealth -= 25;
-
-
-    if(enemyHealth < 0){
-
-      enemyHealth = 0;
-
-    }
-
-
-    enemy.classList.add(
-      "hit"
-    );
-
-
-    setTimeout(()=>{
-
-      enemy.classList.remove(
-        "hit"
-      );
-
-    },180);
-
-
-    damage.classList.add(
-      "show"
-    );
-
-
-    setTimeout(()=>{
-
-      damage.classList.remove(
-        "show"
-      );
-
-    },80);
-
-
-    updateEnemyHP();
-
-
-    if(enemyHealth <= 0){
-
-      defeatEnemy();
-
-    }
-
-  }
+showMessage(
+"Используйте пистолет",
+1000
 );
 
+return;
+
+}
+
+enemyHealth-=25;
+
+if(enemyHealth<0){
+enemyHealth=0;
+}
+
+enemy.classList.add("hit");
+
+setTimeout(()=>{
+enemy.classList.remove("hit");
+},180);
+
+updateEnemyHP();
+
+if(enemyHealth<=0){
+
+defeatEnemy();
+
+}
+
+});
 
 /* =========================================================
    ENEMY HP
@@ -3392,375 +2484,272 @@ punch.addEventListener(
 
 function updateEnemyHP(){
 
-  enemyHPFill.style.width =
-    enemyHealth + "%";
+enemyHPFill.style.width =
+enemyHealth+"%";
 
 }
 
-
 /* =========================================================
-   DEFEAT ENEMY
+   DEFEAT
 ========================================================= */
 
 function defeatEnemy(){
 
-  enemyDefeated = true;
+enemyDefeated=true;
 
+enemy.classList.add("dead");
 
-  enemy.classList.add(
-    "dead"
-  );
+enemyHP.style.display="none";
 
+punch.style.display="none";
 
-  enemyHP.style.display =
-    "none";
+setTimeout(()=>{
 
+weaponObject.classList.add("visible");
 
-  punch.style.display =
-    "none";
+showMessage(
+"ПРОТИВНИК УСТРАНЁН. ЗАБЕРИТЕ ОРУЖИЕ.",
+2500
+);
 
-
-  setTimeout(()=>{
-
-    weaponObject.classList.add(
-      "visible"
-    );
-
-
-    showMessage(
-      "ПРОТИВНИК УСТРАНЁН. ЗАБЕРИТЕ ОРУЖИЕ.",
-      2500
-    );
-
-  },500);
+},500);
 
 }
 
-
 /* =========================================================
-   WEAPON PICKUP
+   WEAPON
 ========================================================= */
 
 function pickupWeapon(){
 
-  if(hasGun){
+if(hasGun)return;
 
-    return;
+hasGun=true;
 
-  }
+weaponObject.classList.remove("visible");
 
+shoot.style.display="flex";
 
-  hasGun = true;
+reload.style.display="flex";
 
+weaponText.innerHTML =
+"EQUIPPED: PISTOL<br>AMMO: "+
+ammo+
+"/"+
+maxAmmo;
 
-  weaponObject.classList.remove(
-    "visible"
-  );
-
-
-  shoot.style.display =
-    "flex";
-
-
-  weaponText.innerHTML =
-    "EQUIPPED: PISTOL<br>AMMO: " +
-    ammo +
-    "/" +
-    maxAmmo;
-
-
-  showMessage(
-    "ПИСТОЛЕТ ПОДОБРАН",
-    1600
-  );
+showMessage(
+"ПИСТОЛЕТ ПОДОБРАН",
+1600
+);
 
 }
 
-
 weaponObject.addEventListener(
-  "pointerdown",
-  e=>{
+"pointerdown",
+e=>{
 
-    e.preventDefault();
+e.preventDefault();
 
+if(enemyDefeated){
 
-    if(enemyDefeated){
+pickupWeapon();
 
-      pickupWeapon();
+}
 
-    }
-
-  },
-  {
-    passive:false
-  }
+},
+{passive:false}
 );
-
 
 /* =========================================================
    FLASHLIGHT
 ========================================================= */
 
 flash.addEventListener(
-  "click",
-  ()=>{
+"click",
+()=>{
 
-    lightOn =
-      !lightOn;
+lightOn=!lightOn;
 
+if(lightOn){
 
-    if(lightOn){
+flashlight.classList.remove("off");
 
-      flashlight.classList.remove(
-        "off"
-      );
-
-
-      showMessage(
-        "ФОНАРЬ ВКЛЮЧЁН",
-        900
-      );
-
-    }
-
-    else{
-
-      flashlight.classList.add(
-        "off"
-      );
-
-
-      showMessage(
-        "ФОНАРЬ ВЫКЛЮЧЕН",
-        900
-      );
-
-    }
-
-  }
+showMessage(
+"ФОНАРЬ ВКЛЮЧЁН",
+900
 );
 
+}else{
+
+flashlight.classList.add("off");
+
+showMessage(
+"ФОНАРЬ ВЫКЛЮЧЕН",
+900
+);
+
+}
+
+});
 
 /* =========================================================
    SHOOT
 ========================================================= */
 
 shoot.addEventListener(
-  "click",
-  ()=>{
+"click",
+()=>{
 
-    if(!hasGun){
+if(!hasGun)return;
 
-      return;
+if(reloading)return;
 
-    }
+if(ammo<=0){
 
-
-    if(reloading){
-
-      return;
-
-    }
-
-
-    if(ammo <= 0){
-
-      showMessage(
-        "НЕТ ПАТРОНОВ. ПЕРЕЗАРЯДИТЕСЬ.",
-        1200
-      );
-
-      return;
-
-    }
-
-
-    ammo--;
-
-
-    weaponText.innerHTML =
-      "EQUIPPED: PISTOL<br>AMMO: " +
-      ammo +
-      "/" +
-      maxAmmo;
-
-
-    muzzleFlash.classList.remove(
-      "show"
-    );
-
-
-    void muzzleFlash.offsetWidth;
-
-
-    muzzleFlash.classList.add(
-      "show"
-    );
-
-
-    /*
-      Пока прототипный хитскан:
-      выстрел попадает в противника,
-      если он находится в боевой зоне.
-    */
-
-    if(
-      doorOpened &&
-      !enemyDefeated &&
-      secondArea.classList.contains("active")
-    ){
-
-      enemyHealth -= 50;
-
-
-      if(enemyHealth < 0){
-
-        enemyHealth = 0;
-
-      }
-
-
-      enemy.classList.add(
-        "hit"
-      );
-
-
-      setTimeout(()=>{
-
-        enemy.classList.remove(
-          "hit"
-        );
-
-      },150);
-
-
-      updateEnemyHP();
-
-
-      if(enemyHealth <= 0){
-
-        defeatEnemy();
-
-      }
-
-    }
-
-  }
+showMessage(
+"НЕТ ПАТРОНОВ. ПЕРЕЗАРЯДИТЕСЬ.",
+1200
 );
 
+return;
+
+}
+
+ammo--;
+
+weaponText.innerHTML =
+"EQUIPPED: PISTOL<br>AMMO: "+
+ammo+
+"/"+
+maxAmmo;
+
+muzzleFlash.classList.remove("show");
+
+void muzzleFlash.offsetWidth;
+
+muzzleFlash.classList.add("show");
+
+if(
+doorOpened &&
+!enemyDefeated &&
+secondArea.classList.contains("active")
+){
+
+enemyHealth-=50;
+
+if(enemyHealth<0){
+enemyHealth=0;
+}
+
+enemy.classList.add("hit");
+
+setTimeout(()=>{
+enemy.classList.remove("hit");
+},150);
+
+updateEnemyHP();
+
+if(enemyHealth<=0){
+
+defeatEnemy();
+
+}
+
+}
+
+});
 
 /* =========================================================
    RELOAD
 ========================================================= */
 
 reload.addEventListener(
-  "click",
-  ()=>{
+"click",
+()=>{
 
-    if(!hasGun){
+if(!hasGun)return;
 
-      return;
+if(reloading)return;
 
-    }
+if(ammo>=maxAmmo){
 
-
-    if(reloading){
-
-      return;
-
-    }
-
-
-    if(ammo >= maxAmmo){
-
-      showMessage(
-        "МАГАЗИН ПОЛОН",
-        900
-      );
-
-      return;
-
-    }
-
-
-    reloading = true;
-
-
-    showMessage(
-      "ПЕРЕЗАРЯДКА...",
-      1000
-    );
-
-
-    setTimeout(()=>{
-
-      ammo = maxAmmo;
-
-      reloading = false;
-
-
-      weaponText.innerHTML =
-        "EQUIPPED: PISTOL<br>AMMO: " +
-        ammo +
-        "/" +
-        maxAmmo;
-
-
-      showMessage(
-        "ГОТОВО",
-        700
-      );
-
-    },1000);
-
-  }
+showMessage(
+"МАГАЗИН ПОЛОН",
+900
 );
 
+return;
+
+}
+
+reloading=true;
+
+showMessage(
+"ПЕРЕЗАРЯДКА...",
+1000
+);
+
+setTimeout(()=>{
+
+ammo=maxAmmo;
+
+reloading=false;
+
+weaponText.innerHTML =
+"EQUIPPED: PISTOL<br>AMMO: "+
+ammo+
+"/"+
+maxAmmo;
+
+showMessage(
+"ГОТОВО",
+700
+);
+
+},1000);
+
+});
 
 /* =========================================================
-   PREVENT SCROLL
+   NO SCROLL
 ========================================================= */
 
 document.addEventListener(
-  "touchmove",
-  e=>{
+"touchmove",
+e=>{
 
-    if(
-      puzzle.style.display !== "flex"
-    ){
+if(
+puzzle.style.display!=="flex"
+){
 
-      e.preventDefault();
+e.preventDefault();
 
-    }
+}
 
-  },
-  {
-    passive:false
-  }
+},
+{passive:false}
 );
-
 
 /* =========================================================
    RESIZE
 ========================================================= */
 
 window.addEventListener(
-  "resize",
-  ()=>{
+"resize",
+()=>{
 
-    if(
-      puzzle.style.display === "flex"
-    ){
+if(
+puzzle.style.display==="flex"
+){
 
-      resizePuzzleCanvas();
+resizePuzzleCanvas();
 
-      drawPuzzleLines();
+drawPuzzleLines();
 
-    }
+}
 
-  }
-);
-
+});
 
 /* =========================================================
    GAME LOOP
@@ -3768,47 +2757,35 @@ window.addEventListener(
 
 function loop(time){
 
-  const dt =
-    Math.min(
-      (time - lastTime) / 1000,
-      .05
-    );
+const dt =
+Math.min(
+(time-lastTime)/1000,
+0.05
+);
 
+lastTime=time;
 
-  lastTime = time;
+updateMovement(dt);
 
+enemyAttack(dt);
 
-  updateMovement(dt);
+render();
 
-  enemyAttack(dt);
-
-  render();
-
-
-  requestAnimationFrame(
-    loop
-  );
+requestAnimationFrame(loop);
 
 }
 
-
-requestAnimationFrame(
-  loop
-);
-
+requestAnimationFrame(loop);
 
 /* =========================================================
    INITIAL
 ========================================================= */
 
-flashlight.classList.remove(
-  "off"
-);
-
+flashlight.classList.remove("off");
 
 render();
 
 </script>
 
 </body>
-              </html>
+      </html>
