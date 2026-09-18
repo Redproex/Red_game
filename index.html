@@ -1,230 +1,542 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Игровой экран</title>
-    <style>
-        /* Подключаем рукописный шрифт для текста */
-        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #1a1a1a; /* Темный фон вокруг "телефона" */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            font-family: 'Caveat', cursive, sans-serif;
-        }
+<title>Redpro Archives</title>
 
-        /* Контейнер игры (как экран телефона) */
-        .game-screen {
-            position: relative;
-            width: 100%;
-            max-width: 900px;
-            height: 500px;
-            background-color: #29a3ed; /* Голубой фон */
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 4px solid #333;
-        }
+<style>
 
-        /* --- ВЕРХНИЙ ЛЕВЫЙ БЛОК (Кубики) --- */
-        .bubble-top-left {
-            position: absolute;
-            top: 30px;
-            left: 40px;
-            background: white;
-            padding: 15px 30px;
-            font-size: 28px;
-            color: #000;
-            /* Делаем края немного неровными (рукописный стиль) */
-            border-radius: 20px 40px 30px 50px / 40px 20px 50px 30px;
-            transform: rotate(-2deg);
-            box-shadow: 2px 4px 0 rgba(0,0,0,0.1);
-        }
+*{
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
 
-        /* --- ВЕРХНИЙ ПРАВЫЙ БЛОК (Статус и Меню) --- */
-        .ui-top-right {
-            position: absolute;
-            top: 30px;
-            right: 40px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
+body{
+    margin:0;
+    background:#050d18;
+    color:white;
+    overflow:hidden;
+}
 
-        .status-bar {
-            background: white;
-            padding: 6px 20px;
-            border-radius: 30px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
 
-        .dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-        }
-        .dot.yellow { background-color: #fce116; }
-        .dot.green { background-color: #4caf50; }
+/* ВЕРХНЯЯ ПАНЕЛЬ */
 
-        .menu-btn {
-            background: #333;
-            color: white;
-            width: 35px;
-            height: 35px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            padding-bottom: 5px;
-            cursor: pointer;
-        }
+.top-hud{
+    height:80px;
+    background:#10243c;
+    border-bottom:4px solid #02070d;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:10px 20px;
+}
 
-        /* --- ПЕРСОНАЖ (SVG) --- */
-        .character-wrapper {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 250px;
-            height: 250px;
-        }
 
-        /* --- НИЖНИЙ ПРАВЫЙ БЛОК (Игуать) --- */
-        .bubble-bottom-right {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            background: #fce116; /* Желтый */
-            padding: 10px 35px;
-            font-size: 34px;
-            color: #000;
-            /* Неровные края */
-            border-radius: 50px 20px 40px 20px / 20px 50px 20px 40px;
-            transform: rotate(-4deg);
-            box-shadow: 2px 4px 0 rgba(0,0,0,0.1);
-        }
+.profile{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
 
-        /* --- ВСПЛЫВАЮЩЕЕ ОКНО (Как на скриншоте) --- */
-        .chat-overlay {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            width: 260px;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 16px;
-            padding: 15px;
-            font-family: sans-serif;
-            font-size: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            border: 2px solid #ccc;
-            pointer-events: none; /* Чтобы не мешало кликам */
-        }
-        .chat-overlay h4 {
-            margin: 0 0 8px 0;
-            font-size: 12px;
-            color: #333;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        .chat-overlay p {
-            margin: 0 0 6px 0;
-            line-height: 1.4;
-            color: #444;
-        }
-        .chat-overlay .tag {
-            background: #e0e0e0;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-family: monospace;
-        }
-    </style>
+
+.avatar{
+    width:55px;
+    height:55px;
+    background:#800000;
+    border:3px solid #ff2525;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:bold;
+}
+
+
+.profile span{
+    display:block;
+    font-size:22px;
+}
+
+.profile small{
+    color:#00c8ff;
+}
+
+
+.resources{
+    display:flex;
+    gap:15px;
+}
+
+
+.resource{
+    background:#193452;
+    border:2px solid #07101c;
+    padding:12px 25px;
+    clip-path:polygon(10% 0,100% 0,90% 100%,0 100%);
+}
+
+
+.settings{
+    width:55px;
+    height:55px;
+    background:#167bd8;
+    color:white;
+    font-size:30px;
+    border:3px solid #02070d;
+}
+
+
+/* ОСНОВА */
+
+
+.game{
+    display:flex;
+    height:calc(100vh - 80px);
+}
+
+
+/* ЛЕВО */
+
+
+.menu{
+    width:200px;
+    background:#0c1c30;
+    padding:15px;
+}
+
+
+.menu button{
+
+    width:100%;
+    height:65px;
+    margin-bottom:10px;
+
+    background:#193653;
+    color:white;
+
+    border:none;
+    border-left:6px solid #16b8ff;
+
+    font-size:18px;
+
+    clip-path:
+    polygon(0 0,100% 0,90% 100%,0 100%);
+}
+
+
+.menu button:hover,
+.menu .active{
+
+    background:#b8202c;
+    border-left-color:#ffbf24;
+}
+
+
+/* ЦЕНТР */
+
+
+.center{
+
+    flex:1;
+    padding:20px;
+
+}
+
+
+.screen{
+
+    height:70%;
+    background:
+
+    linear-gradient(
+    145deg,
+    #152d4a,
+    #071321
+    );
+
+    border:5px solid #02070d;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+
+.screen:before{
+
+content:"";
+
+position:absolute;
+inset:0;
+
+background:
+radial-gradient(circle,
+#16b8ff33,
+transparent 60%);
+
+}
+
+
+.character{
+
+z-index:2;
+
+text-align:center;
+
+}
+
+
+.character h1{
+
+font-size:55px;
+
+color:#ff3030;
+
+text-shadow:
+0 0 15px red;
+
+}
+
+
+.info{
+
+background:#10243c;
+
+padding:15px;
+
+border:2px solid #16b8ff;
+
+}
+
+
+
+/* ПРАВО */
+
+
+.right{
+
+width:300px;
+
+background:#0b1728;
+
+padding:20px;
+
+}
+
+
+.hp{
+
+height:30px;
+
+background:#1c3857;
+
+border:3px solid black;
+
+margin-bottom:30px;
+
+}
+
+
+.hp div{
+
+height:100%;
+
+width:70%;
+
+background:#16d8ff;
+
+}
+
+
+
+.play{
+
+width:100%;
+
+height:100px;
+
+background:#ffbd22;
+
+border:5px solid #111;
+
+font-size:45px;
+
+font-weight:bold;
+
+}
+
+
+.team{
+
+margin-top:15px;
+
+width:100%;
+
+height:60px;
+
+background:#168de0;
+
+border:4px solid #06101c;
+
+font-size:25px;
+
+color:white;
+
+}
+
+
+
+/* НИЗ */
+
+
+.bottom{
+
+position:absolute;
+
+bottom:20px;
+
+left:220px;
+
+right:330px;
+
+display:flex;
+
+gap:20px;
+
+}
+
+
+.card{
+
+flex:1;
+
+height:120px;
+
+background:#132b47;
+
+border:4px solid #02070d;
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+font-size:25px;
+
+}
+
+
+.card:hover{
+
+border-color:#16b8ff;
+
+transform:translateY(-5px);
+
+}
+
+
+
+/* СКАНИРОВАНИЕ */
+
+.scan{
+
+position:absolute;
+
+inset:0;
+
+background:
+linear-gradient(
+transparent 50%,
+#16b8ff11 50%
+);
+
+background-size:100% 8px;
+
+pointer-events:none;
+
+}
+
+</style>
+
 </head>
+
+
 <body>
 
-    <div class="game-screen">
-        
-        <!-- Верхний левый блок -->
-        <div class="bubble-top-left">кубики</div>
 
-        <!-- Верхний правый блок -->
-        <div class="ui-top-right">
-            <div class="status-bar">
-                <span class="dot yellow"></span> деньги
-                <span class="dot green"></span> жизнь
-            </div>
-            <div class="menu-btn">≡</div>
-        </div>
+<header class="top-hud">
 
-        <!-- Персонаж (Рисуем через SVG) -->
-        <div class="character-wrapper">
-            <svg viewBox="0 0 120 140" width="100%" height="100%">
-                <!-- Ноги (Фиолетовые штаны) -->
-                <rect x="42" y="100" width="14" height="25" fill="#5e2d79" />
-                <rect x="64" y="100" width="14" height="25" fill="#5e2d79" />
-                
-                <!-- Обувь (Коричневая) -->
-                <rect x="40" y="125" width="18" height="10" rx="3" fill="#5c4033" />
-                <rect x="62" y="125" width="18" height="10" rx="3" fill="#5c4033" />
 
-                <!-- Руки (Оранжевые) -->
-                <rect x="15" y="75" width="30" height="12" rx="4" fill="#ff9800" transform="rotate(-15 30 80)" />
-                <rect x="75" y="75" width="30" height="12" rx="4" fill="#ff9800" transform="rotate(15 90 80)" />
+<div class="profile">
 
-                <!-- Тело (Черная футболка) -->
-                <rect x="40" y="65" width="40" height="38" rx="6" fill="#111" />
+<div class="avatar">
+RP
+</div>
 
-                <!-- Голова (Телесный цвет) -->
-                <rect x="35" y="30" width="50" height="45" rx="15" fill="#fcdbb5" />
+<div>
 
-                <!-- Волосы/Шапка (Коричневые) -->
-                <path d="M 30 35 C 30 5, 90 5, 90 35 L 90 42 L 30 42 Z" fill="#7a4b2c" />
-                
-                <!-- Белая повязка на голове -->
-                <rect x="33" y="38" width="54" height="10" fill="#ffffff" rx="2" />
+<span>REDPRO</span>
+<small>Архивариус</small>
 
-                <!-- Очки (Толстая черная оправа) -->
-                <!-- Левое стекло -->
-                <rect x="38" y="50" width="18" height="14" rx="2" fill="#fff" stroke="#000" stroke-width="4" />
-                <!-- Правое стекло -->
-                <rect x="64" y="50" width="18" height="14" rx="2" fill="#fff" stroke="#000" stroke-width="4" />
-                <!-- Перемычка -->
-                <line x1="56" y1="57" x2="64" y2="57" stroke="#000" stroke-width="4" />
-                
-                <!-- Зрачки (Глаза) -->
-                <circle cx="47" cy="57" r="3" fill="#000" />
-                <circle cx="73" cy="57" r="3" fill="#000" />
-            </svg>
-        </div>
+</div>
 
-        <!-- Нижний правый блок -->
-        <div class="bubble-bottom-right">игуать</div>
+</div>
 
-        <!-- Оверлей с чатом (как на скриншоте) -->
-        <div class="chat-overlay">
-            <h4>⏺ DeepSeek <span style="font-weight:normal; color:#888;">(> 10%)</span></h4>
-            <p>Если хочешь именно <b>как 3D-модель</b>, то можно сделать имитацию:</p>
-            <p>• повернуть рисунок;</p>
-            <p>• добавить тень;</p>
-            <p>• сделать карточку как в игре;</p>
-            <p>• сделать экран выбора персонажа.</p>
-            <p>Но сам рисунок я не буду копировать в код пиксель за пикселем — лучше использовать его как вдохновение на сайте. Это и проще, и выглядит профессиональнее.</p>
-            <p>Присылай рисунок — начнём делать первую страницу Волги! 👇</p>
-        </div>
 
-    </div>
+
+<div class="resources">
+
+<div class="resource">
+⚡ 250
+</div>
+
+<div class="resource">
+◈ 1200
+</div>
+
+<div class="resource">
+◆ 50
+</div>
+
+</div>
+
+
+<button class="settings">
+⚙
+</button>
+
+
+</header>
+
+
+
+
+
+<div class="game">
+
+
+
+<div class="menu">
+
+<button class="active">
+📁 АРХИВ
+</button>
+
+<button>
+👤 СОЮЗНИКИ
+</button>
+
+<button>
+⚔ ФРАКЦИИ
+</button>
+
+<button>
+☠ БОССЫ
+</button>
+
+<button>
+🌌 ЗОНЫ
+</button>
+
+</div>
+
+
+
+
+
+
+<div class="center">
+
+
+<div class="screen">
+
+<div class="character">
+
+<h1>
+GOLD CHILD
+</h1>
+
+
+<div class="info">
+
+WORLD: 1110<br>
+SECTOR: 14<br>
+STATUS: UNKNOWN
+
+</div>
+
+
+</div>
+
+
+<div class="scan"></div>
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+<div class="right">
+
+
+<div class="hp">
+
+<div></div>
+
+</div>
+
+
+<button class="play">
+PLAY
+</button>
+
+
+<button class="team">
+КОМАНДА
+</button>
+
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="bottom">
+
+<div class="card">
+🛡 ГЕРОИ
+</div>
+
+<div class="card">
+⚔ АРСЕНАЛ
+</div>
+
+<div class="card">
+📚 АРХИВ
+</div>
+
+</div>
+
+
 
 </body>
 </html>
