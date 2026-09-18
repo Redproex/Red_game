@@ -10,423 +10,404 @@
   html, body {
     height: 100%;
     overflow: hidden;
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #0d1b3d;
+    font-family: Arial, "Helvetica Neue", sans-serif;
     user-select: none;
-  }
-  
-  /* ============ ФОН ============ */
-  body {
-    background: 
-      radial-gradient(circle at 20% 30%, rgba(50, 100, 200, 0.3), transparent 40%),
-      radial-gradient(circle at 80% 70%, rgba(150, 30, 30, 0.2), transparent 40%),
-      linear-gradient(180deg, #16295a 0%, #0d1b3d 100%);
+    background: #2a4a7a;
   }
   
   /* ============ ВЕРХНЯЯ ПАНЕЛЬ ============ */
   .topbar {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 60px;
+    height: 64px;
     display: flex;
     align-items: center;
-    padding: 0 12px;
-    background: rgba(10, 20, 50, 0.85);
-    backdrop-filter: blur(6px);
+    background: #1a2a4a;
+    border-bottom: 3px solid #0a1428;
     z-index: 100;
-    border-bottom: 2px solid #0a1428;
   }
   
+  /* Вкладка SHOP (жёлтая слева) */
+  .shop-tab {
+    width: 100px;
+    height: 100%;
+    background: linear-gradient(180deg, #ffd93d, #e8a000);
+    border-right: 3px solid #0a1428;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #5a3a00;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  }
+  
+  /* Профиль */
   .profile {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-right: 16px;
-    border-right: 2px solid rgba(255,255,255,0.15);
+    padding: 0 14px;
+    height: 100%;
+    border-right: 3px solid #0a1428;
+    min-width: 200px;
   }
   
   .avatar {
-    width: 44px; height: 44px;
-    border-radius: 50%;
-    background: radial-gradient(circle, #e5231b, #7a0f0a);
+    width: 48px; height: 48px;
+    background: linear-gradient(180deg, #e5231b, #7a0f0a);
     border: 3px solid #f5a800;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 900;
     color: #fff;
-    box-shadow: 0 0 10px rgba(245, 168, 0, 0.6);
+    box-shadow: 0 0 8px rgba(245, 168, 0, 0.6);
   }
   
   .player-name {
     display: flex;
     flex-direction: column;
-    line-height: 1.1;
+    line-height: 1.05;
   }
   
   .player-name .label {
     font-size: 10px;
-    color: #6a89c7;
-    letter-spacing: 2px;
+    color: #7a9ad0;
+    letter-spacing: 1.5px;
     text-transform: uppercase;
+    font-weight: 700;
   }
   
   .player-name .value {
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
   }
   
   /* Ресурсы */
   .resources {
     display: flex;
-    gap: 8px;
-    margin-left: auto;
-    margin-right: 12px;
+    align-items: center;
+    gap: 6px;
+    padding: 0 12px;
+    flex: 1;
+    height: 100%;
   }
   
   .res {
     display: flex;
     align-items: center;
     gap: 6px;
-    padding: 6px 12px 6px 6px;
-    background: rgba(0,0,0,0.4);
-    border-radius: 20px;
-    border: 2px solid rgba(100,150,255,0.3);
+    padding: 5px 12px 5px 5px;
+    background: rgba(0,0,0,0.35);
+    border: 2px solid #0a1428;
+    border-radius: 6px;
+    height: 40px;
   }
   
   .res-icon {
-    width: 24px; height: 24px;
-    border-radius: 50%;
+    width: 28px; height: 28px;
+    border-radius: 4px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 13px;
+    font-size: 15px;
+    font-weight: 900;
+    color: #fff;
+    border: 2px solid #fff;
+  }
+  
+  .res-icon.blue { background: linear-gradient(180deg, #4a9eff, #1a5fbf); }
+  .res-icon.dark { background: linear-gradient(180deg, #2a3a5a, #0f1a33); }
+  .res-icon.gold { background: linear-gradient(180deg, #ffd93d, #d4960a); color: #5a3a00; }
+  .res-icon.green { background: linear-gradient(180deg, #6dff6d, #0fa00f); }
+  
+  .res-value {
+    font-size: 15px;
     font-weight: 900;
     color: #fff;
   }
   
-  .res-icon.red { background: linear-gradient(180deg, #ff4757, #c4172a); border: 2px solid #fff; }
-  .res-icon.gold { background: linear-gradient(180deg, #ffd93d, #d4960a); border: 2px solid #fff; color: #5a3a00; }
-  .res-icon.green { background: linear-gradient(180deg, #6dff6d, #0fa00f); border: 2px solid #fff; }
+  /* Пустые ячейки под ресурсы (как на рисунке) */
+  .empty-slots {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    margin-left: auto;
+    padding-right: 8px;
+  }
   
-  .res-value {
-    font-size: 14px;
-    font-weight: 900;
-    color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.7);
+  .empty-slot {
+    width: 44px;
+    height: 36px;
+    background: rgba(0,0,0,0.35);
+    border: 2px solid #0a1428;
+    border-radius: 6px;
   }
   
   /* Настройки */
   .settings-icon {
-    width: 44px; height: 44px;
-    border-radius: 10px;
-    background: linear-gradient(180deg, #4a7dff, #2b5cff);
-    border: 2px solid #fff;
+    width: 52px;
+    height: 52px;
+    background: linear-gradient(180deg, #4a9eff, #1a5fbf);
+    border: 3px solid #fff;
+    border-radius: 6px;
+    margin-right: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 22px;
+    font-size: 26px;
     cursor: pointer;
-    box-shadow: 0 3px 0 #1a3a99;
-    transition: transform 0.15s;
+    box-shadow: 0 3px 0 #0a3a8a;
+    transition: transform 0.1s;
+    color: #fff;
   }
-  .settings-icon:active { transform: translateY(2px); box-shadow: 0 1px 0 #1a3a99; }
+  .settings-icon:active { transform: translateY(3px); box-shadow: 0 0 0 #0a3a8a; }
   
   /* ============ ЛЕВОЕ МЕНЮ ============ */
   .sidebar {
     position: fixed;
-    top: 60px; left: 0; bottom: 0;
-    width: 90px;
-    background: rgba(10, 20, 50, 0.9);
-    border-right: 2px solid #0a1428;
+    top: 64px; left: 0; bottom: 0;
+    width: 100px;
+    background: #1a2a4a;
+    border-right: 3px solid #0a1428;
     display: flex;
     flex-direction: column;
-    padding: 12px 8px;
-    gap: 10px;
     z-index: 90;
-    overflow-y: auto;
   }
   
   .side-btn {
+    flex: 1;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 10px 4px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform 0.15s;
-    position: relative;
-    border: 3px solid #fff;
-    box-shadow: 0 4px 0 rgba(0,0,0,0.4);
-    min-height: 72px;
-  }
-  
-  .side-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
-  
-  .side-btn.shop { background: linear-gradient(180deg, #ffb800, #e08a00); }
-  .side-btn.brawlers { background: linear-gradient(180deg, #4a7dff, #2b5cff); }
-  .side-btn.battle { background: linear-gradient(180deg, #ff4757, #c4172a); }
-  .side-btn.band { background: linear-gradient(180deg, #a855f7, #7a1fbf); }
-  .side-btn.friends { background: linear-gradient(180deg, #22c55e, #0f8a3a); }
-  
-  .side-icon {
-    font-size: 26px;
-    line-height: 1;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5));
-  }
-  
-  .side-label {
-    font-size: 10px;
+    border-bottom: 3px solid #0a1428;
+    font-size: 14px;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    letter-spacing: 1px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    cursor: pointer;
     text-align: center;
+    padding: 8px 4px;
+    line-height: 1.1;
+    transition: filter 0.1s;
+    position: relative;
   }
   
-  .badge {
-    position: absolute;
-    top: -6px; right: -6px;
-    min-width: 22px; height: 22px;
-    padding: 0 5px;
-    background: #e5231b;
-    border: 2px solid #fff;
-    border-radius: 11px;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 900;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+  .side-btn:active { filter: brightness(0.8); }
+  
+  .side-btn.yellow { background: #ffd93d; color: #5a3a00; }
+  .side-btn.darkgray { background: #3a3a3a; }
+  .side-btn.blue { background: #4a7dff; }
+  .side-btn.dark { background: #2a2a2a; }
   
   /* ============ ГЛАВНАЯ ОБЛАСТЬ ============ */
   .main {
     position: fixed;
-    top: 60px;
-    left: 90px;
+    top: 64px;
+    left: 100px;
     right: 0;
     bottom: 0;
-    padding: 12px;
-    overflow-y: auto;
-  }
-  
-  /* Красная панель боя */
-  .battle-panel {
-    background: linear-gradient(180deg, #b8202a, #8a0f18);
-    border: 4px solid #fff;
-    border-radius: 14px;
-    box-shadow: 0 6px 0 rgba(0,0,0,0.4), inset 0 2px 0 rgba(255,255,255,0.2);
+    padding: 10px;
     display: flex;
-    min-height: 220px;
+    flex-direction: column;
+    gap: 10px;
     overflow: hidden;
-    position: relative;
   }
   
-  /* Режимы (слева от панели) */
+  /* Верхний блок: режимы + превью + PLAY */
+  .battle-area {
+    display: grid;
+    grid-template-columns: 90px 1fr 220px;
+    gap: 0;
+    border: 3px solid #0a1428;
+    border-radius: 4px;
+    overflow: hidden;
+    flex: 1;
+    min-height: 0;
+    background: #0a1428;
+    box-shadow: 0 6px 0 rgba(0,0,0,0.5);
+  }
+  
+  /* Режимы */
   .modes {
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 8px;
-    background: rgba(0,0,0,0.25);
-    border-right: 3px solid rgba(255,255,255,0.2);
-    min-width: 78px;
+    gap: 0;
+    background: #0a1428;
   }
   
   .mode-btn {
     flex: 1;
-    padding: 8px 4px;
-    border-radius: 8px;
-    border: 2px solid rgba(255,255,255,0.6);
+    border-bottom: 3px solid #0a1428;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    cursor: pointer;
-    font-size: 11px;
+    font-size: 13px;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    cursor: pointer;
+    line-height: 1.1;
+    padding: 6px 4px;
     letter-spacing: 0.5px;
-    transition: transform 0.15s, box-shadow 0.15s;
-    line-height: 1.15;
-    position: relative;
+    text-transform: uppercase;
+    transition: filter 0.1s;
   }
   
-  .mode-btn:active { transform: scale(0.96); }
+  .mode-btn:last-child { border-bottom: none; }
+  .mode-btn:active { filter: brightness(0.8); }
   
-  .mode-btn.solo { background: linear-gradient(180deg, #a855f7, #6a1fbf); }
+  .mode-btn.solo { background: linear-gradient(180deg, #b855f7, #7a1fbf); }
   .mode-btn.football { background: linear-gradient(180deg, #4a7dff, #1a3a99); }
-  .mode-btn.boss { background: linear-gradient(180deg, #38a5e8, #1a5f99); }
+  .mode-btn.boss { background: linear-gradient(180deg, #4aa8e8, #1a6fbf); }
   .mode-btn.zone { background: linear-gradient(180deg, #e5231b, #8a0f18); }
   
-  .mode-btn.active {
-    box-shadow: 0 0 0 3px #f5a800, 0 0 12px #f5a800;
-    z-index: 2;
-  }
-  
-  /* Превью боя */
+  /* Красное превью боя */
   .battle-preview {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.5);
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    text-align: center;
-    padding: 20px;
+    background: #d42020;
+    border-left: 3px solid #0a1428;
+    border-right: 3px solid #0a1428;
     position: relative;
   }
   
-  .battle-preview::before {
-    content: 'ПОЛЕ БОЯ';
-    position: absolute;
-    font-size: 22px;
-    letter-spacing: 6px;
-    opacity: 0.35;
-    transform: rotate(-8deg);
-  }
-  
-  /* Правая колонка с PLAY */
+  /* Правая колонка */
   .battle-right {
-    background: rgba(0,0,0,0.35);
-    padding: 12px 10px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    border-left: 3px solid rgba(255,255,255,0.2);
-    min-width: 130px;
+    gap: 0;
+    background: #2a2a2a;
   }
   
+  /* Прогресс-бар сверху */
   .progress-bar {
-    height: 24px;
-    background: rgba(0,0,0,0.5);
-    border: 3px solid #fff;
-    border-radius: 12px;
-    overflow: hidden;
+    height: 60px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 3px solid #0a1428;
+  }
+  
+  .progress-track {
+    flex: 1;
+    height: 32px;
+    background: #0a1428;
+    border: 3px solid #1a2a4a;
+    border-radius: 6px;
     position: relative;
+    overflow: hidden;
   }
   
   .progress-fill {
     height: 100%;
-    width: 45%;
-    background: linear-gradient(180deg, #7cf5d6, #00b8a4);
-    border-radius: 9px;
-    position: relative;
+    width: 55%;
+    background: linear-gradient(180deg, #5ce4ff, #1a8fbf);
+    border-radius: 3px;
   }
   
-  .progress-fill::after {
-    content: '';
+  .progress-hex {
     position: absolute;
-    top: 2px; left: 6px; right: 6px;
-    height: 30%;
-    background: rgba(255,255,255,0.4);
-    border-radius: 4px;
-  }
-  
-  .progress-icon {
-    position: absolute;
-    left: 2px; top: 50%;
+    left: 4px;
+    top: 50%;
     transform: translateY(-50%);
-    width: 20px; height: 20px;
-    border-radius: 50%;
-    background: #38a5e8;
-    border: 2px solid #fff;
+    width: 24px;
+    height: 24px;
+    background: #5ce4ff;
+    border: 3px solid #0a1428;
+    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
   }
   
+  /* PLAY */
   .play-btn {
     flex: 1;
     background: linear-gradient(180deg, #ffd93d, #e8a000);
-    border: 3px solid #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 0 #996a00;
+    border-bottom: 3px solid #0a1428;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 26px;
+    font-size: 34px;
     font-weight: 900;
     color: #5a3a00;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    letter-spacing: 3px;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    min-height: 70px;
+    letter-spacing: 2px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    transition: filter 0.1s;
+    min-height: 0;
   }
   
-  .play-btn:active { transform: translateY(4px); box-shadow: 0 1px 0 #996a00; }
+  .play-btn:active { filter: brightness(0.85); }
   
+  /* КОМАНДА */
   .team-btn {
-    background: linear-gradient(180deg, #38a5e8, #1a5f99);
-    border: 3px solid #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 0 #0d3a66;
-    padding: 10px;
+    height: 50px;
+    background: linear-gradient(180deg, #4aa8e8, #1a6fbf);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 900;
+    color: #fff;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: filter 0.1s;
+  }
+  
+  .team-btn:active { filter: brightness(0.85); }
+  
+  /* Нижние панели */
+  .bottom-panels {
+    display: grid;
+    grid-template-columns: 2fr 1.2fr 1fr;
+    gap: 10px;
+    height: 90px;
+    flex-shrink: 0;
+  }
+  
+  .panel {
+    border: 3px solid #0a1428;
+    border-radius: 4px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.4);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 14px;
     font-weight: 900;
     color: #fff;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.6);
-    letter-spacing: 2px;
-    cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-  }
-  
-  .team-btn:active { transform: translateY(3px); box-shadow: 0 1px 0 #0d3a66; }
-  
-  /* ============ НИЖНИЕ ПАНЕЛИ ============ */
-  .bottom-panels {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px;
-    margin-top: 12px;
-  }
-  
-  .panel {
-    background: linear-gradient(180deg, #4a7dff, #1a3a99);
-    border: 3px solid #fff;
-    border-radius: 12px;
-    box-shadow: 0 5px 0 rgba(0,0,0,0.4);
-    min-height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: rgba(255,255,255,0.7);
-    font-size: 12px;
-    font-weight: 900;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    padding: 10px;
     cursor: pointer;
-    transition: transform 0.15s;
+    transition: filter 0.1s, transform 0.1s;
   }
   
-  .panel:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.4); }
+  .panel:active { transform: translateY(3px); filter: brightness(0.85); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
   
-  .panel.gold {
-    background: linear-gradient(180deg, #ffb800, #e08a00);
-    color: #5a3a00;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  .panel.blue { background: linear-gradient(180deg, #4a7dff, #1a3a99); }
+  .panel.yellow { background: linear-gradient(180deg, #ffd93d, #e8a000); color: #5a3a00; }
+  .panel.darkblue { background: linear-gradient(180deg, #3a6fd0, #1a4a99); }
+  
+  /* Декор справа (шестиугольник) */
+  .right-decor {
+    position: fixed;
+    right: -40px;
+    top: 40%;
+    width: 100px;
+    height: 200px;
+    background: linear-gradient(180deg, #4a9eff, #1a5fbf);
+    clip-path: polygon(100% 0%, 100% 100%, 0% 90%, 0% 10%);
+    z-index: 80;
+    border: 3px solid #0a1428;
   }
   
-  /* ============ УВЕДОМЛЕНИЕ ============ */
+  /* Уведомление */
   .toast {
     position: fixed;
     bottom: 30px;
@@ -435,15 +416,15 @@
     background: rgba(0,0,0,0.9);
     color: #fff;
     padding: 14px 28px;
-    border-radius: 30px;
+    border-radius: 8px;
     font-weight: 700;
     font-size: 14px;
-    letter-spacing: 1px;
-    border: 2px solid rgba(255,255,255,0.2);
+    border: 3px solid #4a9eff;
     opacity: 0;
     transition: all 0.3s;
     z-index: 1000;
     pointer-events: none;
+    letter-spacing: 0.5px;
   }
   
   .toast.show {
@@ -456,111 +437,101 @@
 
   <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <div class="topbar">
+    <div class="shop-tab" onclick="toast('Магазин')">Shop</div>
+    
     <div class="profile">
       <div class="avatar">R</div>
       <div class="player-name">
         <div class="label">Имя</div>
-        <div class="value">Redpro</div>
+        <div class="value">REDPRO</div>
       </div>
     </div>
     
     <div class="resources">
       <div class="res">
-        <div class="res-icon red">!</div>
-        <div class="res-value" id="res1">0</div>
+        <div class="res-icon blue">📖</div>
+        <div class="res-value">0</div>
       </div>
       <div class="res">
-        <div class="res-icon gold">★</div>
-        <div class="res-value" id="res2">0</div>
-      </div>
-      <div class="res">
-        <div class="res-icon green">◆</div>
-        <div class="res-value" id="res3">0</div>
+        <div class="res-icon green">●</div>
+        <div class="res-value">0</div>
       </div>
     </div>
     
-    <div class="settings-icon" onclick="toast('Настройки скоро')">⚙</div>
+    <div class="empty-slots">
+      <div class="empty-slot"></div>
+      <div class="empty-slot"></div>
+      <div class="empty-slot"></div>
+    </div>
+    
+    <div class="settings-icon" onclick="toast('Настройки')">⚙</div>
   </div>
 
   <!-- ЛЕВОЕ МЕНЮ -->
   <div class="sidebar">
-    <div class="side-btn shop" onclick="toast('Магазин скоро')">
-      <div class="side-icon">🛒</div>
-      <div class="side-label">Магазин</div>
-    </div>
-    <div class="side-btn brawlers" onclick="toast('Бойцы скоро')">
-      <div class="side-icon">🎭</div>
-      <div class="side-label">Бойцы</div>
-      <div class="badge">1</div>
-    </div>
-    <div class="side-btn battle" onclick="toast('Ты уже здесь')">
-      <div class="side-icon">⚔</div>
-      <div class="side-label">Бой</div>
-      <div class="badge">1</div>
-    </div>
-    <div class="side-btn band" onclick="toast('Клан скоро')">
-      <div class="side-icon">🛡</div>
-      <div class="side-label">Клан</div>
-    </div>
-    <div class="side-btn friends" onclick="toast('Друзья скоро')">
-      <div class="side-icon">👥</div>
-      <div class="side-label">Друзья</div>
-    </div>
+    <div class="side-btn yellow" onclick="toast('Магазин')">Shop</div>
+    <div class="side-btn darkgray" onclick="toast('Бойцы')">Бойцы</div>
+    <div class="side-btn blue" onclick="toast('Бой')">Бой</div>
+    <div class="side-btn dark" onclick="toast('Клан')">Клан</div>
   </div>
+
+  <!-- Декор справа -->
+  <div class="right-decor"></div>
 
   <!-- ГЛАВНАЯ -->
   <div class="main">
     
-    <!-- Красная панель боя -->
-    <div class="battle-panel">
+    <div class="battle-area">
       
       <!-- Режимы -->
       <div class="modes">
-        <div class="mode-btn solo active" onclick="selectMode(this, 'Соло ШД')">СОЛО ШД</div>
-        <div class="mode-btn football" onclick="selectMode(this, 'Футбол')">ФУТБОЛ</div>
+        <div class="mode-btn solo" onclick="selectMode(this, 'Соло ШД')">СОЛО-<br>ШД</div>
+        <div class="mode-btn football" onclick="selectMode(this, 'Футбол')">ФУТ-<br>БОЛ</div>
         <div class="mode-btn boss" onclick="selectMode(this, 'Босс')">БОСС</div>
-        <div class="mode-btn zone" onclick="selectMode(this, 'Захват зоны')">ЗАХВАТ<br>ЗОНЫ</div>
+        <div class="mode-btn zone" onclick="selectMode(this, 'Захват зоны')">ЗАХ-<br>ВАТ<br>ЗОНЫ</div>
       </div>
       
-      <!-- Превью -->
+      <!-- Красное поле -->
       <div class="battle-preview"></div>
       
-      <!-- PLAY справа -->
+      <!-- Правая колонка -->
       <div class="battle-right">
         <div class="progress-bar">
-          <div class="progress-icon">⬡</div>
-          <div class="progress-fill"></div>
+          <div class="progress-track">
+            <div class="progress-hex"></div>
+            <div class="progress-fill"></div>
+          </div>
         </div>
         <div class="play-btn" onclick="startGame()">PLAY</div>
-        <div class="team-btn" onclick="toast('Создание команды скоро')">КОМАНДА</div>
+        <div class="team-btn" onclick="toast('Команда')">КОМАНДА</div>
       </div>
       
     </div>
     
     <!-- Нижние панели -->
     <div class="bottom-panels">
-      <div class="panel" onclick="toast('Награды лиги скоро')">Лига</div>
-      <div class="panel gold" onclick="toast('Ящики скоро')">Ящик</div>
-      <div class="panel" onclick="toast('Ещё скоро')">Ещё</div>
+      <div class="panel blue" onclick="toast('Скоро')">Панель 1</div>
+      <div class="panel yellow" onclick="toast('Скоро')">Панель 2</div>
+      <div class="panel darkblue" onclick="toast('Скоро')">Панель 3</div>
     </div>
     
   </div>
 
-  <!-- Уведомление -->
   <div class="toast" id="toast"></div>
 
 <script>
   let currentMode = 'Соло ШД';
   
   function selectMode(el, mode) {
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    el.classList.add('active');
+    document.querySelectorAll('.mode-btn').forEach(b => b.style.outline = 'none');
+    el.style.outline = '4px solid #ffd93d';
+    el.style.outlineOffset = '-4px';
     currentMode = mode;
-    toast('Выбран режим: ' + mode);
+    toast('Режим: ' + mode);
   }
   
   function startGame() {
-    toast('Запуск: ' + currentMode + ' — скоро!');
+    toast('Запуск: ' + currentMode);
   }
   
   function toast(msg) {
@@ -568,7 +539,7 @@
     t.textContent = msg;
     t.classList.add('show');
     clearTimeout(window._toastTimer);
-    window._toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+    window._toastTimer = setTimeout(() => t.classList.remove('show'), 1800);
   }
 </script>
 
