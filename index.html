@@ -4,212 +4,141 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Redpro Archives</title>
+<title>Game Menu</title>
 
 <style>
 
 *{
     box-sizing:border-box;
-    font-family:Arial, sans-serif;
+    font-family:Arial Black, Arial, sans-serif;
 }
 
 body{
     margin:0;
-    background:#050d18;
-    color:white;
+    background:#18233a;
     overflow:hidden;
 }
 
 
-/* ВЕРХНЯЯ ПАНЕЛЬ */
+/* ВЕРХ */
 
-.top-hud{
-    height:80px;
-    background:#10243c;
-    border-bottom:4px solid #02070d;
+.top{
+    height:90px;
+    background:#102b50;
+    border-bottom:5px solid #07111f;
     display:flex;
     align-items:center;
-    justify-content:space-between;
-    padding:10px 20px;
+    padding:10px;
 }
 
 
-.profile{
-    display:flex;
-    align-items:center;
-    gap:15px;
+.logo{
+    width:65px;
+    height:65px;
+    background:#600000;
+    border:4px solid #ff0000;
 }
 
 
-.avatar{
-    width:55px;
+.name{
+    margin-left:15px;
+    color:white;
+    font-size:28px;
+    text-shadow:3px 3px #000;
+}
+
+
+.status{
+    width:40px;
+    height:40px;
+    background:#20e000;
+    border-radius:50%;
+    margin-left:20px;
+    border:3px solid black;
+}
+
+
+.slot{
+    margin-left:20px;
+    width:130px;
     height:55px;
-    background:#800000;
-    border:3px solid #ff2525;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    font-weight:bold;
-}
-
-
-.profile span{
-    display:block;
-    font-size:22px;
-}
-
-.profile small{
-    color:#00c8ff;
-}
-
-
-.resources{
-    display:flex;
-    gap:15px;
-}
-
-
-.resource{
-    background:#193452;
-    border:2px solid #07101c;
-    padding:12px 25px;
-    clip-path:polygon(10% 0,100% 0,90% 100%,0 100%);
+    background:#142d50;
+    border:4px solid #07111f;
 }
 
 
 .settings{
-    width:55px;
-    height:55px;
-    background:#167bd8;
+    margin-left:auto;
+    width:60px;
+    height:60px;
+    background:#238de0;
+    border:4px solid #07111f;
     color:white;
-    font-size:30px;
-    border:3px solid #02070d;
+    font-size:35px;
 }
+
 
 
 /* ОСНОВА */
 
-
 .game{
     display:flex;
-    height:calc(100vh - 80px);
+    height:calc(100vh - 90px);
 }
+
 
 
 /* ЛЕВО */
 
-
 .menu{
-    width:200px;
-    background:#0c1c30;
-    padding:15px;
+    width:150px;
+    padding:45px 10px;
 }
 
 
-.menu button{
-
-    width:100%;
-    height:65px;
-    margin-bottom:10px;
-
-    background:#193653;
-    color:white;
-
-    border:none;
-    border-left:6px solid #16b8ff;
-
-    font-size:18px;
-
-    clip-path:
-    polygon(0 0,100% 0,90% 100%,0 100%);
-}
-
-
-.menu button:hover,
-.menu .active{
-
-    background:#b8202c;
-    border-left-color:#ffbf24;
-}
-
-
-/* ЦЕНТР */
-
-
-.center{
-
-    flex:1;
-    padding:20px;
-
-}
-
-
-.screen{
-
-    height:70%;
-    background:
-
-    linear-gradient(
-    145deg,
-    #152d4a,
-    #071321
-    );
-
-    border:5px solid #02070d;
+.mode{
+    height:85px;
+    margin-bottom:8px;
 
     display:flex;
     justify-content:center;
     align-items:center;
 
-    position:relative;
+    color:white;
+    font-size:22px;
 
-    overflow:hidden;
+    border:4px solid #07111f;
+
+    background:#26508a;
+
+    text-align:center;
+
+    text-shadow:
+    3px 3px black;
 }
 
 
-.screen:before{
-
-content:"";
-
-position:absolute;
-inset:0;
-
-background:
-radial-gradient(circle,
-#16b8ff33,
-transparent 60%);
-
+.mode.active{
+    background:#9b18c9;
 }
 
 
-.character{
 
-z-index:2;
+/* ЦЕНТР */
 
-text-align:center;
-
+.center{
+    flex:1;
+    padding:45px 0;
 }
 
 
-.character h1{
+.arena{
 
-font-size:55px;
+    height:450px;
 
-color:#ff3030;
+    background:#b90000;
 
-text-shadow:
-0 0 15px red;
-
-}
-
-
-.info{
-
-background:#10243c;
-
-padding:15px;
-
-border:2px solid #16b8ff;
+    border:5px solid #111;
 
 }
 
@@ -217,38 +146,30 @@ border:2px solid #16b8ff;
 
 /* ПРАВО */
 
-
 .right{
 
-width:300px;
+    width:380px;
 
-background:#0b1728;
+    background:#303745;
 
-padding:20px;
+    border:5px solid #111;
 
-}
+    margin:45px 20px;
 
-
-.hp{
-
-height:30px;
-
-background:#1c3857;
-
-border:3px solid black;
-
-margin-bottom:30px;
+    padding:25px;
 
 }
 
 
-.hp div{
+.progress{
 
-height:100%;
+    height:35px;
 
-width:70%;
+    background:#1b7bd0;
 
-background:#16d8ff;
+    border:4px solid black;
+
+    margin-bottom:90px;
 
 }
 
@@ -256,36 +177,34 @@ background:#16d8ff;
 
 .play{
 
-width:100%;
+    width:100%;
 
-height:100px;
+    height:100px;
 
-background:#ffbd22;
+    background:#ffb800;
 
-border:5px solid #111;
+    border:5px solid #111;
 
-font-size:45px;
-
-font-weight:bold;
+    font-size:55px;
 
 }
 
 
 .team{
 
-margin-top:15px;
+    margin-top:10px;
 
-width:100%;
+    width:100%;
 
-height:60px;
+    height:70px;
 
-background:#168de0;
+    background:#168ee0;
 
-border:4px solid #06101c;
+    border:5px solid #111;
 
-font-size:25px;
+    color:white;
 
-color:white;
+    font-size:35px;
 
 }
 
@@ -293,74 +212,58 @@ color:white;
 
 /* НИЗ */
 
-
 .bottom{
 
 position:absolute;
 
-bottom:20px;
+bottom:30px;
 
-left:220px;
+left:170px;
 
-right:330px;
+right:420px;
 
 display:flex;
 
-gap:20px;
+gap:30px;
 
 }
 
 
 .card{
 
+height:130px;
+
 flex:1;
 
-height:120px;
+background:#1c5c9b;
 
-background:#132b47;
+border:5px solid #111;
 
-border:4px solid #02070d;
+}
 
-display:flex;
 
-align-items:center;
+.card.yellow{
 
-justify-content:center;
+background:#ffb800;
+
+}
+
+
+
+.text{
+
+color:white;
 
 font-size:25px;
 
-}
+text-align:center;
 
+margin-top:45px;
 
-.card:hover{
-
-border-color:#16b8ff;
-
-transform:translateY(-5px);
+text-shadow:3px 3px black;
 
 }
 
-
-
-/* СКАНИРОВАНИЕ */
-
-.scan{
-
-position:absolute;
-
-inset:0;
-
-background:
-linear-gradient(
-transparent 50%,
-#16b8ff11 50%
-);
-
-background-size:100% 8px;
-
-pointer-events:none;
-
-}
 
 </style>
 
@@ -370,50 +273,26 @@ pointer-events:none;
 <body>
 
 
-<header class="top-hud">
+<div class="top">
 
+<div class="logo"></div>
 
-<div class="profile">
-
-<div class="avatar">
-RP
+<div class="name">
+PLAYER
 </div>
 
-<div>
+<div class="status"></div>
 
-<span>REDPRO</span>
-<small>Архивариус</small>
-
-</div>
-
-</div>
-
-
-
-<div class="resources">
-
-<div class="resource">
-⚡ 250
-</div>
-
-<div class="resource">
-◈ 1200
-</div>
-
-<div class="resource">
-◆ 50
-</div>
-
-</div>
+<div class="slot"></div>
+<div class="slot"></div>
+<div class="slot"></div>
 
 
 <button class="settings">
 ⚙
 </button>
 
-
-</header>
-
+</div>
 
 
 
@@ -421,101 +300,55 @@ RP
 <div class="game">
 
 
-
 <div class="menu">
 
-<button class="active">
-📁 АРХИВ
-</button>
-
-<button>
-👤 СОЮЗНИКИ
-</button>
-
-<button>
-⚔ ФРАКЦИИ
-</button>
-
-<button>
-☠ БОССЫ
-</button>
-
-<button>
-🌌 ЗОНЫ
-</button>
-
+<div class="mode active">
+СОЛО
 </div>
 
+<div class="mode">
+ФУТБОЛ
+</div>
 
+<div class="mode">
+БОСС
+</div>
+
+<div class="mode">
+ЗАХВАТ<br>ЗОНЫ
+</div>
+
+</div>
 
 
 
 
 <div class="center">
 
-
-<div class="screen">
-
-<div class="character">
-
-<h1>
-GOLD CHILD
-</h1>
-
-
-<div class="info">
-
-WORLD: 1110<br>
-SECTOR: 14<br>
-STATUS: UNKNOWN
+<div class="arena"></div>
 
 </div>
-
-
-</div>
-
-
-<div class="scan"></div>
-
-
-</div>
-
-
-
-</div>
-
-
 
 
 
 
 <div class="right">
 
-
-<div class="hp">
-
-<div></div>
-
-</div>
-
+<div class="progress"></div>
 
 <button class="play">
 PLAY
 </button>
-
 
 <button class="team">
 КОМАНДА
 </button>
 
 
-
 </div>
 
 
-
 </div>
-
 
 
 
@@ -523,19 +356,18 @@ PLAY
 <div class="bottom">
 
 <div class="card">
-🛡 ГЕРОИ
+<div class="text">БОЙЦЫ</div>
+</div>
+
+<div class="card yellow">
+<div class="text">МАГАЗИН</div>
 </div>
 
 <div class="card">
-⚔ АРСЕНАЛ
-</div>
-
-<div class="card">
-📚 АРХИВ
+<div class="text">БОЙ</div>
 </div>
 
 </div>
-
 
 
 </body>
