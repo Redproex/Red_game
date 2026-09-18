@@ -2,174 +2,192 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Game Menu</title>
+<title>Game UI</title>
 
 <style>
 
 *{
     box-sizing:border-box;
-    font-family:Arial Black, Arial, sans-serif;
 }
 
 body{
     margin:0;
-    background:#18233a;
+    background:#18243b;
+    font-family:Impact, Arial Black, sans-serif;
     overflow:hidden;
 }
 
 
-/* ВЕРХ */
+/* верхняя панель */
 
 .top{
-    height:90px;
-    background:#102b50;
-    border-bottom:5px solid #07111f;
+    height:75px;
+    background:#102d52;
+    border-bottom:5px solid #07101d;
     display:flex;
     align-items:center;
-    padding:10px;
+    padding:8px;
 }
 
 
-.logo{
-    width:65px;
-    height:65px;
-    background:#600000;
-    border:4px solid #ff0000;
-}
-
-
-.name{
-    margin-left:15px;
+.shop{
+    width:120px;
+    height:55px;
+    background:#2465a8;
+    border:4px solid #050b14;
     color:white;
-    font-size:28px;
-    text-shadow:3px 3px #000;
+    font-size:25px;
+    text-align:center;
+    padding-top:10px;
+    text-shadow:3px 3px black;
 }
 
 
-.status{
+.player{
+    margin-left:15px;
+    width:240px;
+    height:55px;
+    background:#17385d;
+    border:4px solid #050b14;
+    color:white;
+    font-size:25px;
+    padding:10px;
+    text-shadow:3px 3px black;
+}
+
+
+.circle{
     width:40px;
     height:40px;
-    background:#20e000;
+    background:#00d900;
+    border:4px solid black;
     border-radius:50%;
-    margin-left:20px;
-    border:3px solid black;
+    margin-left:15px;
 }
 
 
-.slot{
-    margin-left:20px;
-    width:130px;
-    height:55px;
-    background:#142d50;
-    border:4px solid #07111f;
+.resource{
+    margin-left:15px;
+    width:90px;
+    height:45px;
+    background:#111;
+    border:3px solid #000;
 }
 
 
 .settings{
     margin-left:auto;
-    width:60px;
-    height:60px;
-    background:#238de0;
-    border:4px solid #07111f;
+    width:55px;
+    height:55px;
+    background:#1689d8;
+    border:4px solid black;
     color:white;
-    font-size:35px;
+    font-size:30px;
 }
 
 
 
-/* ОСНОВА */
+/* основная часть */
 
-.game{
+.main{
     display:flex;
-    height:calc(100vh - 90px);
+    height:calc(100vh - 75px);
+    padding:20px;
+    gap:15px;
 }
 
 
 
-/* ЛЕВО */
+/* меню слева */
 
-.menu{
-    width:150px;
-    padding:45px 10px;
+.left{
+
+    width:170px;
+
 }
 
 
 .mode{
-    height:85px;
+
+    height:70px;
+
     margin-bottom:8px;
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    background:#315b91;
+
+    border:5px solid #060b13;
 
     color:white;
-    font-size:22px;
 
-    border:4px solid #07111f;
+    font-size:23px;
 
-    background:#26508a;
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
 
     text-align:center;
 
-    text-shadow:
-    3px 3px black;
+    text-shadow:3px 3px black;
+
 }
 
 
 .mode.active{
-    background:#9b18c9;
+
+    background:#a020c9;
+
 }
 
 
 
-/* ЦЕНТР */
+
+/* центральная зона */
 
 .center{
+
     flex:1;
-    padding:45px 0;
+
 }
 
 
 .arena{
 
-    height:450px;
+    height:80%;
 
-    background:#b90000;
+    background:#bd0000;
 
-    border:5px solid #111;
+    border:5px solid black;
 
 }
 
 
 
-/* ПРАВО */
+/* правая панель */
+
 
 .right{
 
-    width:380px;
+    width:300px;
 
-    background:#303745;
+    background:#303744;
 
-    border:5px solid #111;
+    border:5px solid black;
 
-    margin:45px 20px;
-
-    padding:25px;
+    padding:20px;
 
 }
 
 
-.progress{
 
-    height:35px;
+.bar{
 
-    background:#1b7bd0;
+    height:30px;
+
+    background:#167bd1;
 
     border:4px solid black;
-
-    margin-bottom:90px;
 
 }
 
@@ -177,93 +195,77 @@ body{
 
 .play{
 
+    margin-top:80px;
+
     width:100%;
 
-    height:100px;
+    height:90px;
 
-    background:#ffb800;
+    background:#ffbd00;
 
-    border:5px solid #111;
+    border:5px solid black;
 
     font-size:55px;
 
+    font-family:Impact;
+
 }
+
 
 
 .team{
 
-    margin-top:10px;
-
     width:100%;
 
-    height:70px;
+    height:65px;
 
-    background:#168ee0;
+    margin-top:10px;
 
-    border:5px solid #111;
+    background:#168de0;
+
+    border:5px solid black;
 
     color:white;
 
-    font-size:35px;
+    font-size:30px;
+
+    font-family:Impact;
 
 }
 
 
 
-/* НИЗ */
+/* нижние панели */
+
 
 .bottom{
 
-position:absolute;
+    position:absolute;
 
-bottom:30px;
+    bottom:20px;
 
-left:170px;
+    left:205px;
 
-right:420px;
+    right:335px;
 
-display:flex;
+    display:flex;
 
-gap:30px;
+    gap:15px;
 
 }
 
 
 .card{
 
-height:130px;
+    height:110px;
 
-flex:1;
+    flex:1;
 
-background:#1c5c9b;
+    background:#27629b;
 
-border:5px solid #111;
-
-}
-
-
-.card.yellow{
-
-background:#ffb800;
+    border:5px solid black;
 
 }
-
-
-
-.text{
-
-color:white;
-
-font-size:25px;
-
-text-align:center;
-
-margin-top:45px;
-
-text-shadow:3px 3px black;
-
-}
-
 
 </style>
 
@@ -275,18 +277,19 @@ text-shadow:3px 3px black;
 
 <div class="top">
 
-<div class="logo"></div>
+<div class="shop">
+SHOP
+</div>
 
-<div class="name">
+<div class="player">
 PLAYER
 </div>
 
-<div class="status"></div>
+<div class="circle"></div>
 
-<div class="slot"></div>
-<div class="slot"></div>
-<div class="slot"></div>
-
+<div class="resource"></div>
+<div class="resource"></div>
+<div class="resource"></div>
 
 <button class="settings">
 ⚙
@@ -296,11 +299,10 @@ PLAYER
 
 
 
+<div class="main">
 
-<div class="game">
 
-
-<div class="menu">
+<div class="left">
 
 <div class="mode active">
 СОЛО
@@ -322,7 +324,6 @@ PLAYER
 
 
 
-
 <div class="center">
 
 <div class="arena"></div>
@@ -331,10 +332,9 @@ PLAYER
 
 
 
-
 <div class="right">
 
-<div class="progress"></div>
+<div class="bar"></div>
 
 <button class="play">
 PLAY
@@ -344,30 +344,23 @@ PLAY
 КОМАНДА
 </button>
 
-
 </div>
 
 
 </div>
-
 
 
 
 <div class="bottom">
 
-<div class="card">
-<div class="text">БОЙЦЫ</div>
-</div>
+<div class="card"></div>
 
-<div class="card yellow">
-<div class="text">МАГАЗИН</div>
-</div>
+<div class="card"></div>
 
-<div class="card">
-<div class="text">БОЙ</div>
-</div>
+<div class="card"></div>
 
 </div>
+
 
 
 </body>
