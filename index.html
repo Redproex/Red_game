@@ -15,13 +15,11 @@
     background: #2a4a7a;
   }
   
-  /* ============ ВЕРХНЯЯ ПАНЕЛЬ ============ */
   .topbar {
     position: fixed;
     top: 0; left: 0; right: 0;
     height: 64px;
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     background: #1a2a4a;
     border-bottom: 3px solid #0a1428;
     z-index: 100;
@@ -34,7 +32,6 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 18px; font-weight: 900; color: #5a3a00;
     letter-spacing: 1px; cursor: pointer;
-    text-shadow: 0 1px 0 rgba(255,255,255,0.4);
   }
   
   .profile {
@@ -50,18 +47,13 @@
     border: 3px solid #f5a800; border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
     font-size: 24px; font-weight: 900; color: #fff;
-    box-shadow: 0 0 8px rgba(245, 168, 0, 0.6);
   }
   
   .player-name { display: flex; flex-direction: column; line-height: 1.05; }
   .player-name .label { font-size: 10px; color: #7a9ad0; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
   .player-name .value { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 0.5px; }
   
-  .resources {
-    display: flex; align-items: center; gap: 6px;
-    padding: 0 12px; flex: 1; height: 100%;
-  }
-  
+  .resources { display: flex; align-items: center; gap: 6px; padding: 0 12px; flex: 1; height: 100%; }
   .res {
     display: flex; align-items: center; gap: 6px;
     padding: 5px 12px 5px 5px;
@@ -69,7 +61,6 @@
     border: 2px solid #0a1428; border-radius: 6px;
     height: 40px;
   }
-  
   .res-icon {
     width: 28px; height: 28px; border-radius: 4px;
     display: flex; align-items: center; justify-content: center;
@@ -95,7 +86,6 @@
   }
   .settings-icon:active { transform: translateY(3px); box-shadow: 0 0 0 #0a3a8a; }
   
-  /* ============ ЛЕВОЕ МЕНЮ ============ */
   .sidebar {
     position: fixed;
     top: 64px; left: 0; bottom: 0;
@@ -115,7 +105,6 @@
     cursor: pointer; text-align: center;
     padding: 8px 4px; line-height: 1.1;
     transition: filter 0.1s;
-    position: relative;
   }
   .side-btn:last-child { border-bottom: none; }
   .side-btn:active { filter: brightness(0.8); }
@@ -124,7 +113,6 @@
   .side-btn.blue { background: #4a7dff; }
   .side-btn.dark { background: #2a2a2a; }
   
-  /* ============ ГЛАВНАЯ (ЛОББИ) ============ */
   .main {
     position: fixed;
     top: 64px; left: 100px; right: 0; bottom: 0;
@@ -154,7 +142,6 @@
     cursor: pointer; line-height: 1.1;
     padding: 6px 4px; letter-spacing: 0.5px;
     text-transform: uppercase;
-    transition: filter 0.1s;
   }
   .mode-btn:last-child { border-bottom: none; }
   .mode-btn:active { filter: brightness(0.8); }
@@ -167,7 +154,6 @@
     background: #d42020;
     border-left: 3px solid #0a1428;
     border-right: 3px solid #0a1428;
-    position: relative;
   }
   
   .battle-right { display: flex; flex-direction: column; gap: 0; background: #2a2a2a; }
@@ -205,7 +191,6 @@
     font-size: 34px; font-weight: 900; color: #5a3a00;
     cursor: pointer; letter-spacing: 2px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    transition: filter 0.1s; min-height: 0;
   }
   .play-btn:active { filter: brightness(0.85); }
   
@@ -216,7 +201,6 @@
     font-size: 18px; font-weight: 900; color: #fff;
     cursor: pointer; letter-spacing: 1.5px;
     text-transform: uppercase;
-    transition: filter 0.1s;
   }
   .team-btn:active { filter: brightness(0.85); }
   
@@ -233,7 +217,6 @@
     font-size: 14px; font-weight: 900; color: #fff;
     letter-spacing: 1px; text-transform: uppercase;
     cursor: pointer;
-    transition: filter 0.1s, transform 0.1s;
   }
   .panel:active { transform: translateY(3px); filter: brightness(0.85); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
   .panel.blue { background: linear-gradient(180deg, #4a7dff, #1a3a99); }
@@ -260,7 +243,6 @@
   }
   .screen.active { display: flex; }
   
-  /* Фоновый узор */
   .screen::before {
     content: '';
     position: absolute;
@@ -271,66 +253,52 @@
     pointer-events: none;
   }
   
-  /* Шапка экрана */
   .screen-header {
-    display: flex;
-    align-items: center;
+    display: flex; align-items: center;
     gap: 12px;
     padding: 12px 16px;
     background: linear-gradient(180deg, #1a2a4a, #0f1a33);
     border-bottom: 3px solid #0a1428;
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
     flex-shrink: 0;
   }
   
   .back-btn {
     width: 44px; height: 44px;
     background: linear-gradient(180deg, #ffb800, #e08a00);
-    border: 3px solid #fff;
-    border-radius: 6px;
+    border: 3px solid #fff; border-radius: 6px;
     display: flex; align-items: center; justify-content: center;
     font-size: 22px; font-weight: 900; color: #5a3a00;
     cursor: pointer;
     box-shadow: 0 3px 0 #8a5400;
-    transition: transform 0.1s;
   }
   .back-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #8a5400; }
   
   .screen-title {
-    font-size: 22px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 2px;
-    text-transform: uppercase;
+    font-size: 22px; font-weight: 900; color: #fff;
+    letter-spacing: 2px; text-transform: uppercase;
     text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
   
   .sort-label {
     margin-left: auto;
-    font-size: 12px;
-    color: #ffd93d;
-    font-weight: 700;
-    letter-spacing: 0.5px;
+    font-size: 12px; color: #ffd93d;
+    font-weight: 700; letter-spacing: 0.5px;
     padding: 6px 10px;
     background: rgba(0,0,0,0.4);
     border: 2px solid rgba(255,217,61,0.5);
     border-radius: 4px;
   }
   
-  /* Список бойцов */
   .brawlers-list {
-    flex: 1;
-    overflow-y: auto;
+    flex: 1; overflow-y: auto;
     padding: 12px;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     gap: 12px;
-    position: relative;
-    z-index: 2;
+    position: relative; z-index: 2;
   }
   
-  /* Карточка бойца */
+  /* КАРТОЧКА БОЙЦА */
   .brawler-card {
     display: grid;
     grid-template-columns: 1fr 70px;
@@ -346,24 +314,40 @@
   }
   .brawler-card:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.4); }
   
-  /* Портрет */
+  /* Портрет-фон */
   .brawler-portrait {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
     overflow: hidden;
+    background: linear-gradient(180deg, #2ad4c0, #1aa899);
   }
   
-  .brawler-portrait.volt {
-    background: linear-gradient(135deg, #2ad4c0, #1aa899);
+  /* SVG-лицо Волта на весь блок */
+  .volt-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
   
-  /* Лицо Волта (нарисованное через SVG) */
-  .volt-face {
-    width: 100%; height: 100%;
-    display: flex; align-items: center; justify-content: center;
-    position: relative;
+  /* Имя поверх портрета (как в Brawl Stars) */
+  .brawler-name-overlay {
+    position: absolute;
+    right: 8px;
+    bottom: 30px;
+    font-family: "Impact", "Arial Black", sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 1px;
+    font-style: italic;
+    text-shadow: 
+      2px 2px 0 #0a1428,
+      -1px -1px 0 #0a1428,
+      1px -1px 0 #0a1428,
+      -1px 1px 0 #0a1428;
+    transform: rotate(-4deg);
+    z-index: 5;
+    pointer-events: none;
   }
   
   /* Полоса редкости справа */
@@ -372,12 +356,11 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
     padding: 6px 0;
+    background: linear-gradient(180deg, #b855f7, #7a1fbf);
     position: relative;
   }
-  
-  .brawler-rarity.starting { background: linear-gradient(180deg, #b855f7, #7a1fbf); }
   
   .level-badge {
     width: 40px; height: 40px;
@@ -387,43 +370,37 @@
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; font-weight: 900; color: #fff;
     text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
   
-  .rarity-gems {
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-    align-items: center;
-  }
+  .rarity-gems { display: flex; flex-direction: column; gap: 4px; align-items: center; }
   
   .gem {
-    width: 20px; height: 20px;
-    border-radius: 4px;
-    border: 2px solid rgba(255,255,255,0.4);
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.7);
+    box-shadow: inset -2px -2px 0 rgba(0,0,0,0.3);
   }
-  .gem.green { background: linear-gradient(180deg, #6dff6d, #0fa00f); }
-  .gem.yellow { background: linear-gradient(180deg, #ffd93d, #d4960a); }
-  .gem.purple { background: linear-gradient(180deg, #c95cf5, #7a1fbf); }
+  .gem.green { background: radial-gradient(circle at 30% 30%, #a0ffa0, #0fa00f); border-radius: 5px; }
+  .gem.yellow { background: radial-gradient(circle at 30% 30%, #fff0a0, #d4960a); border-radius: 5px; }
+  .gem.pink { background: radial-gradient(circle at 30% 30%, #ffa0e0, #bf1f7f); border-radius: 50%; }
   
-  /* Низ карточки — кубок и имя */
+  /* Низ карточки — кубок */
   .brawler-footer {
     position: absolute;
     left: 0; right: 70px; bottom: 0;
-    height: 34px;
-    background: rgba(0,0,0,0.55);
+    height: 32px;
+    background: rgba(0,0,0,0.6);
     display: flex;
     align-items: center;
     padding: 0 10px;
-    gap: 10px;
+    gap: 6px;
     border-top: 2px solid rgba(255,255,255,0.15);
+    z-index: 6;
   }
   
   .trophy {
     display: flex; align-items: center; gap: 4px;
-    color: #fff;
-    font-size: 14px;
-    font-weight: 900;
+    color: #fff; font-size: 14px; font-weight: 900;
   }
   .trophy-cup {
     width: 22px; height: 22px;
@@ -435,16 +412,6 @@
     color: #ffd93d;
   }
   
-  .brawler-name {
-    margin-left: auto;
-    font-size: 20px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 2px;
-    text-shadow: 0 2px 3px rgba(0,0,0,0.8);
-    text-transform: uppercase;
-  }
-  
   /* Пустые слоты */
   .brawler-card.empty {
     opacity: 0.35;
@@ -452,17 +419,19 @@
     background: rgba(10,20,40,0.5);
     border-style: dashed;
   }
-  .brawler-card.empty:active { transform: none; box-shadow: 0 5px 0 rgba(0,0,0,0.4); }
+  .brawler-card.empty:active { transform: none; }
   .brawler-card.empty .brawler-portrait { background: rgba(0,0,0,0.3); }
   .brawler-card.empty .brawler-rarity { background: rgba(0,0,0,0.3); }
   
   .empty-mark {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     font-size: 32px;
     color: rgba(255,255,255,0.3);
     font-weight: 900;
   }
   
-  /* Уведомление */
   .toast {
     position: fixed;
     bottom: 30px; left: 50%;
@@ -477,14 +446,12 @@
     transition: all 0.3s;
     z-index: 1000;
     pointer-events: none;
-    letter-spacing: 0.5px;
   }
   .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
 
-  <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <div class="topbar">
     <div class="shop-tab" onclick="toast('Магазин')">Shop</div>
     <div class="profile">
@@ -512,7 +479,6 @@
     <div class="settings-icon" onclick="toast('Настройки')">⚙</div>
   </div>
 
-  <!-- ЛЕВОЕ МЕНЮ -->
   <div class="sidebar">
     <div class="side-btn yellow" onclick="toast('Магазин')">Shop</div>
     <div class="side-btn darkgray" onclick="openBrawlers()">Бойцы</div>
@@ -522,7 +488,6 @@
 
   <div class="right-decor"></div>
 
-  <!-- ГЛАВНАЯ (ЛОББИ) -->
   <div class="main" id="lobby">
     <div class="battle-area">
       <div class="modes">
@@ -552,7 +517,6 @@
 
   <!-- ЭКРАН БОЙЦОВ -->
   <div class="screen" id="brawlersScreen">
-    
     <div class="screen-header">
       <div class="back-btn" onclick="closeBrawlers()">←</div>
       <div class="screen-title">БОЙЦЫ</div>
@@ -561,70 +525,105 @@
     
     <div class="brawlers-list">
       
-      <!-- ВОЛТ (Волтер) -->
+      <!-- ВОЛТ -->
       <div class="brawler-card" onclick="toast('Волт — выбран')">
-        <div class="brawler-portrait volt">
-          <!-- Нарисованное лицо Волта (SVG) -->
-          <svg class="volt-face" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
-            <!-- Фон-градиент -->
+        <div class="brawler-portrait">
+          <!-- Крупное лицо Волта -->
+          <svg class="volt-svg" viewBox="0 0 300 110" preserveAspectRatio="xMidYMid slice">
             <defs>
-              <linearGradient id="bgVolt" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stop-color="#3ee0cc"/>
-                <stop offset="100%" stop-color="#1a9a8a"/>
+              <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#f5d0b0"/>
+                <stop offset="100%" stop-color="#e5b080"/>
+              </linearGradient>
+              <linearGradient id="hairGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#6a4522"/>
+                <stop offset="100%" stop-color="#3a2010"/>
               </linearGradient>
               <linearGradient id="hatGrad" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="100%" stop-color="#e0e0e0"/>
+                <stop offset="100%" stop-color="#d0d0d0"/>
+              </linearGradient>
+              <linearGradient id="shirtGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#2a2a2a"/>
+                <stop offset="100%" stop-color="#0a0a0a"/>
               </linearGradient>
             </defs>
-            <rect width="200" height="200" fill="url(#bgVolt)"/>
+            
+            <!-- Фон — бирюзовый -->
+            <rect width="300" height="110" fill="#2ad4c0"/>
+            
+            <!-- Плечи (чёрная куртка) -->
+            <path d="M 0 110 Q 30 80 80 78 L 220 78 Q 270 80 300 110 Z" fill="url(#shirtGrad)"/>
+            
+            <!-- Открытая грудь -->
+            <path d="M 120 80 L 150 100 L 180 80 Z" fill="url(#skinGrad)"/>
+            
+            <!-- Шея -->
+            <rect x="130" y="60" width="40" height="25" fill="url(#skinGrad)"/>
             
             <!-- Волосы сзади -->
-            <path d="M 40 90 Q 40 40 100 35 Q 160 40 160 90 L 160 110 L 40 110 Z" fill="#5a3a1f"/>
+            <path d="M 70 70 Q 65 20 150 15 Q 235 20 230 70 L 230 90 L 70 90 Z" fill="url(#hairGrad)"/>
             
-            <!-- Лицо -->
-            <path d="M 55 85 Q 55 60 100 60 Q 145 60 145 85 L 145 130 Q 145 155 100 155 Q 55 155 55 130 Z" fill="#f0c9a8"/>
+            <!-- Лицо (крупное) -->
+            <path d="M 90 55 Q 90 25 150 25 Q 210 25 210 55 L 210 80 Q 210 105 150 105 Q 90 105 90 80 Z" fill="url(#skinGrad)"/>
             
-            <!-- Повязка на голове (белая с оранжевой полосой) -->
-            <path d="M 45 95 Q 100 75 155 95 L 155 115 Q 100 95 45 115 Z" fill="url(#hatGrad)" stroke="#c0c0c0" stroke-width="1"/>
-            <path d="M 45 108 Q 100 88 155 108 L 155 113 Q 100 93 45 113 Z" fill="#f5a800"/>
+            <!-- Ухо левое -->
+            <ellipse cx="88" cy="65" rx="8" ry="12" fill="#e5b080"/>
+            <!-- Ухо правое -->
+            <ellipse cx="212" cy="65" rx="8" ry="12" fill="#e5b080"/>
             
-            <!-- Козырёк повязки -->
-            <path d="M 60 110 Q 100 120 140 110 L 145 125 Q 100 135 55 125 Z" fill="#ffffff" stroke="#c0c0c0" stroke-width="1"/>
+            <!-- Кепка белая -->
+            <path d="M 75 55 Q 100 20 150 18 Q 200 20 225 55 L 225 62 Q 150 45 75 62 Z" fill="url(#hatGrad)" stroke="#a8a8a8" stroke-width="1.5"/>
+            
+            <!-- Оранжевая полоса на кепке -->
+            <path d="M 75 58 Q 150 42 225 58 L 225 63 Q 150 47 75 63 Z" fill="#f5a800"/>
+            
+            <!-- Козырёк кепки (вбок, как в Brawl Stars) -->
+            <path d="M 130 62 Q 200 60 250 75 Q 245 88 200 85 Q 160 80 130 70 Z" fill="url(#hatGrad)" stroke="#a8a8a8" stroke-width="1.5"/>
+            
+            <!-- Брови сердитые -->
+            <path d="M 105 60 L 140 65" stroke="#3a2010" stroke-width="4" stroke-linecap="round"/>
+            <path d="M 195 60 L 160 65" stroke="#3a2010" stroke-width="4" stroke-linecap="round"/>
             
             <!-- Глаза -->
-            <ellipse cx="80" cy="122" rx="9" ry="11" fill="#fff"/>
-            <ellipse cx="120" cy="122" rx="9" ry="11" fill="#fff"/>
-            <ellipse cx="81" cy="123" rx="5" ry="6" fill="#1a1a1a"/>
-            <ellipse cx="121" cy="123" rx="5" ry="6" fill="#1a1a1a"/>
-            <circle cx="79" cy="120" r="1.5" fill="#fff"/>
-            <circle cx="119" cy="120" r="1.5" fill="#fff"/>
+            <ellipse cx="125" cy="75" rx="12" ry="11" fill="#fff"/>
+            <ellipse cx="175" cy="75" rx="12" ry="11" fill="#fff"/>
+            <circle cx="127" cy="76" r="6" fill="#1a1a1a"/>
+            <circle cx="173" cy="76" r="6" fill="#1a1a1a"/>
+            <circle cx="125" cy="73" r="2" fill="#fff"/>
+            <circle cx="171" cy="73" r="2" fill="#fff"/>
             
-            <!-- Брови-ухмылка -->
-            <path d="M 68 105 L 90 100" stroke="#3a2010" stroke-width="3.5" stroke-linecap="round"/>
-            <path d="M 132 105 L 110 100" stroke="#3a2010" stroke-width="3.5" stroke-linecap="round"/>
+            <!-- Ухмылка с зубами -->
+            <path d="M 110 92 Q 150 108 190 92 L 185 98 Q 150 110 115 98 Z" fill="#1a1a1a"/>
+            <path d="M 120 95 L 125 100 L 130 95 L 135 100 L 140 95 L 145 100 L 150 95 L 155 100 L 160 95 L 165 100 L 170 95 L 175 100 L 180 95" 
+                  stroke="#fff" stroke-width="1.5" fill="none"/>
             
-            <!-- Ухмылка -->
-            <path d="M 78 145 Q 100 155 122 142" stroke="#3a2010" stroke-width="3" fill="none" stroke-linecap="round"/>
-            <path d="M 85 147 L 115 143" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+            <!-- Нос -->
+            <path d="M 148 82 L 152 82 L 150 88 Z" fill="#d4a070"/>
           </svg>
+          
+          <!-- Имя поверх -->
+          <div class="brawler-name-overlay">VOLT</div>
         </div>
-        <div class="brawler-rarity starting">
+        
+        <div class="brawler-rarity">
           <div class="level-badge">1</div>
           <div class="rarity-gems">
-            <div class="gem purple"></div>
+            <div class="gem green"></div>
+            <div class="gem yellow"></div>
+            <div class="gem pink"></div>
           </div>
         </div>
+        
         <div class="brawler-footer">
           <div class="trophy">
             <div class="trophy-cup">★</div>
             <span>0</span>
           </div>
-          <div class="brawler-name">Volt</div>
         </div>
       </div>
       
-      <!-- Пустые слоты для будущих бойцов -->
+      <!-- Пустые слоты -->
       <div class="brawler-card empty">
         <div class="brawler-portrait">
           <div class="empty-mark">?</div>
@@ -647,7 +646,6 @@
       </div>
       
     </div>
-    
   </div>
 
   <div class="toast" id="toast"></div>
@@ -663,15 +661,11 @@
     toast('Режим: ' + mode);
   }
   
-  function startGame() {
-    toast('Запуск: ' + currentMode);
-  }
-  
+  function startGame() { toast('Запуск: ' + currentMode); }
   function openBrawlers() {
     document.getElementById('lobby').style.display = 'none';
     document.getElementById('brawlersScreen').classList.add('active');
   }
-  
   function closeBrawlers() {
     document.getElementById('brawlersScreen').classList.remove('active');
     document.getElementById('lobby').style.display = 'flex';
@@ -687,4 +681,4 @@
 </script>
 
 </body>
-             </html>
+ </html>
