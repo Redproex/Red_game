@@ -7,89 +7,173 @@
 <title>Game Concept</title>
 
 <style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(#080b1c, #171044);
-    color: white;
+
+body{
+    margin:0;
+    background:#090b20;
+    font-family:Arial,sans-serif;
+    color:white;
 }
 
-.container {
-    max-width: 900px;
-    margin: auto;
-    padding: 20px;
+header{
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    padding:20px;
 }
 
-.title {
-    text-align: center;
-    font-size: 40px;
-    font-weight: bold;
-    margin-bottom: 20px;
+.card{
+    background:#171a35;
+    margin:20px;
+    padding:20px;
+    border-radius:20px;
+    box-shadow:0 0 20px #000;
 }
 
-.card {
-    background: rgba(255,255,255,0.08);
-    border-radius: 20px;
-    padding: 20px;
-    margin-bottom: 20px;
-    border: 1px solid rgba(255,255,255,0.2);
+h2{
+    color:#ffc400;
 }
 
-.hero {
-    text-align: center;
+.arena{
+    height:330px;
+    background:
+    linear-gradient(120deg,#222,#101040);
+    border-radius:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    border:2px solid #333;
 }
 
-.hero img {
-    width: 250px;
-    height: 250px;
-    object-fit: contain;
+svg{
+    filter:drop-shadow(0 0 15px cyan);
 }
 
-h2 {
-    color: #ffb000;
+.button{
+    background:#ffcc00;
+    color:black;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+    font-weight:bold;
+    margin-top:15px;
 }
 
-.button {
-    display: inline-block;
-    background: #ffb000;
-    color: black;
-    padding: 15px 40px;
-    border-radius: 15px;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-.stat {
-    margin: 10px 0;
-    font-size: 18px;
-}
-
-.footer {
-    text-align: center;
-    opacity: 0.7;
-}
 </style>
 
 </head>
 
 <body>
 
-<div class="container">
 
-<div class="title">
+<header>
 🎮 GAME CONCEPT
+</header>
+
+
+<div class="card">
+
+<h2>🏟️ Футуристическая арена</h2>
+
+
+<div class="arena">
+
+
+<!-- ВОЛЬТ SVG -->
+
+<svg width="220" height="320" viewBox="0 0 220 320">
+
+
+<!-- энергия -->
+<circle cx="110" cy="150" r="100"
+fill="#00ffff"
+opacity="0.15"/>
+
+
+<!-- ноги -->
+<rect x="75" y="240"
+width="25" height="60"
+fill="#5b2b99"/>
+
+<rect x="120" y="240"
+width="25" height="60"
+fill="#5b2b99"/>
+
+
+<!-- тело -->
+<rect x="70" y="130"
+width="80" height="120"
+rx="20"
+fill="#111"/>
+
+
+<rect x="85" y="150"
+width="50" height="90"
+fill="#552288"/>
+
+
+<!-- руки -->
+<rect x="35" y="150"
+width="35" height="90"
+rx="15"
+fill="#ff9900"/>
+
+
+<rect x="150" y="150"
+width="35" height="90"
+rx="15"
+fill="#ff9900"/>
+
+
+<!-- голова -->
+<circle cx="110"
+cy="90"
+r="55"
+fill="#f5c7a0"/>
+
+
+<!-- волосы -->
+<path d="
+M55 85
+Q110 20 165 85
+L150 45
+Q110 20 70 45
+Z"
+fill="#5b2b8a"/>
+
+
+<!-- глаза -->
+<circle cx="90"
+cy="95"
+r="8"
+fill="white"/>
+
+<circle cx="130"
+cy="95"
+r="8"
+fill="white"/>
+
+
+<!-- пистолеты -->
+<rect x="5"
+y="190"
+width="45"
+height="12"
+fill="#777"/>
+
+
+<rect x="170"
+y="190"
+width="45"
+height="12"
+fill="#777"/>
+
+
+</svg>
+
+
 </div>
-
-
-<div class="card hero">
-
-<h2>Футуристическая арена</h2>
-
-<img src="volt.png">
-
-<p>
-Концепт главного экрана будущей мобильной арены.
-</p>
 
 </div>
 
@@ -101,17 +185,17 @@ h2 {
 
 <h1>Вольт</h1>
 
-<div class="stat">
+<p>
 ⚪ Редкость: Начальный
-</div>
+</p>
 
-<div class="stat">
+<p>
 🎯 Роль: Стрелок
-</div>
+</p>
 
-<div class="stat">
-🔫 Оружие: Два пистолета
-</div>
+<p>
+🔫 Оружие: Два энерго-пистолета
+</p>
 
 </div>
 
@@ -121,17 +205,27 @@ h2 {
 
 <h2>⚔️ Способности</h2>
 
-<div class="stat">
-🔫 Обычная атака: 1 пуля
-</div>
 
-<div class="stat">
-⭐ Спецатака: Сюрикены
-</div>
+<p>
+🔫 Обычная атака:
+<br>
+1 пуля
+</p>
 
-<div class="stat">
-💥 Супер: 5 пуль
-</div>
+
+<p>
+⭐ Спецатака:
+<br>
+Сюрикены
+</p>
+
+
+<p>
+💥 Супер:
+<br>
+5 пуль одновременно
+</p>
+
 
 </div>
 
@@ -139,73 +233,33 @@ h2 {
 
 <div class="card">
 
-<h2>🏟️ Главный экран</h2>
+<h2>🎮 Главное меню</h2>
 
 <p>
 В центре находится выбранный боец.
-Фон — футуристическая арена:
-металл, неон, экраны и дроны.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>🎮 Главный экран — концепт</h2>
-
-<p>
-Футуристическая арена.
-Выбранный боец находится в центре сцены.
 </p>
 
 <p>
-🏟️ Фон:
+Фон:
 <br>
-• металлический стадион будущего
+• металлическая арена будущего
 <br>
-• неоновые элементы
+• неон
 <br>
-• экраны и дроны
+• экраны
+<br>
+• дроны
 </p>
 
-<p>
-🧍 Центральный персонаж:
-<br>
-Вольт — первый боец концепта.
-</p>
 
-<p>
-Интерфейс:
-<br>
-🏆 Кубки
-<br>
-⚙️ Настройки
-<br>
-⚔️ Играть
-<br>
-👥 Бойцы
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>🎨 Галерея разработки</h2>
-
-<p>
-Здесь будут первые рисунки,
-концепты и идеи.
-</p>
-
-</div>
-
-
-<div class="footer">
-Проект находится на стадии дизайна.
+<div class="button">
+⚔️ ИГРАТЬ
 </div>
 
 
 </div>
+
+
 
 </body>
 </html>
