@@ -1,322 +1,230 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Игровой экран</title>
+    <style>
+        /* Подключаем рукописный шрифт для текста */
+        @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap');
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a; /* Темный фон вокруг "телефона" */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: 'Caveat', cursive, sans-serif;
+        }
 
-<title>Game Concept</title>
+        /* Контейнер игры (как экран телефона) */
+        .game-screen {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            height: 500px;
+            background-color: #29a3ed; /* Голубой фон */
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 4px solid #333;
+        }
 
-<style>
+        /* --- ВЕРХНИЙ ЛЕВЫЙ БЛОК (Кубики) --- */
+        .bubble-top-left {
+            position: absolute;
+            top: 30px;
+            left: 40px;
+            background: white;
+            padding: 15px 30px;
+            font-size: 28px;
+            color: #000;
+            /* Делаем края немного неровными (рукописный стиль) */
+            border-radius: 20px 40px 30px 50px / 40px 20px 50px 30px;
+            transform: rotate(-2deg);
+            box-shadow: 2px 4px 0 rgba(0,0,0,0.1);
+        }
 
-body{
-margin:0;
-background:#080b20;
-font-family:Arial,sans-serif;
-color:white;
-}
+        /* --- ВЕРХНИЙ ПРАВЫЙ БЛОК (Статус и Меню) --- */
+        .ui-top-right {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
 
-header{
-text-align:center;
-font-size:28px;
-font-weight:bold;
-padding:20px;
-}
+        .status-bar {
+            background: white;
+            padding: 6px 20px;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
 
-.card{
-background:#171a35;
-margin:18px;
-padding:20px;
-border-radius:22px;
-box-shadow:0 0 20px #000;
-}
+        .dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        .dot.yellow { background-color: #fce116; }
+        .dot.green { background-color: #4caf50; }
 
-h2{
-color:#ffc400;
-}
+        .menu-btn {
+            background: #333;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            padding-bottom: 5px;
+            cursor: pointer;
+        }
 
-.arena{
-height:360px;
-background:
-linear-gradient(135deg,#222,#111044);
-border-radius:20px;
-display:flex;
-justify-content:center;
-align-items:center;
-border:2px solid #333;
-overflow:hidden;
-}
+        /* --- ПЕРСОНАЖ (SVG) --- */
+        .character-wrapper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250px;
+            height: 250px;
+        }
 
+        /* --- НИЖНИЙ ПРАВЫЙ БЛОК (Игуать) --- */
+        .bubble-bottom-right {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            background: #fce116; /* Желтый */
+            padding: 10px 35px;
+            font-size: 34px;
+            color: #000;
+            /* Неровные края */
+            border-radius: 50px 20px 40px 20px / 20px 50px 20px 40px;
+            transform: rotate(-4deg);
+            box-shadow: 2px 4px 0 rgba(0,0,0,0.1);
+        }
 
-svg{
-filter:drop-shadow(0 0 15px cyan);
-}
-
-
-.button{
-background:#ffcc00;
-color:black;
-padding:15px;
-border-radius:15px;
-text-align:center;
-font-weight:bold;
-margin-top:20px;
-}
-
-
-</style>
-
+        /* --- ВСПЛЫВАЮЩЕЕ ОКНО (Как на скриншоте) --- */
+        .chat-overlay {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 260px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 16px;
+            padding: 15px;
+            font-family: sans-serif;
+            font-size: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            border: 2px solid #ccc;
+            pointer-events: none; /* Чтобы не мешало кликам */
+        }
+        .chat-overlay h4 {
+            margin: 0 0 8px 0;
+            font-size: 12px;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .chat-overlay p {
+            margin: 0 0 6px 0;
+            line-height: 1.4;
+            color: #444;
+        }
+        .chat-overlay .tag {
+            background: #e0e0e0;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+    </style>
 </head>
-
-
 <body>
 
-
-<header>
-🎮 GAME CONCEPT
-</header>
-
-
-
-<div class="card">
-
-<h2>🏟️ Футуристическая арена</h2>
-
-
-<div class="arena">
-
-
-<!-- ВОЛЬТ -->
-
-<svg width="220" height="320" viewBox="0 0 220 320">
-
-
-<!-- энергия -->
-<circle cx="110" cy="160" r="105"
-fill="#00ffff"
-opacity="0.18"/>
-
-
-<!-- ноги -->
-
-<rect x="75" y="250"
-width="28" height="55"
-rx="8"
-fill="#4b168f"/>
-
-<rect x="118" y="250"
-width="28" height="55"
-rx="8"
-fill="#4b168f"/>
-
-
-
-<!-- тело -->
-
-<path d="
-M65 145
-Q110 120 155 145
-L145 250
-L75 250Z"
-fill="#111"/>
-
-
-
-<!-- футболка -->
-
-<rect x="90" y="160"
-width="40"
-height="80"
-fill="#552288"/>
-
-
-
-<!-- руки -->
-
-<rect x="35" y="160"
-width="35"
-height="90"
-rx="18"
-fill="#ff9900"/>
-
-<rect x="150" y="160"
-width="35"
-height="90"
-rx="18"
-fill="#ff9900"/>
-
-
-
-<!-- голова -->
-
-<circle cx="110"
-cy="95"
-r="55"
-fill="#f5c7a0"/>
-
-
-
-<!-- волосы -->
-
-<path d="
-M55 85
-Q70 25 110 30
-Q150 25 165 85
-L150 60
-Q110 45 70 60Z"
-fill="#5a2b8a"/>
-
-
-
-<!-- повязка -->
-
-<path d="
-M60 70
-Q110 55 160 70
-L155 85
-Q110 70 65 85Z"
-fill="white"/>
-
-
-
-<!-- глаза -->
-
-<ellipse cx="90"
-cy="100"
-rx="9"
-ry="13"
-fill="white"/>
-
-<ellipse cx="130"
-cy="100"
-rx="9"
-ry="13"
-fill="white"/>
-
-
-<circle cx="90"
-cy="102"
-r="4"
-fill="black"/>
-
-<circle cx="130"
-cy="102"
-r="4"
-fill="black"/>
-
-
-
-<!-- пистолеты -->
-
-<rect x="5"
-y="205"
-width="45"
-height="14"
-rx="5"
-fill="#555"/>
-
-<rect x="170"
-y="205"
-width="45"
-height="14"
-rx="5"
-fill="#555"/>
-
-
-</svg>
-
-
-</div>
-
-</div>
-
-
-
-
-<div class="card">
-
-<h2>🧍 Персонаж</h2>
-
-<h1>Вольт</h1>
-
-<p>⚪ Редкость: Начальный</p>
-
-<p>🎯 Роль: Стрелок</p>
-
-<p>🔫 Оружие: Два энерго-пистолета</p>
-
-
-</div>
-
-
-
-
-
-<div class="card">
-
-<h2>⚔️ Способности</h2>
-
-
-<p>
-🔫 Обычная атака:
-<br>
-1 пуля
-</p>
-
-
-<p>
-⭐ Спецатака:
-<br>
-Сюрикены
-</p>
-
-
-<p>
-💥 Супер:
-<br>
-5 пуль одновременно
-</p>
-
-
-</div>
-
-
-
-
-
-
-<div class="card">
-
-<h2>🎮 Главное меню</h2>
-
-
-<p>
-В центре находится выбранный боец.
-</p>
-
-
-<p>
-Фон:
-<br>
-• металлическая арена будущего
-<br>
-• неоновые элементы
-<br>
-• экраны
-<br>
-• дроны
-</p>
-
-
-
-<div class="button">
-⚔️ ИГРАТЬ
-</div>
-
-
-</div>
-
-
+    <div class="game-screen">
+        
+        <!-- Верхний левый блок -->
+        <div class="bubble-top-left">кубики</div>
+
+        <!-- Верхний правый блок -->
+        <div class="ui-top-right">
+            <div class="status-bar">
+                <span class="dot yellow"></span> деньги
+                <span class="dot green"></span> жизнь
+            </div>
+            <div class="menu-btn">≡</div>
+        </div>
+
+        <!-- Персонаж (Рисуем через SVG) -->
+        <div class="character-wrapper">
+            <svg viewBox="0 0 120 140" width="100%" height="100%">
+                <!-- Ноги (Фиолетовые штаны) -->
+                <rect x="42" y="100" width="14" height="25" fill="#5e2d79" />
+                <rect x="64" y="100" width="14" height="25" fill="#5e2d79" />
+                
+                <!-- Обувь (Коричневая) -->
+                <rect x="40" y="125" width="18" height="10" rx="3" fill="#5c4033" />
+                <rect x="62" y="125" width="18" height="10" rx="3" fill="#5c4033" />
+
+                <!-- Руки (Оранжевые) -->
+                <rect x="15" y="75" width="30" height="12" rx="4" fill="#ff9800" transform="rotate(-15 30 80)" />
+                <rect x="75" y="75" width="30" height="12" rx="4" fill="#ff9800" transform="rotate(15 90 80)" />
+
+                <!-- Тело (Черная футболка) -->
+                <rect x="40" y="65" width="40" height="38" rx="6" fill="#111" />
+
+                <!-- Голова (Телесный цвет) -->
+                <rect x="35" y="30" width="50" height="45" rx="15" fill="#fcdbb5" />
+
+                <!-- Волосы/Шапка (Коричневые) -->
+                <path d="M 30 35 C 30 5, 90 5, 90 35 L 90 42 L 30 42 Z" fill="#7a4b2c" />
+                
+                <!-- Белая повязка на голове -->
+                <rect x="33" y="38" width="54" height="10" fill="#ffffff" rx="2" />
+
+                <!-- Очки (Толстая черная оправа) -->
+                <!-- Левое стекло -->
+                <rect x="38" y="50" width="18" height="14" rx="2" fill="#fff" stroke="#000" stroke-width="4" />
+                <!-- Правое стекло -->
+                <rect x="64" y="50" width="18" height="14" rx="2" fill="#fff" stroke="#000" stroke-width="4" />
+                <!-- Перемычка -->
+                <line x1="56" y1="57" x2="64" y2="57" stroke="#000" stroke-width="4" />
+                
+                <!-- Зрачки (Глаза) -->
+                <circle cx="47" cy="57" r="3" fill="#000" />
+                <circle cx="73" cy="57" r="3" fill="#000" />
+            </svg>
+        </div>
+
+        <!-- Нижний правый блок -->
+        <div class="bubble-bottom-right">игуать</div>
+
+        <!-- Оверлей с чатом (как на скриншоте) -->
+        <div class="chat-overlay">
+            <h4>⏺ DeepSeek <span style="font-weight:normal; color:#888;">(> 10%)</span></h4>
+            <p>Если хочешь именно <b>как 3D-модель</b>, то можно сделать имитацию:</p>
+            <p>• повернуть рисунок;</p>
+            <p>• добавить тень;</p>
+            <p>• сделать карточку как в игре;</p>
+            <p>• сделать экран выбора персонажа.</p>
+            <p>Но сам рисунок я не буду копировать в код пиксель за пикселем — лучше использовать его как вдохновение на сайте. Это и проще, и выглядит профессиональнее.</p>
+            <p>Присылай рисунок — начнём делать первую страницу Волги! 👇</p>
+        </div>
+
+    </div>
 
 </body>
 </html>
