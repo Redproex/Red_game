@@ -27,30 +27,19 @@
     z-index: 100;
   }
   
-  /* Вкладка SHOP (жёлтая слева) */
   .shop-tab {
-    width: 100px;
-    height: 100%;
+    width: 100px; height: 100%;
     background: linear-gradient(180deg, #ffd93d, #e8a000);
     border-right: 3px solid #0a1428;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 900;
-    color: #5a3a00;
-    letter-spacing: 1px;
-    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #5a3a00;
+    letter-spacing: 1px; cursor: pointer;
     text-shadow: 0 1px 0 rgba(255,255,255,0.4);
   }
   
-  /* Профиль */
   .profile {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    padding: 0 14px;
-    height: 100%;
+    display: flex; align-items: center; gap: 10px;
+    padding: 0 14px; height: 100%;
     border-right: 3px solid #0a1428;
     min-width: 200px;
   }
@@ -58,115 +47,51 @@
   .avatar {
     width: 48px; height: 48px;
     background: linear-gradient(180deg, #e5231b, #7a0f0a);
-    border: 3px solid #f5a800;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 900;
-    color: #fff;
+    border: 3px solid #f5a800; border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; font-weight: 900; color: #fff;
     box-shadow: 0 0 8px rgba(245, 168, 0, 0.6);
   }
   
-  .player-name {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.05;
-  }
+  .player-name { display: flex; flex-direction: column; line-height: 1.05; }
+  .player-name .label { font-size: 10px; color: #7a9ad0; letter-spacing: 1.5px; text-transform: uppercase; font-weight: 700; }
+  .player-name .value { font-size: 18px; font-weight: 900; color: #fff; letter-spacing: 0.5px; }
   
-  .player-name .label {
-    font-size: 10px;
-    color: #7a9ad0;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-  }
-  
-  .player-name .value {
-    font-size: 18px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 0.5px;
-  }
-  
-  /* Ресурсы */
   .resources {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    padding: 0 12px;
-    flex: 1;
-    height: 100%;
+    display: flex; align-items: center; gap: 6px;
+    padding: 0 12px; flex: 1; height: 100%;
   }
   
   .res {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+    display: flex; align-items: center; gap: 6px;
     padding: 5px 12px 5px 5px;
     background: rgba(0,0,0,0.35);
-    border: 2px solid #0a1428;
-    border-radius: 6px;
+    border: 2px solid #0a1428; border-radius: 6px;
     height: 40px;
   }
   
   .res-icon {
-    width: 28px; height: 28px;
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 15px;
-    font-weight: 900;
-    color: #fff;
+    width: 28px; height: 28px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px; font-weight: 900; color: #fff;
     border: 2px solid #fff;
   }
-  
   .res-icon.blue { background: linear-gradient(180deg, #4a9eff, #1a5fbf); }
-  .res-icon.dark { background: linear-gradient(180deg, #2a3a5a, #0f1a33); }
-  .res-icon.gold { background: linear-gradient(180deg, #ffd93d, #d4960a); color: #5a3a00; }
   .res-icon.green { background: linear-gradient(180deg, #6dff6d, #0fa00f); }
+  .res-value { font-size: 15px; font-weight: 900; color: #fff; }
   
-  .res-value {
-    font-size: 15px;
-    font-weight: 900;
-    color: #fff;
-  }
+  .empty-slots { display: flex; gap: 6px; align-items: center; margin-left: auto; padding-right: 8px; }
+  .empty-slot { width: 44px; height: 36px; background: rgba(0,0,0,0.35); border: 2px solid #0a1428; border-radius: 6px; }
   
-  /* Пустые ячейки под ресурсы (как на рисунке) */
-  .empty-slots {
-    display: flex;
-    gap: 6px;
-    align-items: center;
-    margin-left: auto;
-    padding-right: 8px;
-  }
-  
-  .empty-slot {
-    width: 44px;
-    height: 36px;
-    background: rgba(0,0,0,0.35);
-    border: 2px solid #0a1428;
-    border-radius: 6px;
-  }
-  
-  /* Настройки */
   .settings-icon {
-    width: 52px;
-    height: 52px;
+    width: 52px; height: 52px;
     background: linear-gradient(180deg, #4a9eff, #1a5fbf);
-    border: 3px solid #fff;
-    border-radius: 6px;
+    border: 3px solid #fff; border-radius: 6px;
     margin-right: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 26px;
-    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px; cursor: pointer;
     box-shadow: 0 3px 0 #0a3a8a;
-    transition: transform 0.1s;
-    color: #fff;
+    transition: transform 0.1s; color: #fff;
   }
   .settings-icon:active { transform: translateY(3px); box-shadow: 0 0 0 #0a3a8a; }
   
@@ -177,100 +102,67 @@
     width: 100px;
     background: #1a2a4a;
     border-right: 3px solid #0a1428;
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
     z-index: 90;
   }
   
   .side-btn {
     flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     border-bottom: 3px solid #0a1428;
-    font-size: 14px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-align: center;
-    padding: 8px 4px;
-    line-height: 1.1;
+    font-size: 14px; font-weight: 900; color: #fff;
+    letter-spacing: 1px; text-transform: uppercase;
+    cursor: pointer; text-align: center;
+    padding: 8px 4px; line-height: 1.1;
     transition: filter 0.1s;
     position: relative;
   }
-  
+  .side-btn:last-child { border-bottom: none; }
   .side-btn:active { filter: brightness(0.8); }
-  
   .side-btn.yellow { background: #ffd93d; color: #5a3a00; }
   .side-btn.darkgray { background: #3a3a3a; }
   .side-btn.blue { background: #4a7dff; }
   .side-btn.dark { background: #2a2a2a; }
   
-  /* ============ ГЛАВНАЯ ОБЛАСТЬ ============ */
+  /* ============ ГЛАВНАЯ (ЛОББИ) ============ */
   .main {
     position: fixed;
-    top: 64px;
-    left: 100px;
-    right: 0;
-    bottom: 0;
+    top: 64px; left: 100px; right: 0; bottom: 0;
     padding: 10px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    overflow: hidden;
+    display: flex; flex-direction: column;
+    gap: 10px; overflow: hidden;
   }
   
-  /* Верхний блок: режимы + превью + PLAY */
   .battle-area {
     display: grid;
     grid-template-columns: 90px 1fr 220px;
-    gap: 0;
     border: 3px solid #0a1428;
-    border-radius: 4px;
-    overflow: hidden;
-    flex: 1;
-    min-height: 0;
+    border-radius: 4px; overflow: hidden;
+    flex: 1; min-height: 0;
     background: #0a1428;
     box-shadow: 0 6px 0 rgba(0,0,0,0.5);
   }
   
-  /* Режимы */
-  .modes {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    background: #0a1428;
-  }
+  .modes { display: flex; flex-direction: column; gap: 0; background: #0a1428; }
   
   .mode-btn {
     flex: 1;
     border-bottom: 3px solid #0a1428;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     text-align: center;
-    font-size: 13px;
-    font-weight: 900;
-    color: #fff;
-    cursor: pointer;
-    line-height: 1.1;
-    padding: 6px 4px;
-    letter-spacing: 0.5px;
+    font-size: 13px; font-weight: 900; color: #fff;
+    cursor: pointer; line-height: 1.1;
+    padding: 6px 4px; letter-spacing: 0.5px;
     text-transform: uppercase;
     transition: filter 0.1s;
   }
-  
   .mode-btn:last-child { border-bottom: none; }
   .mode-btn:active { filter: brightness(0.8); }
-  
   .mode-btn.solo { background: linear-gradient(180deg, #b855f7, #7a1fbf); }
   .mode-btn.football { background: linear-gradient(180deg, #4a7dff, #1a3a99); }
   .mode-btn.boss { background: linear-gradient(180deg, #4aa8e8, #1a6fbf); }
   .mode-btn.zone { background: linear-gradient(180deg, #e5231b, #8a0f18); }
   
-  /* Красное превью боя */
   .battle-preview {
     background: #d42020;
     border-left: 3px solid #0a1428;
@@ -278,147 +170,308 @@
     position: relative;
   }
   
-  /* Правая колонка */
-  .battle-right {
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    background: #2a2a2a;
-  }
+  .battle-right { display: flex; flex-direction: column; gap: 0; background: #2a2a2a; }
   
-  /* Прогресс-бар сверху */
   .progress-bar {
-    height: 60px;
-    padding: 10px;
-    display: flex;
-    align-items: center;
+    height: 60px; padding: 10px;
+    display: flex; align-items: center;
     border-bottom: 3px solid #0a1428;
   }
-  
   .progress-track {
-    flex: 1;
-    height: 32px;
+    flex: 1; height: 32px;
     background: #0a1428;
-    border: 3px solid #1a2a4a;
-    border-radius: 6px;
-    position: relative;
-    overflow: hidden;
+    border: 3px solid #1a2a4a; border-radius: 6px;
+    position: relative; overflow: hidden;
   }
-  
   .progress-fill {
-    height: 100%;
-    width: 55%;
+    height: 100%; width: 55%;
     background: linear-gradient(180deg, #5ce4ff, #1a8fbf);
     border-radius: 3px;
   }
-  
   .progress-hex {
-    position: absolute;
-    left: 4px;
-    top: 50%;
+    position: absolute; left: 4px; top: 50%;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    background: #5ce4ff;
-    border: 3px solid #0a1428;
+    width: 24px; height: 24px;
+    background: #5ce4ff; border: 3px solid #0a1428;
     clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
     z-index: 2;
   }
   
-  /* PLAY */
   .play-btn {
     flex: 1;
     background: linear-gradient(180deg, #ffd93d, #e8a000);
     border-bottom: 3px solid #0a1428;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 34px;
-    font-weight: 900;
-    color: #5a3a00;
-    cursor: pointer;
-    letter-spacing: 2px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 34px; font-weight: 900; color: #5a3a00;
+    cursor: pointer; letter-spacing: 2px;
     text-shadow: 0 1px 0 rgba(255,255,255,0.5);
-    transition: filter 0.1s;
-    min-height: 0;
+    transition: filter 0.1s; min-height: 0;
   }
-  
   .play-btn:active { filter: brightness(0.85); }
   
-  /* КОМАНДА */
   .team-btn {
     height: 50px;
     background: linear-gradient(180deg, #4aa8e8, #1a6fbf);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 900;
-    color: #fff;
-    cursor: pointer;
-    letter-spacing: 1.5px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: 900; color: #fff;
+    cursor: pointer; letter-spacing: 1.5px;
     text-transform: uppercase;
     transition: filter 0.1s;
   }
-  
   .team-btn:active { filter: brightness(0.85); }
   
-  /* Нижние панели */
   .bottom-panels {
     display: grid;
     grid-template-columns: 2fr 1.2fr 1fr;
-    gap: 10px;
-    height: 90px;
-    flex-shrink: 0;
+    gap: 10px; height: 90px; flex-shrink: 0;
   }
-  
   .panel {
     border: 3px solid #0a1428;
     border-radius: 4px;
     box-shadow: 0 4px 0 rgba(0,0,0,0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 900;
-    color: #fff;
-    letter-spacing: 1px;
-    text-transform: uppercase;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 900; color: #fff;
+    letter-spacing: 1px; text-transform: uppercase;
     cursor: pointer;
     transition: filter 0.1s, transform 0.1s;
   }
-  
   .panel:active { transform: translateY(3px); filter: brightness(0.85); box-shadow: 0 1px 0 rgba(0,0,0,0.4); }
-  
   .panel.blue { background: linear-gradient(180deg, #4a7dff, #1a3a99); }
   .panel.yellow { background: linear-gradient(180deg, #ffd93d, #e8a000); color: #5a3a00; }
   .panel.darkblue { background: linear-gradient(180deg, #3a6fd0, #1a4a99); }
   
-  /* Декор справа (шестиугольник) */
   .right-decor {
-    position: fixed;
-    right: -40px;
-    top: 40%;
-    width: 100px;
-    height: 200px;
+    position: fixed; right: -40px; top: 40%;
+    width: 100px; height: 200px;
     background: linear-gradient(180deg, #4a9eff, #1a5fbf);
     clip-path: polygon(100% 0%, 100% 100%, 0% 90%, 0% 10%);
-    z-index: 80;
-    border: 3px solid #0a1428;
+    z-index: 80; border: 3px solid #0a1428;
+  }
+  
+  /* ============ ЭКРАН БОЙЦОВ ============ */
+  .screen {
+    position: fixed;
+    top: 64px; left: 100px; right: 0; bottom: 0;
+    background: #2a6fbf;
+    display: none;
+    flex-direction: column;
+    z-index: 95;
+    overflow: hidden;
+  }
+  .screen.active { display: flex; }
+  
+  /* Фоновый узор */
+  .screen::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 20% 30%, rgba(100,180,255,0.15) 0%, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(60,140,220,0.2) 0%, transparent 50%);
+    pointer-events: none;
+  }
+  
+  /* Шапка экрана */
+  .screen-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: linear-gradient(180deg, #1a2a4a, #0f1a33);
+    border-bottom: 3px solid #0a1428;
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+  
+  .back-btn {
+    width: 44px; height: 44px;
+    background: linear-gradient(180deg, #ffb800, #e08a00);
+    border: 3px solid #fff;
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 900; color: #5a3a00;
+    cursor: pointer;
+    box-shadow: 0 3px 0 #8a5400;
+    transition: transform 0.1s;
+  }
+  .back-btn:active { transform: translateY(3px); box-shadow: 0 0 0 #8a5400; }
+  
+  .screen-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .sort-label {
+    margin-left: auto;
+    font-size: 12px;
+    color: #ffd93d;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    padding: 6px 10px;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid rgba(255,217,61,0.5);
+    border-radius: 4px;
+  }
+  
+  /* Список бойцов */
+  .brawlers-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Карточка бойца */
+  .brawler-card {
+    display: grid;
+    grid-template-columns: 1fr 70px;
+    height: 110px;
+    border: 4px solid #0a1428;
+    border-radius: 8px;
+    background: #1a2a4a;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 5px 0 rgba(0,0,0,0.4);
+    transition: transform 0.15s;
+  }
+  .brawler-card:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(0,0,0,0.4); }
+  
+  /* Портрет */
+  .brawler-portrait {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .brawler-portrait.volt {
+    background: linear-gradient(135deg, #2ad4c0, #1aa899);
+  }
+  
+  /* Лицо Волта (нарисованное через SVG) */
+  .volt-face {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  
+  /* Полоса редкости справа */
+  .brawler-rarity {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 0;
+    position: relative;
+  }
+  
+  .brawler-rarity.starting { background: linear-gradient(180deg, #b855f7, #7a1fbf); }
+  
+  .level-badge {
+    width: 40px; height: 40px;
+    background: radial-gradient(circle, #e5231b 0%, #8a0f18 100%);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900; color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  }
+  
+  .rarity-gems {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    align-items: center;
+  }
+  
+  .gem {
+    width: 20px; height: 20px;
+    border-radius: 4px;
+    border: 2px solid rgba(255,255,255,0.4);
+  }
+  .gem.green { background: linear-gradient(180deg, #6dff6d, #0fa00f); }
+  .gem.yellow { background: linear-gradient(180deg, #ffd93d, #d4960a); }
+  .gem.purple { background: linear-gradient(180deg, #c95cf5, #7a1fbf); }
+  
+  /* Низ карточки — кубок и имя */
+  .brawler-footer {
+    position: absolute;
+    left: 0; right: 70px; bottom: 0;
+    height: 34px;
+    background: rgba(0,0,0,0.55);
+    display: flex;
+    align-items: center;
+    padding: 0 10px;
+    gap: 10px;
+    border-top: 2px solid rgba(255,255,255,0.15);
+  }
+  
+  .trophy {
+    display: flex; align-items: center; gap: 4px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 900;
+  }
+  .trophy-cup {
+    width: 22px; height: 22px;
+    background: linear-gradient(180deg, #a0522d, #6b3410);
+    border: 2px solid #e8c890;
+    border-radius: 3px 3px 8px 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px;
+    color: #ffd93d;
+  }
+  
+  .brawler-name {
+    margin-left: auto;
+    font-size: 20px;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: 2px;
+    text-shadow: 0 2px 3px rgba(0,0,0,0.8);
+    text-transform: uppercase;
+  }
+  
+  /* Пустые слоты */
+  .brawler-card.empty {
+    opacity: 0.35;
+    cursor: default;
+    background: rgba(10,20,40,0.5);
+    border-style: dashed;
+  }
+  .brawler-card.empty:active { transform: none; box-shadow: 0 5px 0 rgba(0,0,0,0.4); }
+  .brawler-card.empty .brawler-portrait { background: rgba(0,0,0,0.3); }
+  .brawler-card.empty .brawler-rarity { background: rgba(0,0,0,0.3); }
+  
+  .empty-mark {
+    font-size: 32px;
+    color: rgba(255,255,255,0.3);
+    font-weight: 900;
   }
   
   /* Уведомление */
   .toast {
     position: fixed;
-    bottom: 30px;
-    left: 50%;
+    bottom: 30px; left: 50%;
     transform: translateX(-50%) translateY(100px);
     background: rgba(0,0,0,0.9);
     color: #fff;
     padding: 14px 28px;
     border-radius: 8px;
-    font-weight: 700;
-    font-size: 14px;
+    font-weight: 700; font-size: 14px;
     border: 3px solid #4a9eff;
     opacity: 0;
     transition: all 0.3s;
@@ -426,11 +479,7 @@
     pointer-events: none;
     letter-spacing: 0.5px;
   }
-  
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 </style>
 </head>
 <body>
@@ -438,7 +487,6 @@
   <!-- ВЕРХНЯЯ ПАНЕЛЬ -->
   <div class="topbar">
     <div class="shop-tab" onclick="toast('Магазин')">Shop</div>
-    
     <div class="profile">
       <div class="avatar">R</div>
       <div class="player-name">
@@ -446,7 +494,6 @@
         <div class="value">REDPRO</div>
       </div>
     </div>
-    
     <div class="resources">
       <div class="res">
         <div class="res-icon blue">📖</div>
@@ -457,44 +504,34 @@
         <div class="res-value">0</div>
       </div>
     </div>
-    
     <div class="empty-slots">
       <div class="empty-slot"></div>
       <div class="empty-slot"></div>
       <div class="empty-slot"></div>
     </div>
-    
     <div class="settings-icon" onclick="toast('Настройки')">⚙</div>
   </div>
 
   <!-- ЛЕВОЕ МЕНЮ -->
   <div class="sidebar">
     <div class="side-btn yellow" onclick="toast('Магазин')">Shop</div>
-    <div class="side-btn darkgray" onclick="toast('Бойцы')">Бойцы</div>
+    <div class="side-btn darkgray" onclick="openBrawlers()">Бойцы</div>
     <div class="side-btn blue" onclick="toast('Бой')">Бой</div>
     <div class="side-btn dark" onclick="toast('Клан')">Клан</div>
   </div>
 
-  <!-- Декор справа -->
   <div class="right-decor"></div>
 
-  <!-- ГЛАВНАЯ -->
-  <div class="main">
-    
+  <!-- ГЛАВНАЯ (ЛОББИ) -->
+  <div class="main" id="lobby">
     <div class="battle-area">
-      
-      <!-- Режимы -->
       <div class="modes">
         <div class="mode-btn solo" onclick="selectMode(this, 'Соло ШД')">СОЛО-<br>ШД</div>
         <div class="mode-btn football" onclick="selectMode(this, 'Футбол')">ФУТ-<br>БОЛ</div>
         <div class="mode-btn boss" onclick="selectMode(this, 'Босс')">БОСС</div>
         <div class="mode-btn zone" onclick="selectMode(this, 'Захват зоны')">ЗАХ-<br>ВАТ<br>ЗОНЫ</div>
       </div>
-      
-      <!-- Красное поле -->
       <div class="battle-preview"></div>
-      
-      <!-- Правая колонка -->
       <div class="battle-right">
         <div class="progress-bar">
           <div class="progress-track">
@@ -505,14 +542,110 @@
         <div class="play-btn" onclick="startGame()">PLAY</div>
         <div class="team-btn" onclick="toast('Команда')">КОМАНДА</div>
       </div>
-      
     </div>
-    
-    <!-- Нижние панели -->
     <div class="bottom-panels">
       <div class="panel blue" onclick="toast('Скоро')">Панель 1</div>
       <div class="panel yellow" onclick="toast('Скоро')">Панель 2</div>
       <div class="panel darkblue" onclick="toast('Скоро')">Панель 3</div>
+    </div>
+  </div>
+
+  <!-- ЭКРАН БОЙЦОВ -->
+  <div class="screen" id="brawlersScreen">
+    
+    <div class="screen-header">
+      <div class="back-btn" onclick="closeBrawlers()">←</div>
+      <div class="screen-title">БОЙЦЫ</div>
+      <div class="sort-label">Сначала менее редкие</div>
+    </div>
+    
+    <div class="brawlers-list">
+      
+      <!-- ВОЛТ (Волтер) -->
+      <div class="brawler-card" onclick="toast('Волт — выбран')">
+        <div class="brawler-portrait volt">
+          <!-- Нарисованное лицо Волта (SVG) -->
+          <svg class="volt-face" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid slice">
+            <!-- Фон-градиент -->
+            <defs>
+              <linearGradient id="bgVolt" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#3ee0cc"/>
+                <stop offset="100%" stop-color="#1a9a8a"/>
+              </linearGradient>
+              <linearGradient id="hatGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="100%" stop-color="#e0e0e0"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#bgVolt)"/>
+            
+            <!-- Волосы сзади -->
+            <path d="M 40 90 Q 40 40 100 35 Q 160 40 160 90 L 160 110 L 40 110 Z" fill="#5a3a1f"/>
+            
+            <!-- Лицо -->
+            <path d="M 55 85 Q 55 60 100 60 Q 145 60 145 85 L 145 130 Q 145 155 100 155 Q 55 155 55 130 Z" fill="#f0c9a8"/>
+            
+            <!-- Повязка на голове (белая с оранжевой полосой) -->
+            <path d="M 45 95 Q 100 75 155 95 L 155 115 Q 100 95 45 115 Z" fill="url(#hatGrad)" stroke="#c0c0c0" stroke-width="1"/>
+            <path d="M 45 108 Q 100 88 155 108 L 155 113 Q 100 93 45 113 Z" fill="#f5a800"/>
+            
+            <!-- Козырёк повязки -->
+            <path d="M 60 110 Q 100 120 140 110 L 145 125 Q 100 135 55 125 Z" fill="#ffffff" stroke="#c0c0c0" stroke-width="1"/>
+            
+            <!-- Глаза -->
+            <ellipse cx="80" cy="122" rx="9" ry="11" fill="#fff"/>
+            <ellipse cx="120" cy="122" rx="9" ry="11" fill="#fff"/>
+            <ellipse cx="81" cy="123" rx="5" ry="6" fill="#1a1a1a"/>
+            <ellipse cx="121" cy="123" rx="5" ry="6" fill="#1a1a1a"/>
+            <circle cx="79" cy="120" r="1.5" fill="#fff"/>
+            <circle cx="119" cy="120" r="1.5" fill="#fff"/>
+            
+            <!-- Брови-ухмылка -->
+            <path d="M 68 105 L 90 100" stroke="#3a2010" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M 132 105 L 110 100" stroke="#3a2010" stroke-width="3.5" stroke-linecap="round"/>
+            
+            <!-- Ухмылка -->
+            <path d="M 78 145 Q 100 155 122 142" stroke="#3a2010" stroke-width="3" fill="none" stroke-linecap="round"/>
+            <path d="M 85 147 L 115 143" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="brawler-rarity starting">
+          <div class="level-badge">1</div>
+          <div class="rarity-gems">
+            <div class="gem purple"></div>
+          </div>
+        </div>
+        <div class="brawler-footer">
+          <div class="trophy">
+            <div class="trophy-cup">★</div>
+            <span>0</span>
+          </div>
+          <div class="brawler-name">Volt</div>
+        </div>
+      </div>
+      
+      <!-- Пустые слоты для будущих бойцов -->
+      <div class="brawler-card empty">
+        <div class="brawler-portrait">
+          <div class="empty-mark">?</div>
+        </div>
+        <div class="brawler-rarity"></div>
+      </div>
+      
+      <div class="brawler-card empty">
+        <div class="brawler-portrait">
+          <div class="empty-mark">?</div>
+        </div>
+        <div class="brawler-rarity"></div>
+      </div>
+      
+      <div class="brawler-card empty">
+        <div class="brawler-portrait">
+          <div class="empty-mark">?</div>
+        </div>
+        <div class="brawler-rarity"></div>
+      </div>
+      
     </div>
     
   </div>
@@ -534,6 +667,16 @@
     toast('Запуск: ' + currentMode);
   }
   
+  function openBrawlers() {
+    document.getElementById('lobby').style.display = 'none';
+    document.getElementById('brawlersScreen').classList.add('active');
+  }
+  
+  function closeBrawlers() {
+    document.getElementById('brawlersScreen').classList.remove('active');
+    document.getElementById('lobby').style.display = 'flex';
+  }
+  
   function toast(msg) {
     const t = document.getElementById('toast');
     t.textContent = msg;
@@ -544,4 +687,4 @@
 </script>
 
 </body>
-</html>
+             </html>
