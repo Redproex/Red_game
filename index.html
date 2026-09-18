@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -9,60 +10,64 @@
 <style>
 
 body{
-    margin:0;
-    background:#090b20;
-    font-family:Arial,sans-serif;
-    color:white;
+margin:0;
+background:#080b20;
+font-family:Arial,sans-serif;
+color:white;
 }
 
 header{
-    text-align:center;
-    font-size:28px;
-    font-weight:bold;
-    padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+padding:20px;
 }
 
 .card{
-    background:#171a35;
-    margin:20px;
-    padding:20px;
-    border-radius:20px;
-    box-shadow:0 0 20px #000;
+background:#171a35;
+margin:18px;
+padding:20px;
+border-radius:22px;
+box-shadow:0 0 20px #000;
 }
 
 h2{
-    color:#ffc400;
+color:#ffc400;
 }
 
 .arena{
-    height:330px;
-    background:
-    linear-gradient(120deg,#222,#101040);
-    border-radius:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
-    border:2px solid #333;
+height:360px;
+background:
+linear-gradient(135deg,#222,#111044);
+border-radius:20px;
+display:flex;
+justify-content:center;
+align-items:center;
+border:2px solid #333;
+overflow:hidden;
 }
+
 
 svg{
-    filter:drop-shadow(0 0 15px cyan);
+filter:drop-shadow(0 0 15px cyan);
 }
 
+
 .button{
-    background:#ffcc00;
-    color:black;
-    padding:15px;
-    border-radius:15px;
-    text-align:center;
-    font-weight:bold;
-    margin-top:15px;
+background:#ffcc00;
+color:black;
+padding:15px;
+border-radius:15px;
+text-align:center;
+font-weight:bold;
+margin-top:20px;
 }
+
 
 </style>
 
 </head>
+
 
 <body>
 
@@ -70,6 +75,7 @@ svg{
 <header>
 🎮 GAME CONCEPT
 </header>
+
 
 
 <div class="card">
@@ -80,94 +86,141 @@ svg{
 <div class="arena">
 
 
-<!-- ВОЛЬТ SVG -->
+<!-- ВОЛЬТ -->
 
 <svg width="220" height="320" viewBox="0 0 220 320">
 
 
 <!-- энергия -->
-<circle cx="110" cy="150" r="100"
+<circle cx="110" cy="160" r="105"
 fill="#00ffff"
-opacity="0.15"/>
+opacity="0.18"/>
 
 
 <!-- ноги -->
-<rect x="75" y="240"
-width="25" height="60"
-fill="#5b2b99"/>
 
-<rect x="120" y="240"
-width="25" height="60"
-fill="#5b2b99"/>
+<rect x="75" y="250"
+width="28" height="55"
+rx="8"
+fill="#4b168f"/>
+
+<rect x="118" y="250"
+width="28" height="55"
+rx="8"
+fill="#4b168f"/>
+
 
 
 <!-- тело -->
-<rect x="70" y="130"
-width="80" height="120"
-rx="20"
+
+<path d="
+M65 145
+Q110 120 155 145
+L145 250
+L75 250Z"
 fill="#111"/>
 
 
-<rect x="85" y="150"
-width="50" height="90"
+
+<!-- футболка -->
+
+<rect x="90" y="160"
+width="40"
+height="80"
 fill="#552288"/>
 
 
+
 <!-- руки -->
-<rect x="35" y="150"
-width="35" height="90"
-rx="15"
+
+<rect x="35" y="160"
+width="35"
+height="90"
+rx="18"
 fill="#ff9900"/>
 
-
-<rect x="150" y="150"
-width="35" height="90"
-rx="15"
+<rect x="150" y="160"
+width="35"
+height="90"
+rx="18"
 fill="#ff9900"/>
+
 
 
 <!-- голова -->
+
 <circle cx="110"
-cy="90"
+cy="95"
 r="55"
 fill="#f5c7a0"/>
 
 
+
 <!-- волосы -->
+
 <path d="
 M55 85
-Q110 20 165 85
-L150 45
-Q110 20 70 45
-Z"
-fill="#5b2b8a"/>
+Q70 25 110 30
+Q150 25 165 85
+L150 60
+Q110 45 70 60Z"
+fill="#5a2b8a"/>
+
+
+
+<!-- повязка -->
+
+<path d="
+M60 70
+Q110 55 160 70
+L155 85
+Q110 70 65 85Z"
+fill="white"/>
+
 
 
 <!-- глаза -->
-<circle cx="90"
-cy="95"
-r="8"
+
+<ellipse cx="90"
+cy="100"
+rx="9"
+ry="13"
 fill="white"/>
 
-<circle cx="130"
-cy="95"
-r="8"
+<ellipse cx="130"
+cy="100"
+rx="9"
+ry="13"
 fill="white"/>
+
+
+<circle cx="90"
+cy="102"
+r="4"
+fill="black"/>
+
+<circle cx="130"
+cy="102"
+r="4"
+fill="black"/>
+
 
 
 <!-- пистолеты -->
-<rect x="5"
-y="190"
-width="45"
-height="12"
-fill="#777"/>
 
+<rect x="5"
+y="205"
+width="45"
+height="14"
+rx="5"
+fill="#555"/>
 
 <rect x="170"
-y="190"
+y="205"
 width="45"
-height="12"
-fill="#777"/>
+height="14"
+rx="5"
+fill="#555"/>
 
 
 </svg>
@@ -179,25 +232,23 @@ fill="#777"/>
 
 
 
+
 <div class="card">
 
 <h2>🧍 Персонаж</h2>
 
 <h1>Вольт</h1>
 
-<p>
-⚪ Редкость: Начальный
-</p>
+<p>⚪ Редкость: Начальный</p>
 
-<p>
-🎯 Роль: Стрелок
-</p>
+<p>🎯 Роль: Стрелок</p>
 
-<p>
-🔫 Оружие: Два энерго-пистолета
-</p>
+<p>🔫 Оружие: Два энерго-пистолета</p>
+
 
 </div>
+
+
 
 
 
@@ -231,25 +282,31 @@ fill="#777"/>
 
 
 
+
+
+
 <div class="card">
 
 <h2>🎮 Главное меню</h2>
 
+
 <p>
 В центре находится выбранный боец.
 </p>
+
 
 <p>
 Фон:
 <br>
 • металлическая арена будущего
 <br>
-• неон
+• неоновые элементы
 <br>
 • экраны
 <br>
 • дроны
 </p>
+
 
 
 <div class="button">
